@@ -14,6 +14,8 @@ import { Help, Rich } from "../ui/Term";
 import { FFStep } from "../scenes/FF";
 import { STAGES } from "../scenes/stages";
 import { RevealStep } from "./Reveal";
+import { levelOf } from "../arcade/bridge";
+import { LiveScene } from "../scenes/Live";
 
 /** 情境、证据、出手合在交易台一屏里；老存档停在 evidence / slip 也进交易台 */
 const STEP_AT: Record<SceneStep, number> = { blind: 0, evidence: 0, slip: 0, flip: 1, ff: 2, reveal: 3 };
@@ -31,6 +33,8 @@ export function SceneFlow({ onStation }: { onStation: () => void }) {
   if (!g) return null;
   const rec = cur(g);
   const scene = sceneById(rec.scene!)!;
+  const level = levelOf(scene.id);
+  if (level) return <LiveScene scene={scene} level={level} onStation={onStation} />;
   const at = STEP_AT[g.step] ?? 0;
   const go = (s: SceneStep) => update((x) => void (x.step = s));
   return (

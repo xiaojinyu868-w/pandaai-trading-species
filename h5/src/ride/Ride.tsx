@@ -9,7 +9,7 @@ const CAP = 20;
 const LEAD = 30;
 const RIDE_SEC = 11;
 const W = 340;
-const H = 176;
+const H = 136;
 const LANES = [10, 30, 50, 70];
 
 const POOLS: Record<string, string[]> = {

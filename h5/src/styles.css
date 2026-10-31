@@ -705,3 +705,69 @@ a.btn { text-decoration: none; color: var(--ink); }
 /* 首页新入口 */
 .home-go { display: flex; flex-direction: column; gap: 2px; line-height: 1.15; }
 .home-go small { font-family: var(--body); font-size: 13px; font-weight: 700; letter-spacing: 0; opacity: .9; }
+
+/* 名场面线上四步：盲盒 / 线索 / 出手 / 揭幕 */
+.live .hud { flex: none; }
+.live-blind { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 10px 16px calc(14px + var(--safe-b)); gap: 12px; }
+.live-poster { position: relative; flex: 1; min-height: 0; border: 2px solid var(--ink); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow); background: var(--ink); }
+.live-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.live-poster-txt { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 16px 16px; background: linear-gradient(transparent, rgba(20, 20, 14, .88) 45%); color: #FBF4E4; }
+.live-poster-txt .arc-kicker { color: #F3D27F; font-size: 13px; }
+.live-poster-txt h1 { font-size: 30px; line-height: 1.2; margin: 6px 0 8px; color: #FBF4E4; }
+.live-poster-txt p { font-size: 17px; font-weight: 700; line-height: 1.5; margin: 0; }
+.live-actions .btn.ghost.on { border-color: var(--season); color: var(--season); }
+.live-clues { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 10px 16px calc(14px + var(--safe-b)); }
+.live-clues h2 { font-size: 30px; margin: 0; }
+.live-rp { font-size: 16px; font-weight: 900; padding: 4px 12px; border-radius: 999px; background: var(--season); color: #fff8ec; border: 2px solid var(--ink); }
+.live-rp.out { background: var(--paper-light); color: var(--ink-3); }
+.live-cards { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 10px; flex: 1 1 auto; max-height: 340px; min-height: 236px; }
+.live-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 118px; padding: 10px 8px; border: 2px solid var(--ink); border-radius: 14px; background: repeating-linear-gradient(45deg, var(--paper-light) 0 10px, #efe4c8 10px 20px); box-shadow: 0 4px 0 var(--ink); font: inherit; color: var(--ink); cursor: pointer; }
+.live-card img { width: 46px; height: 46px; object-fit: contain; }
+.live-card b { font-family: var(--display); font-size: 22px; line-height: 1.15; text-align: center; }
+.live-card-t { font-size: 14px; font-weight: 800; color: var(--ink-2); text-align: center; line-height: 1.3; }
+.live-card-k { font-size: 13px; font-weight: 900; padding: 1px 10px; border-radius: 999px; background: var(--ink); color: var(--paper-light); }
+.live-card.seen { background: #FFFBF1; border-color: var(--season); box-shadow: 0 4px 0 var(--season); }
+.live-card.seen b { color: var(--season); font-size: 26px; }
+.live-card.locked { opacity: .45; }
+.live-plan { padding: 12px 14px; border: 2px dashed var(--ink-2); border-radius: 14px; }
+.live-plan > b { font-size: 19px; }
+.live-plan-row { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 8px; }
+.live-plan-row .btn { font-size: 18px; padding: 12px 0; }
+.live-kept { font-size: 16px; font-weight: 800; padding: 8px 12px; border-radius: 10px; background: rgba(42, 42, 28, .07); border-left: 4px solid var(--ink-3); }
+.live-kept.good { border-left-color: var(--kite); }
+.live-kept.bad { border-left-color: var(--leaf); }
+.live-rank { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 14px; background: #FFFBF1; font-size: 17px; font-weight: 800; }
+.live-rank.me { background: #FCEFD0; border-color: var(--kite); }
+.live-rank small { display: block; font-size: 13px; font-weight: 700; color: var(--ink-3); line-height: 1.3; }
+.live-rank .rank-me { width: 34px; height: 34px; font-size: 15px; }
+.live-rank-n { font-family: var(--display); font-size: 24px; width: 20px; text-align: center; }
+.live-rank b.num { font-size: 19px; min-width: 64px; text-align: right; }
+.live-stars { padding: 12px 14px; border: 2px solid var(--ink); border-radius: 14px; }
+.live-stars > .row b { font-size: 19px; }
+.live-star-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.live-star-row span { font-size: 15px; font-weight: 800; padding: 4px 10px; border-radius: 999px; border: 1.5px dashed var(--ink-3); color: var(--ink-3); }
+.live-star-row span.on { border-style: solid; border-color: #C79A2E; background: #F3D27F; color: var(--ink); }
+.live-table { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 16px; background: rgba(251, 244, 228, .08); border: 1.5px solid rgba(251, 244, 228, .25); }
+.live-table img { width: 96px; height: 128px; object-fit: cover; object-position: top; border-radius: 10px; border: 2px solid #F3D27F; flex: none; }
+.live-table b { display: block; font-family: var(--display); font-size: 30px; color: #F3D27F; }
+.live-table span { font-size: 17px; font-weight: 800; line-height: 1.45; color: #FBF4E4; }
+@media (max-height: 720px) {
+  .home-lead { display: none; }
+  .ride-chart { padding-top: 44px; padding-bottom: 14px; }
+  .ride-chart > svg { height: 52px; }
+}
+@media (max-height: 720px) {
+  .live .arc-reveal { padding-top: 8px; }
+  .live .arc-reveal h1 { font-size: 30px; }
+  .live .arc-path svg { height: 112px; }
+  .live .arc-money b { font-size: 34px; }
+  .live-kept { font-size: 15px; padding: 6px 10px; }
+  .live-rank { padding: 6px 12px; }
+  .live-rank small { display: none; }
+  .live-stars { padding: 8px 12px; }
+  .live-star-row span { font-size: 14px; padding: 3px 9px; }
+  .live .arc-fact { padding: 8px 10px; }
+  .live .arc-big { font-size: 26px; }
+  .live-blind .live-poster-txt h1 { font-size: 26px; }
+  .live-card { min-height: 96px; }
+}

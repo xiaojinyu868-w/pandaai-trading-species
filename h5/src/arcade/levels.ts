@@ -17,6 +17,8 @@ export interface Level {
   season: "spring" | "summer" | "autumn" | "winter";
   seasonCn: string;
   twist: Twist;
+  /** 桌游名场面卡上的决策日（收盘时下单）；印刷选项和 AI 对手的牌都从这一天算 */
+  decide: string;
   /** 开局就拿着（按住才算继续拿着） */
   startIn: boolean;
   /** 不算慢放，整段大约多少秒 */
@@ -38,7 +40,7 @@ export interface Level {
 
 export const LEVELS: Level[] = [
   {
-    id: "s924", n: 1, season: "spring", seasonCn: "春", twist: "holiday", startIn: false, sec: 22,
+    id: "s924", n: 1, season: "spring", seasonCn: "春", twist: "holiday", startIn: false, sec: 22, decide: "2024-09-30",
     slow: [["2024-09-24", "2024-10-09", 0.42]],
     cold: { title: "长假前夜，人人都在排队", line: "你现在空仓。" },
     rule: "中途会放长假：休市那几天，谁都动不了。",
@@ -59,7 +61,7 @@ export const LEVELS: Level[] = [
     holiday: { close: "2024-09-30", open: "2024-10-08" },
   },
   {
-    id: "s2015", n: 2, season: "summer", seasonCn: "夏", twist: "leverage", startIn: true, sec: 24,
+    id: "s2015", n: 2, season: "summer", seasonCn: "夏", twist: "leverage", startIn: true, sec: 24, decide: "2015-06-12",
     slow: [["2015-06-12", "2015-07-09", 0.4]],
     cold: { title: "人人都在借钱买的夏天", line: "你手里已经有货。" },
     rule: "涨多了会有人借钱给你；跌停那天，卖不出去。",
@@ -81,7 +83,7 @@ export const LEVELS: Level[] = [
     lock: ["2015-06-19", "2015-06-26", "2015-07-01", "2015-07-03", "2015-07-08"],
   },
   {
-    id: "smt", n: 3, season: "autumn", seasonCn: "秋", twist: "circle", startIn: true, sec: 24,
+    id: "smt", n: 3, season: "autumn", seasonCn: "秋", twist: "circle", startIn: true, sec: 24, decide: "2021-02-10",
     slow: [["2021-02-08", "2021-03-10", 0.45]],
     cold: { title: "人人都抱着同一样东西", line: "你也在圈里。" },
     rule: "圈里的人越来越多。有人松手的时候，你会看见。",
@@ -101,7 +103,7 @@ export const LEVELS: Level[] = [
     series: P.smt,
   },
   {
-    id: "scb", n: 4, season: "winter", seasonCn: "冬", twist: "halt", startIn: true, sec: 22,
+    id: "scb", n: 4, season: "winter", seasonCn: "冬", twist: "halt", startIn: true, sec: 22, decide: "2020-03-09",
     slow: [["2020-03-09", "2020-03-24", 0.5]],
     cold: { title: "跌到交易所按下暂停键", line: "你手里有货。" },
     rule: "跌得太快，市场会暂停：暂停的时候，谁都动不了。",

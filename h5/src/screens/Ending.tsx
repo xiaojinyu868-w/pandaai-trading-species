@@ -93,11 +93,18 @@ export function ModelOrFigure({ id }: { id: SpeciesId }) {
 const DROP = ["卖了", "拿着没动", "加仓了", "还没遇到过"];
 const BUY = ["看走势", "看估值和财报", "看新闻消息", "朋友或群里推荐", "按自己的规则", "凭感觉", "还没买过"];
 
-export function Ending() {
+export function Ending({ archive = false }: { archive?: boolean }) {
   const { g, update, reset } = useGame();
   const nav = useNavigate();
-  const [hatched, setHatched] = useState(false);
-  const p = useMemo(() => profileOf(g!), [g]);
+  const [hatched, setHatched] = useState(archive);
+  const p = useMemo(() => {
+    const x = profileOf(g!);
+    if (g?.verdict) {
+      x.species = g.verdict.species;
+      x.tied = [];
+    }
+    return x;
+  }, [g]);
   const [shareOpen, setShareOpen] = useState(false);
   const [jsonOpen, setJsonOpen] = useState(false);
   const [openClaim, setOpenClaim] = useState<string | null>(null);
@@ -149,7 +156,7 @@ export function Ending() {
                 </div>
               ))}
             </div>
-            <div className="small mt12">{p.species ? `${m.cn}有 ${p.coins[main]} 枚：${p.confidence}。` : "最多的物种并列，写进“待确认”。"}物种只表示偏好，不分高低；能力用徽章单独看。</div>
+            <div className="small mt12">{g.verdict ? `AI 综合各季在行情里的操作，判断你是${m.cn}（${g.verdict.title}）；物种币是每一季单独的证据，可以和它不一样。` : p.species ? `${m.cn}有 ${p.coins[main]} 枚：${p.confidence}。` : "最多的物种并列，写进“待确认”。"}物种只表示偏好，不分高低；能力用徽章单独看。</div>
           </div>
         </Fade>
         {quick && <QuickNext g={g} />}

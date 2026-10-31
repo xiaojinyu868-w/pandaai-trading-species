@@ -2,6 +2,8 @@ import { SCENES, sceneById, type EvKind, type OptKey, type Scene, type SceneId }
 import { CHANCE, RETEST, RULES, ruleView, taskOf, type TaskCard } from "./cards";
 import { aiPick, aiStars, BADGES, REASONS, sp, WAIT_OPTIONS, type Reason, type SpeciesId, type TaskType } from "./meta";
 import type { AiResult, Game, SeasonRec } from "./store";
+import { levelById } from "../arcade/levels";
+import { describe, scores, topSpecies } from "../arcade/profile";
 
 /** 1 资金 ≈ 一份仓位涨跌 5%，四舍五入；不到 2.5% 记 0 */
 export const ps = (p: number) => (Math.abs(p) >= 2.5 ? Math.round(p / 5) : 0);
@@ -101,6 +103,11 @@ export function iconsOf(r: SeasonRec) {
     icons[s] = (icons[s] || 0) + n;
     why.push({ species: s, n, text });
   };
+  if (r.run) {
+    const lv = levelById(r.run.id);
+    const top = topSpecies(scores([r.run]));
+    if (lv) add(top, 2, `你在行情里的出手：${describe(lv, r.run).split("；")[0]}`);
+  }
   const reason = REASONS.find((x) => x.id === r.reason);
   if (reason && isWait(r) && r.reason !== "gut" && r.reason !== "lost") {
     add("owl", 2, `你选了观望，理由是“${reason.cn}”：说得出在等什么`);

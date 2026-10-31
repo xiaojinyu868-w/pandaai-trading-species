@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { blip, buzz, sfx } from "../lib/sound";
 import { ticksOf, type Level } from "./levels";
+import { ART } from "../data";
+import { sp } from "../game/meta";
 
 export const CAP = 20;
 const W = 340;
@@ -29,7 +31,16 @@ export interface Run {
   crowdLeft?: number;
   haltSold?: number;
   panicBuy?: boolean;
+  /** 这一场的本金（万）；四季连着玩时是棋盘上的资金 */
+  cap?: number;
+  plan?: Plan;
+  planTriggered?: boolean;
+  planFollowed?: boolean | null;
 }
+
+export type Plan = "cut" | "add" | "none";
+/** AI 对手按桌游里自己的牌出手：在第 i 个点买或卖 */
+export interface Foe { id: string; trades: { i: number; k: "buy" | "sell" }[] }
 
 type Phase = "ready" | "count" | "run" | "pause" | "end";
 type Pause = null | { k: "holiday" } | { k: "offer" } | { k: "halt"; n: number } | { k: "liq" };
@@ -38,8 +49,9 @@ const LANES = [8, 26, 44, 62];
 const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];
 const wan = (x: number) => (Math.abs(x) >= 100 ? x.toFixed(0) : x.toFixed(1));
 
-export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void }) {
+export function Game({ level, onDone, cap = CAP, plan = "none", foes = [], noMax = false }: { level: Level; onDone: (r: Run) => void; cap?: number; plan?: Plan; foes?: Foe[]; noMax?: boolean }) {
   const T = useMemo(() => ticksOf(level), [level.id]);
+  const floor = level.lev ? (level.lev.floor * cap) / CAP : 0;
   const N = T.p.length;
   const dayTick = (d: string, which: "open" | "close") => {
     const i = T.dates.indexOf(d);
@@ -75,9 +87,10 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
 
   const S = useRef({
     head: 0, finger: false, phase: "ready" as Phase,
-    cash: CAP, shares: 0, debt: 0, levSet: 1, levMax: 1, levAt: undefined as number | undefined,
+    cash: cap, shares: 0, debt: 0, levSet: 1, levMax: 1, levAt: undefined as number | undefined,
+    planAt: -1, planTriggered: false, planFollowed: null as boolean | null,
     trades: [] as Trade[], t0: 0, firstMs: null as number | null, heldT: 0, runT: 0,
-    peak: CAP, low: CAP, liq: false, lockTries: 0, locked: false, pendingLock: false,
+    peak: cap, low: cap, liq: false, lockTries: 0, locked: false, pendingLock: false,
     offered: false, haltsDone: 0, holidayDone: false, holidayHeld: undefined as boolean | undefined, openAct: undefined as Run["openAct"],
     crowdMax: 4, crowdLeft: 0, leftRank: undefined as number | null | undefined, haltSold: 0, panicBuy: false, lastHalt: -99,
     marks: new Set<string>(), lastBlip: 0, bid: 0, since: 0, scale: { lo: 0, hi: 0 },
@@ -185,7 +198,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
     sfx.bell();
     if (level.startIn) {
       const p = T.p[0];
-      S.shares = CAP / p;
+      S.shares = cap / p;
       S.cash = 0;
     }
     countdown(() => {
@@ -209,9 +222,28 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
     }, t);
   }
 
+  function entryP() {
+    const b = [...S.trades].reverse().find((t) => t.k === "buy");
+    return b ? b.p : level.startIn ? T.p[0] : null;
+  }
+  function judgePlan() {
+    if (!S.planTriggered || S.planFollowed !== null) return;
+    S.planFollowed = plan === "cut" ? S.trades.some((t) => t.k === "sell" && t.i >= S.planAt && t.i <= S.planAt + 4) : holding();
+  }
   function onTick(k: number) {
     const s = level;
     const day = T.day[k];
+    for (const f of foes) for (const t of f.trades) if (t.i === k) say(`${sp(f.id).cn}${t.k === "buy" ? "买进了" : "卖掉了"}`, "dark", 1100);
+    if (plan !== "none") {
+      const e0 = entryP();
+      if (S.planAt < 0 && holding() && e0 && T.p[k] <= e0 * 0.95) {
+        S.planAt = k;
+        S.planTriggered = true;
+        sfx.alarm();
+        buzz([40, 30, 40]);
+        say(plan === "cut" ? "跌了 5%：你说过要走" : "跌了 5%：你说过要加", "dark", 1800);
+      } else if (S.planAt >= 0 && k >= S.planAt + 4) judgePlan();
+    }
     if (k % 2 === 1 && k > 0) {
       const chg = T.p[k] / T.p[k - 2 >= 0 ? k - 2 : 0] - 1;
       if (chg <= -0.045) {
@@ -311,7 +343,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
       const e = equity(p);
       S.peak = Math.max(S.peak, e);
       S.low = Math.min(S.low, e);
-      if (level.lev && S.debt > 0 && e <= level.lev.floor) {
+      if (level.lev && S.debt > 0 && e <= floor) {
         S.liq = true;
         sell("liq");
         S.levSet = 1;
@@ -326,7 +358,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
         const entry = [...S.trades].reverse().find((t) => t.k === "buy");
         blip(p / (entry?.p || T.p[0]));
       }
-      const g = e / CAP - 1;
+      const g = e / cap - 1;
       for (const [m, txt] of [[0.2, "赚了两成！"], [0.5, "赚了五成！"], [1, "翻倍了！"]] as [number, string][]) {
         if (g >= m && !S.marks.has(txt)) {
           S.marks.add(txt);
@@ -343,6 +375,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
       }
       setHead(next);
       if (next >= N - 1) {
+        judgePlan();
         if (holding()) sell("end");
         S.phase = "end";
         setPhase("end");
@@ -361,6 +394,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
       held: S.runT ? S.heldT / S.runT : 0, firstMs: S.firstMs, lev: S.levMax, levAt: S.levAt, liq: S.liq, lockTries: S.lockTries,
       holidayHeld: S.holidayHeld, openAct: S.openAct, leftRank: level.twist === "circle" ? (S.leftRank === undefined ? null : S.leftRank) : undefined,
       crowdLeft: level.twist === "circle" ? S.crowdLeft : undefined, haltSold: level.twist === "halt" ? S.haltSold : undefined, panicBuy: level.twist === "halt" ? S.panicBuy : undefined,
+      cap, plan, planTriggered: S.planTriggered, planFollowed: S.planFollowed,
     };
     setTimeout(() => onDone(r), 900);
   }
@@ -404,11 +438,12 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
 
   const p = priceAt(head);
   const e = equity(p);
-  const d = e - CAP;
+  const d = e - cap;
   const cls = d > 0.05 ? "up" : d < -0.05 ? "down" : "";
   const isIn = holding();
   const lastBuy = [...S.trades].reverse().find((t) => t.k === "buy");
-  const liqLine = level.lev && S.debt > 0 && S.shares > 0 ? (S.debt + level.lev.floor - S.cash) / S.shares : null;
+  const liqLine = level.lev && S.debt > 0 && S.shares > 0 ? (S.debt + floor - S.cash) / S.shares : null;
+  const planE = plan !== "none" && holding() && S.planAt < 0 ? entryP() : null;
   const stateChip = phase === "pause" && pause?.k === "holiday" ? "休市中" : phase === "pause" && pause?.k === "halt" ? "暂停交易" : S.locked && isIn ? "跌停 · 卖不出" : isIn ? (S.levSet > 1 && S.debt > 0 ? `持有 · ${S.levSet} 倍` : "持有") : "空仓";
   const btnLabel = phase === "ready" ? "按住\n开盘" : phase === "count" ? (finger ? "拿着" : level.startIn || isIn ? "按住\n别松" : "按住\n买入") : phase === "pause" && pause?.k === "holiday" ? (finger ? "按着" : isIn ? "按住\n拿着" : "按住\n买进") : phase === "pause" ? (finger ? "按着" : "…") : phase === "end" ? "收盘" : finger ? "松手\n卖出" : "按住\n买入";
   const gone = S.crowdLeft;
@@ -457,7 +492,25 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
               <text x={4} y={view.Y(liqLine) - 4} fontSize={10.5} fontWeight={900} fill="#D4432A">强平线</text>
             </g>
           )}
+          {planE && planE * 0.95 > S.scale.lo && (
+            <g>
+              <line x1={0} x2={W} y1={view.Y(planE * 0.95)} y2={view.Y(planE * 0.95)} stroke="#2D5F6B" strokeDasharray="3 4" strokeWidth={1.6} />
+              <text x={W - 4} y={view.Y(planE * 0.95) + 13} fontSize={10.5} fontWeight={900} textAnchor="end" fill="#2D5F6B">{plan === "cut" ? "说好跌 5% 就走" : "说好跌 5% 就加"}</text>
+            </g>
+          )}
           <path d={view.d} fill="none" stroke={isIn ? (d >= 0 ? "#D4432A" : "#3C7A4E") : "#2A2A1C"} strokeWidth={2.6} strokeLinejoin="round" />
+          <defs><clipPath id="foe-clip" clipPathUnits="objectBoundingBox"><circle cx=".5" cy=".5" r=".5" /></clipPath></defs>
+          {foes.map((f, fi) => f.trades.filter((t) => t.i <= head).map((t, j) => {
+            const cx = view.X(t.i);
+            const cy = view.Y(T.p[t.i]) + (fi ? 19 : -19);
+            return (
+              <g key={f.id + j}>
+                <line x1={cx} x2={cx} y1={view.Y(T.p[t.i])} y2={cy} stroke="#77745A" strokeWidth={1} />
+                <circle cx={cx} cy={cy} r={10.5} fill="#FBF4E4" stroke={t.k === "buy" ? "#D4432A" : "#2D5F6B"} strokeWidth={2.4} />
+                <image href={ART(`species_${f.id}`)} x={cx - 9} y={cy - 9} width={18} height={18} clipPath="url(#foe-clip)" preserveAspectRatio="xMidYMin slice" />
+              </g>
+            );
+          }))}
           {S.trades.filter((t) => t.why !== "end").map((t, i) => (
             <g key={i}>
               <circle cx={view.X(t.i)} cy={view.Y(t.p)} r={7.5} fill={t.why === "liq" ? "#2A2A1C" : t.k === "buy" ? "#D4432A" : "#2D5F6B"} stroke="#2A2A1C" strokeWidth={1.4} />
@@ -500,14 +553,14 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
           {pause?.k === "liq" && (
             <motion.div key="liq" className="arc-over dark" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <motion.b className="arc-stamp" initial={{ scale: 2.6, rotate: -20 }} animate={{ scale: 1, rotate: -8 }}>强制平仓</motion.b>
-              <span className="mt8">亏到只剩 {level.lev?.floor} 万，借你钱的人替你卖了。</span>
+              <span className="mt8">亏到只剩 {wan(floor)} 万，借你钱的人替你卖了。</span>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
 
       {pause?.k === "offer" ? (
-        <Offer onPick={(L) => {
+        <Offer noMax={noMax} floor={floor} onPick={(L) => {
           relever(L);
           setPause(null);
           countdown(() => reconcile("resume"));
@@ -582,7 +635,7 @@ function Halt({ n }: { n: number }) {
   );
 }
 
-function Offer({ onPick }: { onPick: (L: number) => void }) {
+function Offer({ onPick, noMax, floor }: { onPick: (L: number) => void; noMax?: boolean; floor: number }) {
   return (
     <motion.div className="arc-offer" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
       <div className="row gap8" style={{ alignItems: "center" }}>
@@ -595,9 +648,13 @@ function Offer({ onPick }: { onPick: (L: number) => void }) {
       <div className="arc-offer-row mt12">
         <button className="btn" onClick={() => onPick(1)}>不借</button>
         <button className="btn" onClick={() => onPick(2)}><b>借 1 倍</b><span>涨跌 ×2</span></button>
-        <button className="btn primary" onClick={() => onPick(4)}><b>借 3 倍</b><span>涨跌 ×4</span></button>
+        {noMax ? (
+          <button className="btn" disabled><b>借 3 倍</b><span>冷静亭里说过不碰</span></button>
+        ) : (
+          <button className="btn primary" onClick={() => onPick(4)}><b>借 3 倍</b><span>涨跌 ×4</span></button>
+        )}
       </div>
-      <div className="tiny mt8 center">亏到只剩 5 万，会被强制卖出。</div>
+      <div className="tiny mt8 center">亏到只剩 {wan(floor)} 万，会被强制卖出。</div>
     </motion.div>
   );
 }

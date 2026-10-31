@@ -1,5 +1,5 @@
 import { AnimatePresence, animate, motion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { ART } from "../data";
 import { QUBE_URL } from "../game/handoff";
@@ -7,9 +7,9 @@ import { PICKABLE, sp } from "../game/meta";
 import { buzz, sfx } from "../lib/sound";
 import { MuteButton } from "../ui/kit";
 import { aiJudge, aiLine } from "./ai";
-import { CAP, Game, type Run } from "./Game";
+import { CAP, Game, type Foe, type Run } from "./Game";
 import { LEVELS, ticksOf, tickOf, type Level } from "./levels";
-import { localVerdict, stampOf, stats } from "./profile";
+import { localVerdict, stampOf, stats, type Verdict } from "./profile";
 import { useArcade } from "./store";
 
 /** 新主线：四关小游戏 → 猜物种 → AI 复盘 → 结果 */
@@ -92,10 +92,9 @@ function Cold({ level, onDone }: { level: Level; onDone: () => void }) {
 }
 
 /* ---------- 揭幕：原来是哪一次 + 你的印章 ---------- */
-function PathChart({ level, run }: { level: Level; run: Run }) {
+export function PathChart({ level, run, foes = [], H = 150 }: { level: Level; run: Run; foes?: Foe[]; H?: number }) {
   const { p, dates } = ticksOf(level);
   const W = 340;
-  const H = 150;
   const lo = Math.min(...p);
   const hi = Math.max(...p);
   const X = (i: number) => (i / (p.length - 1)) * W;
@@ -121,6 +120,17 @@ function PathChart({ level, run }: { level: Level; run: Run }) {
             <text x={X(t.i)} y={Y(t.p) + 3.3} fontSize={8.5} fontWeight={900} textAnchor="middle" fill="#fff">{t.why === "liq" ? "强" : t.k === "buy" ? "买" : "卖"}</text>
           </g>
         ))}
+        <defs><clipPath id="path-foe-clip" clipPathUnits="objectBoundingBox"><circle cx=".5" cy=".5" r=".5" /></clipPath></defs>
+        {foes.map((f, fi) => f.trades.map((t, j) => {
+          const cx = X(t.i);
+          const cy = Y(p[t.i]) + (fi ? 15 : -15);
+          return (
+            <g key={f.id + j}>
+              <circle cx={cx} cy={cy} r={8.5} fill="#FBF4E4" stroke={t.k === "buy" ? "#D4432A" : "#2D5F6B"} strokeWidth={2} />
+              <image href={ART(`species_${f.id}`)} x={cx - 7} y={cy - 7} width={14} height={14} clipPath="url(#path-foe-clip)" preserveAspectRatio="xMidYMin slice" />
+            </g>
+          );
+        }))}
       </svg>
       <div className="row between tiny"><span>{dates[0]}</span><span>{dates[dates.length - 1]}</span></div>
     </div>
@@ -129,7 +139,7 @@ function PathChart({ level, run }: { level: Level; run: Run }) {
 
 function Reveal({ level, run, line, last, onNext }: { level: Level; run: Run; line?: string; last: boolean; onNext: () => void }) {
   const st = stampOf(level, run);
-  const d = run.eq - CAP;
+  const d = run.eq - (run.cap ?? CAP);
   const [wait, setWait] = useState(true);
   useEffect(() => {
     sfx.reveal();
@@ -171,12 +181,12 @@ function Reveal({ level, run, line, last, onNext }: { level: Level; run: Run; li
   );
 }
 
-function Big({ n, unit }: { n: string; unit: string }) {
+export function Big({ n, unit, delay = 1.8 }: { n: string; unit: string; delay?: number }) {
   const target = parseFloat(n);
   const dec = (n.split(".")[1] || "").length;
   const [v, setV] = useState(0);
   useEffect(() => {
-    const c = animate(0, target, { duration: 1.4, delay: 1.8, ease: "easeOut", onUpdate: setV });
+    const c = animate(0, target, { duration: 1.4, delay, ease: "easeOut", onUpdate: setV });
     return () => c.stop();
   }, [target]);
   return <b className="display num arc-big">{v.toFixed(dec)}<small>{unit}</small></b>;
@@ -205,18 +215,24 @@ function Guess({ onPick }: { onPick: (id: string) => void }) {
 /* ---------- AI 复盘 ---------- */
 function Judge() {
   const a = useArcade();
-  const rows = useMemo(() => LEVELS.map((l) => ({ l, r: a.runs.find((x) => x.id === l.id) })).filter((x) => x.r), []);
+  return <JudgeView runs={a.runs} guess={a.guess} onVerdict={(v) => useArcade.getState().set({ verdict: v, stage: "final" })} />;
+}
+
+const CN_N = ["零", "一", "两", "三", "四"];
+
+export function JudgeView({ runs, guess, onVerdict }: { runs: Run[]; guess: string | null; onVerdict: (v: Verdict) => void }) {
+  const rows = useMemo(() => LEVELS.map((l) => ({ l, r: runs.find((x) => x.id === l.id) })).filter((x) => x.r), []);
   useEffect(() => {
     let alive = true;
-    const local = localVerdict(a.runs, a.guess);
+    const local = localVerdict(runs, guess);
     const t0 = Date.now();
-    aiJudge(a.runs, a.guess, local).then((v) => {
+    aiJudge(runs, guess, local).then((v) => {
       const left = Math.max(0, 2600 - (Date.now() - t0));
       setTimeout(() => {
         if (!alive) return;
         sfx.fanfare();
         buzz([30, 40, 60]);
-        useArcade.getState().set({ verdict: v, stage: "final" });
+        onVerdict(v);
       }, left);
     });
     return () => {
@@ -226,7 +242,7 @@ function Judge() {
   return (
     <div className="arc-judge">
       <div className="arc-kicker">AI 复盘中</div>
-      <h2 className="display">正在读你的四场操作</h2>
+      <h2 className="display">正在读你的{CN_N[rows.length] || rows.length}场操作</h2>
       <div className="col gap8 mt16">
         {rows.map(({ l, r }, i) => {
           const st = stampOf(l, r!);
@@ -250,14 +266,26 @@ const fit = (s: string) => (s.length > 70 ? 19 : s.length > 48 ? 21 : 24);
 function Final() {
   const a = useArcade();
   const nav = useNavigate();
-  const v = a.verdict!;
+  return (
+    <FinalView runs={a.runs} verdict={a.verdict!} actions={
+      <div className="row gap8 mt16">
+        <button className="btn grow" onClick={(e) => { e.stopPropagation(); a.reset(); }}>再玩一次</button>
+        <button className="btn grow" onClick={(e) => { e.stopPropagation(); nav("/"); }}>回首页</button>
+      </div>
+    } />
+  );
+}
+
+/** 结果四页（物种 / AI 读你 / 模拟≠实盘 / PandaAI 下一步），可以再接一页 extra */
+export function FinalView({ runs, verdict, total: total0, unit = "场", extra, actions }: { runs: Run[]; verdict: Verdict; total?: number; unit?: string; extra?: ReactNode; actions: ReactNode }) {
+  const v = verdict;
   const m = sp(v.species);
   const [page, setPage] = useState(0);
   const [copied, setCopied] = useState(false);
-  const deep = Math.min(0, ...a.runs.map((r) => stats(LEVELS.find((l) => l.id === r.id)!, r).deep));
-  const total = a.runs.reduce((s, r) => s + (r.eq - CAP), 0);
+  const deep = Math.min(0, ...runs.map((r) => stats(LEVELS.find((l) => l.id === r.id)!, r).deep));
+  const total = total0 ?? runs.reduce((s, r) => s + (r.eq - (r.cap ?? CAP)), 0);
   const ai = v.model !== "local";
-  const N = 4;
+  const N = extra ? 5 : 4;
   const turn = () => {
     if (page < N - 1) {
       sfx.paper();
@@ -293,7 +321,7 @@ function Final() {
               <h1 className="display arc-sp-name">{m.cn}</h1>
               <div className="arc-title">{v.title}</div>
               {v.self && <div className="arc-self mt12">{v.self}</div>}
-              <div className="arc-sum mt12">四场合计 <b className={total >= 0 ? "up" : "down"}>{total >= 0 ? "+" : "−"}{Math.abs(total).toFixed(1)} 万</b></div>
+              <div className="arc-sum mt12">{CN_N[runs.length] || runs.length}{unit}合计 <b className={total >= 0 ? "up" : "down"}>{total >= 0 ? "+" : "−"}{Math.abs(total).toFixed(1)} 万</b></div>
             </>
           )}
           {page === 1 && (
@@ -326,10 +354,13 @@ function Final() {
               <div className="arc-qube mt12">“{v.qube}”</div>
               <button className="btn primary big block mt16" onClick={(e) => { e.stopPropagation(); copyOpen(); }}>{copied ? "已复制，去 Qube 粘贴 ↗" : "复制这句，打开 Qube ↗"}</button>
               <div className="tiny mt8">适合{m.cn}的 PandaAI 功能：{m.rec}</div>
-              <div className="row gap8 mt16">
-                <button className="btn grow" onClick={(e) => { e.stopPropagation(); a.reset(); }}>再玩一次</button>
-                <button className="btn grow" onClick={(e) => { e.stopPropagation(); nav("/"); }}>回首页</button>
-              </div>
+              {!extra && actions}
+            </>
+          )}
+          {page === 4 && extra && (
+            <>
+              {extra}
+              {actions}
             </>
           )}
         </motion.div>

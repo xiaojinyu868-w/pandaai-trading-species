@@ -35,7 +35,7 @@ export function Hud({ title }: { title?: string }) {
           <AnimatePresence>
             {delta && (
               <motion.span key={delta.k} className={"hud-delta " + (delta.n > 0 ? "up" : "down")} initial={{ opacity: 0, y: -6, scale: 0.6 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10 }} transition={{ type: "spring", stiffness: 420, damping: 18 }}>
-                {delta.n > 0 ? "+" : "−"}{Math.abs(delta.n)} 万
+                {delta.n > 0 ? "+" : "−"}{Math.round(Math.abs(delta.n) * 10) / 10} 万
               </motion.span>
             )}
           </AnimatePresence>

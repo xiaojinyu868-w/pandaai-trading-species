@@ -22,42 +22,46 @@ export function Home() {
         initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 2.4, ease: "easeOut" }} />
       <div className="abs-fill" style={{ background: "linear-gradient(180deg, rgba(23,60,75,.55) 0%, rgba(23,60,75,.32) 30%, rgba(23,60,75,0) 46%, rgba(0,0,0,0) 60%, rgba(42,42,28,.55) 100%)" }} />
       <div style={{ position: "absolute", right: 10, top: 10, zIndex: 5 }}><MuteButton /></div>
-      <div className="pad" style={{ position: "relative", zIndex: 2, paddingTop: 40 }}>
+      <div className="pad" style={{ position: "relative", zIndex: 2, paddingTop: 14 }}>
         <motion.div initial={{ opacity: 0, y: -18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }}>
           <span className="panda-tag">PandaAI · 交易人格测评</span>
-          <h1 className="display" style={{ fontSize: 54, color: "#FBF4E4", margin: "10px 0 0", textShadow: "4px 4px 0 #2A2A1C", lineHeight: 0.98 }}>
-            交易<br />物种起源
+          <h1 className="display" style={{ fontSize: 46, color: "#FBF4E4", margin: "8px 0 0", textShadow: "4px 4px 0 #2A2A1C", lineHeight: 0.98 }}>
+            交易物种起源
           </h1>
-          <div style={{ width: 120, height: 6, background: "#C79A2E", margin: "12px 0 10px", border: "2px solid #2A2A1C" }} />
-          <p className="lead" style={{ color: "#FBF4E4", maxWidth: 310, textShadow: "0 1px 8px rgba(0,0,0,.45)", margin: 0, fontWeight: 600 }}>
+          <div style={{ width: 120, height: 6, background: "#C79A2E", margin: "8px 0 8px", border: "2px solid #2A2A1C" }} />
+          <p className="lead home-lead" style={{ color: "#FBF4E4", maxWidth: 310, textShadow: "0 1px 8px rgba(0,0,0,.45)", margin: 0, fontWeight: 600 }}>
             回到真实的金融史时刻，日期被藏起来。<br />你怎么做决定，就会孵出什么物种。
           </p>
         </motion.div>
       </div>
       <div className="grow" />
       <motion.div className="pad" style={{ position: "relative", zIndex: 2 }} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, type: "spring", damping: 20 }}>
-        <div className="card" style={{ padding: 14 }}>
+        <div className="card" style={{ padding: 12 }}>
           <Ride />
-          <button className="btn primary big block mt12 home-go" onClick={() => { sfx.bell(); if (arc.stage === "final") arc.reset(); nav("/go"); }}>
-            {arcOn ? `继续 · 第 ${arc.idx + 1} 场` : "开始游戏"}
-            <small>按住买，松手卖 · 4 个名场面 · 约 5 分钟</small>
-          </button>
-          <div className="row mt8 gap8">
-            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); startQuick(); nav("/play"); }}>桌游同款 · 3 分钟版</button>
-            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); start(); nav("/play"); }}>桌游同款 · 完整四季</button>
-          </div>
-          {resumable && (
-            <button className="btn ghost block mt8" onClick={() => { sfx.tap(); nav("/play"); }}>继续上一局（{g!.mode === "quick" ? "快速版" : `${SEASONS[g!.seasonIdx]?.cn || "终"}季`}）</button>
+          {resumable ? (
+            <button className="btn primary big block mt12 home-go" onClick={() => { sfx.bell(); nav("/play"); }}>
+              继续上一局
+              <small>{g!.mode === "quick" ? "3 分钟版" : `走到${SEASONS[g!.seasonIdx]?.cn || "终"}季了`} · 接着玩</small>
+            </button>
+          ) : (
+            <button className="btn primary big block mt12 home-go" onClick={() => { sfx.bell(); start(); nav("/play"); }}>
+              开始游戏 · 完整四季
+              <small>和桌上那盒同一个游戏 · 约 10 分钟</small>
+            </button>
           )}
+          <div className="row mt8 gap8">
+            <button className="btn grow" style={{ padding: "10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); startQuick(); nav("/play"); }}>先玩一场 · 3 分钟版</button>
+            {resumable && <button className="btn grow" style={{ padding: "10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); start(); nav("/play"); }}>重开完整四季</button>}
+          </div>
           {g && g.phase === "ending" && (
             <button className="btn block mt8" onClick={() => { sfx.tap(); nav("/play"); }}>再看上一局的画像{g.source === "record" ? "（桌游记录卡）" : ""}</button>
           )}
-          <div className="row mt12 gap8">
-            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => nav("/record")}>桌游记录卡</button>
-            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => nav("/atlas")}>物种图鉴</button>
-            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => nav("/demo")}>评委演示台</button>
+          <div className="row mt8 gap8">
+            <button className="btn sm grow" style={{ padding: "6px 8px", whiteSpace: "nowrap", boxShadow: "none" }} onClick={() => nav("/record")}>桌游记录卡</button>
+            <button className="btn sm grow" style={{ padding: "6px 8px", whiteSpace: "nowrap", boxShadow: "none" }} onClick={() => nav("/atlas")}>物种图鉴</button>
+            <button className="btn sm grow" style={{ padding: "6px 8px", whiteSpace: "nowrap", boxShadow: "none" }} onClick={() => nav("/demo")}>评委演示台</button>
           </div>
-          <div className="tiny center mt12">真实行情来自 Panda Data · 投资者教育游戏，不构成投资建议</div>
+          <div className="tiny center mt8">真实行情来自 Panda Data · 投资者教育游戏，不构成投资建议</div>
         </div>
       </motion.div>
     </div>

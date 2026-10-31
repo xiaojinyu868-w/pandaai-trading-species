@@ -59,13 +59,15 @@ export function Counter({ value, className, prefix = "", signedMode = false }: {
   const [shown, setShown] = useState(value);
   useEffect(() => {
     const c = animate(mv, value, { duration: 0.9, ease: "easeOut" });
-    const un = mv.on("change", (v) => setShown(Math.round(v)));
+    const un = mv.on("change", (v) => setShown(Math.round(v * 10) / 10));
     return () => {
       c.stop();
       un();
     };
   }, [value]);
-  const txt = signedMode ? (shown > 0 ? "+" : shown < 0 ? "−" : "±") + Math.abs(shown) : (shown < 0 ? "−" : "") + Math.abs(shown);
+  const d = Number.isInteger(value) ? 0 : 1;
+  const a = Math.abs(shown).toFixed(d);
+  const txt = signedMode ? (shown > 0 ? "+" : shown < 0 ? "−" : "±") + a : (shown < 0 ? "−" : "") + a;
   return <span className={className}>{prefix}{txt}</span>;
 }
 

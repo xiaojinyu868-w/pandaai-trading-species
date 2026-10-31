@@ -12,6 +12,8 @@ import { ModelOrFigure } from "../screens/Ending";
 import { RevealArt, RevealBody } from "../screens/Reveal";
 import { Big } from "../scenes/common";
 import { ExampleTag, Money, MuteButton, SpeciesAvatar } from "../ui/kit";
+import { levelOf } from "../arcade/bridge";
+import { enterQuickScene } from "../screens/Quick";
 
 const EV: any = rulesEval;
 
@@ -66,12 +68,24 @@ export function StartPage() {
       <p className="body mt8">回到真实的金融史时刻，日期被藏起来。你怎么做决定，就会孵出什么物种。纸上能完整玩一局；手机上也能和 AI 物种对局。</p>
       <div className="col gap8 mt12">
         <button className="btn primary big block" onClick={() => { sfx.bell(); startQuick(); nav("/play"); }}>先玩一场 · 3 分钟</button>
-        <button className="btn block" onClick={() => { sfx.tap(); if (!going) start(); nav("/play"); }}>{going ? "继续上一局" : "在手机上和 AI 物种对局 · 约 15 分钟"}</button>
+        <button className="btn block" onClick={() => { sfx.tap(); if (!going) start(); nav("/play"); }}>{going ? "继续上一局" : "在手机上玩完整四季 · 约 10 分钟"}</button>
         <Link to="/record" className="btn block">桌游玩完了：录入记录卡，拿完整画像</Link>
         <Link to="/ff/scb" className="btn block">熔断沙漏计时器（冬季用）</Link>
         <Link to="/atlas" className="btn block">物种图鉴</Link>
       </div>
     </PageShell>
+  );
+}
+
+/** 桌上扫到名场面的码：可以直接在手机上玩这一场（同一张卡、同一段行情） */
+function PlayHere({ id }: { id: string }) {
+  const nav = useNavigate();
+  const { startQuick, update } = useGame();
+  if (!levelOf(id)) return null;
+  return (
+    <button className="btn primary big block mt12" onClick={() => { sfx.bell(); startQuick(); update((x) => enterQuickScene(x, id as never)); nav("/play"); }}>
+      在手机上玩这一场 →
+    </button>
   );
 }
 
@@ -88,6 +102,7 @@ export function BlindPage() {
       </div>
       <div className="tiny mt12">桌游里：每人每轮花 1 研究点看一张证据，看完扣回原处。证据牌背面的码，也能在手机上看。</div>
       <div className="row wrap gap8 mt8">{(["price", "data", "news", "tip"] as EvKind[]).map((k) => <Link key={k} to={`/e/${s.id}/${k}`} className="btn sm">{EV_CN[k]}</Link>)}</div>
+      <PlayHere id={s.id} />
     </PageShell>
   );
 }
@@ -154,6 +169,7 @@ export function BreakerPage() {
         {ci >= 0 && left === 0 && ci < cards.length - 1 && <button className="btn dark block" onClick={() => setLeft(30)}>翻沙漏：30 秒</button>}
         {ci === cards.length - 1 && <div className="card" style={{ background: "#FFF4D6" }}><b>{s.fast_forward.second_decision?.prompt}</b><div className="small mt4">补仓、止损，还是不看了？写在委托单上，然后扫揭幕码。</div><Link className="btn sm mt8" to={`/r/${s.id}`}>揭幕 →</Link></div>}
       </div>
+      {ci < 0 && <PlayHere id={s.id} />}
     </PageShell>
   );
 }

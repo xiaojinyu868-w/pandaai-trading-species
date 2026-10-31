@@ -194,6 +194,8 @@ class Bot:
                 if b:
                     return self.click(b)
             return None
+        if phase == "scene" and self.p.query_selector(".screen.live"):
+            return self.live(bs, texts, c, si, rec, step)
         if phase == "scene":
             if step in ("blind", "evidence", "slip"):
                 if not getattr(self, "cold_seen", False) and self.p.query_selector(".cold"):
@@ -339,6 +341,8 @@ class Bot:
                 return self.click(b)
             return None
         if phase == "ending":
+            if self.p.query_selector(".arc-judge, .arc-final"):
+                return "ending"
             if c.get("rounds", 1) > self.round:
                 b = self.find(bs, "再玩一场")
                 if b:
@@ -349,6 +353,162 @@ class Bot:
                 return None
             return "ending"
         return None
+
+    def live(self, bs, texts, c, si, rec, step):
+        """名场面线上四步：盲盒 → 线索 → 出手（真实按住 / 松手）→ 揭幕"""
+        if step == "blind":
+            if si in c["recognize"] and si not in self.recognized:
+                b = self.find(bs, "就是它", sheet=True)
+                if b:
+                    self.recognized.add(si)
+                    self.shot("recognize_sheet")
+                    return self.click(b)
+                opts = [x for x in bs if x["sheet"] and "opt" in x["c"]]
+                if opts:
+                    names = {"s924": "924", "s2015": "2015", "smt": "茅台", "scb": "熔断"}
+                    hit = next((x for x in opts if names.get(rec.get("scene"), "@@") in x["t"]), opts[0])
+                    return self.click(hit, "recognize " + hit["t"][:12])
+                b = self.find(bs, "我认出来了")
+                if b:
+                    time.sleep(1.5)
+                    return self.click(b)
+            b = self.find(bs, "先翻线索")
+            if b:
+                time.sleep(1.6)
+                self.shot("live_blind")
+                self.clip_check("live_blind")
+                return self.click(b)
+            return None
+        if step in ("evidence", "slip", "flip"):
+            b = self.find(bs, "记下了", sheet=True)
+            if b:
+                time.sleep(0.9)
+                self.shot("live_evidence")
+                return self.click(b)
+            done = self.ev_opened.setdefault(si, [])
+            for k in c["ev"][si]:
+                if k in done:
+                    continue
+                done.append(k)
+                card = next((x for x in bs if "live-card" in x["c"] and x["t"].startswith(EV_CN[k])), None)
+                if card and "locked" not in card["c"]:
+                    return self.click(card, "ev " + k)
+            want = {"跌了就走": "走", "跌了就加": "加", "不定计划": "到时再说"}[c["plan"][si]]
+            chip = next((x for x in bs if x["t"] == want and "live-plan" not in x["c"]), None)
+            if chip and " dark" not in chip["c"]:
+                return self.click(chip, "plan " + want)
+            b = self.find(bs, "开盘 →")
+            if b:
+                time.sleep(0.5)
+                self.shot("live_clues")
+                self.clip_check("live_clues")
+                return self.click(b)
+            return None
+        if step == "ff":
+            return self.live_game(c, si, rec)
+        if step == "reveal":
+            b = self.find(bs, "入账")
+            if b:
+                time.sleep(4.5)
+                self.shot("live_reveal")
+                self.clip_check("live_reveal")
+                ov = self.p.evaluate("() => document.scrollingElement.scrollHeight - innerHeight")
+                if ov > 2:
+                    self.log.append(f"OVERFLOW reveal {ov}px")
+                self.log.append("AI: " + self.p.inner_text(".arc-ai"))
+                return self.click(b)
+            b = self.find(bs, "去驿站") or self.find(bs, "看看这一场")
+            if b:
+                time.sleep(1.2)
+                self.shot("live_rank")
+                self.clip_check("live_rank")
+                ov = self.p.evaluate("() => document.scrollingElement.scrollHeight - innerHeight")
+                if ov > 2:
+                    self.log.append(f"OVERFLOW rank {ov}px")
+                return self.click(b)
+            return None
+        return None
+
+    def clip_check(self, tag):
+        cut = self.p.evaluate("""() => Array.from(document.querySelectorAll('.btn.big')).filter((b) => {
+          const r = b.getBoundingClientRect(); return r.width > 0 && r.bottom > innerHeight + 1; }).map((b) => b.innerText.trim().slice(0, 12))""")
+        if cut:
+            self.log.append(f"CLIP {tag}: {cut}")
+
+    def live_game(self, c, si, rec):
+        """按选项决定手势：A 一直拿着；B 拿一半时间；C/D 只碰一下"""
+        p = self.p
+        p.wait_for_selector(".arc-btn", timeout=8000)
+        time.sleep(0.6)
+        self.shot("live_ready")
+        opt = c["opt"][si]
+        hold_ms = {"A": 10 ** 9, "B": 9000}.get(opt, 400)
+        offer = {"A": "借 1 倍", "B": "不借", "C": "借 3 倍"}.get(c.get("name", "A"), "不借")
+
+        def center():
+            b = p.query_selector(".arc-btn")
+            if not b:
+                return None
+            bb = b.bounding_box()
+            return bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2
+
+        def press(on):
+            xy = center()
+            if xy:
+                p.mouse.move(*xy)
+                (p.mouse.down if on else p.mouse.up)()
+
+        press(True)
+        down = True
+        t0 = time.time()
+        seen = set()
+        while not p.query_selector(".arc-reveal"):
+            el = (time.time() - t0) * 1000
+            if down and el > hold_ms:
+                press(False)
+                down = False
+            if p.query_selector(".arc-offer") and "offer" not in seen:
+                seen.add("offer")
+                time.sleep(0.5)
+                self.shot("live_offer")
+                if down:
+                    p.mouse.up()
+                    down = False
+                btn = p.get_by_role("button", name=offer)
+                if btn.is_disabled():
+                    btn = p.get_by_role("button", name="不借")
+                btn.click()
+                self.log.append("offer " + offer)
+                time.sleep(0.3)
+                if el < hold_ms:
+                    press(True)
+                    down = True
+            toast = p.query_selector(".arc-toast")
+            if toast:
+                t = toast.inner_text()
+                if "说过要走" in t and down and c["follow"]:
+                    press(False)
+                    down = False
+                    self.log.append("plan: cut")
+                if t not in seen:
+                    seen.add(t)
+                    self.shot("live_toast")
+            for sel, tag in ((".arc-over.holiday", "holiday"), (".arc-over.halt", "halt"), (".arc-over.dark", "liq")):
+                if p.query_selector(sel) and tag not in seen:
+                    seen.add(tag)
+                    self.shot("live_" + tag)
+            if el > 6000 and "mid" not in seen:
+                seen.add("mid")
+                self.shot("live_mid")
+            if el > 90000:
+                self.log.append("MISS live game timeout")
+                break
+            time.sleep(0.05)
+        if down:
+            p.mouse.up()
+        self.log.append(f"live {rec.get('scene')} {time.time() - t0:.1f}s")
+        p.wait_for_selector(".arc-reveal", timeout=10000)
+        return True
 
     def run(self, max_steps=600):
         idle = 0
@@ -370,8 +530,42 @@ class Bot:
         return False
 
 
+def live_ending(bot: Bot):
+    """AI 复盘 → 结果页一页一页翻 → 带到桌上 → 完整画像档案"""
+    p = bot.p
+    time.sleep(1.0)
+    bot.shot("live_judge")
+    t0 = time.time()
+    p.wait_for_selector(".arc-final", timeout=25000)
+    bot.log.append(f"judge wait {time.time() - t0:.1f}s")
+    for i in range(5):
+        time.sleep(1.3)
+        bot.shot(f"live_final_{i}")
+        bot.clip_check(f"final_{i}")
+        ov = p.evaluate("() => document.scrollingElement.scrollHeight - innerHeight")
+        if ov > 2:
+            bot.log.append(f"OVERFLOW final {i} {ov}px")
+        if not p.query_selector(".arc-tapnext"):
+            break
+        p.click(".arc-final", position={"x": 195, "y": 250})
+    g = bot.state()
+    bot.log.append("verdict: " + json.dumps({k: (g.get("verdict") or {}).get(k) for k in ("species", "model", "title")}, ensure_ascii=False))
+    if bot.cfg.get("quick"):
+        b = bot.find(bot.buttons(), "继续完整四季")
+        bot.log.append("quick next: " + ("ok" if b else "MISS"))
+        return g
+    b = bot.find(bot.buttons(), "完整画像档案")
+    if b:
+        bot.click(b)
+        time.sleep(1.5)
+        bot.shot("archive_top")
+    return g
+
+
 def ending(bot: Bot):
     p = bot.p
+    if p.query_selector(".arc-judge, .arc-final"):
+        return live_ending(bot)
     time.sleep(4.5)
     bot.shot("ending_top")
     p.evaluate("() => window.scrollTo(0, 0)")
@@ -413,8 +607,9 @@ def main():
     ap.add_argument("--run", default="A")
     ap.add_argument("--out", default=None)
     ap.add_argument("--scale", type=float, default=1.5)
+    ap.add_argument("--size", default="390x844")
     a = ap.parse_args()
-    cfg = RUNS[a.run]
+    cfg = dict(RUNS[a.run], name=a.run)
     out = Path(a.out or ROOT / "e2e" / a.run)
     out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("*.png"):
@@ -422,7 +617,7 @@ def main():
     errors = []
     with sync_playwright() as pw:
         br = pw.chromium.launch()
-        ctx = br.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=a.scale, is_mobile=True, has_touch=True, locale="zh-CN")
+        ctx = br.new_context(viewport=dict(zip(("width", "height"), map(int, a.size.split("x")))), device_scale_factor=a.scale, is_mobile=True, has_touch=True, locale="zh-CN")
         ctx.add_init_script(SEED_JS % cfg["seed"])
         page = ctx.new_page()
         page.on("console", lambda m: m.type in ("error", "warning") and errors.append(f"{m.type}: {m.text[:300]}"))

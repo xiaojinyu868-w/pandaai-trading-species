@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { EvKind, OptKey, SceneId, SeasonId } from "../data";
 import type { Plan, Reason, SpeciesId } from "./meta";
+import type { Run } from "../arcade/Game";
+import type { Verdict } from "../arcade/profile";
 
 export type TileKind = "supply" | "chance" | "research" | "dataport" | "calm" | "door";
 export type Phase = "home" | "prologue" | "self" | "map" | "pick" | "scene" | "station" | "ending";
@@ -54,6 +56,9 @@ export interface SeasonRec {
   retest?: { id: string; answer: number; species: SpeciesId; why: "tie" | "disagree"; selfPick?: boolean; claim?: SpeciesId };
   disagreeText?: string;
   ai?: Record<string, AiResult>;
+  /** 线上名场面：小游戏里手上的真实操作，和 AI 的一句旁白 */
+  run?: Run;
+  line?: string;
 }
 
 export interface Game {
@@ -77,6 +82,8 @@ export interface Game {
   /** 点开游戏规则说明的次数 */
   helps?: number;
   mode?: "full" | "quick";
+  /** 终局 AI 复盘结果（只用名场面小游戏里的操作） */
+  verdict?: Verdict;
   startedAt: number;
   finishedAt?: number;
   source: "h5" | "record";

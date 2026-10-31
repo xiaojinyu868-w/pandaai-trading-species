@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGame } from "../game/store";
-import { Ending } from "./Ending";
+import { LiveEnding } from "../scenes/LiveEnd";
 import { Prologue, SelfPick } from "./Intro";
 import { MapScreen } from "./MapScreen";
 import { QuickPick } from "./Quick";
@@ -42,7 +42,7 @@ export function Play() {
     case "station":
       return <Station onNext={() => {}} />;
     case "ending":
-      return <Ending />;
+      return <LiveEnding />;
     default:
       nav("/");
       return null;

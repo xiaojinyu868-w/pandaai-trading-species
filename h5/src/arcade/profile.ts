@@ -44,7 +44,7 @@ export function stats(l: Level, r: Run) {
   const { p } = ticksOf(l);
   const L = legs(l, r).filter((g) => g.b > g.a);
   const acts = r.trades.filter((t) => t.why !== "start" && t.why !== "end").length;
-  const buys = r.trades.filter((t) => t.k === "buy" && t.why !== "start");
+  const buys = r.trades.filter((t) => t.k === "buy" && t.why !== "end");
   const run5 = (i: number) => p[i] / p[Math.max(0, i - 10)] - 1;
   const chase = buys.filter((t) => run5(t.i) >= 0.08).length;
   const dip = buys.filter((t) => run5(t.i) <= -0.06).length;
@@ -52,7 +52,7 @@ export function stats(l: Level, r: Run) {
   const quick = L.filter((g) => g.b - g.a <= 4).length;
   const cuts = L.filter((g) => g.pb < g.pa).map((g) => g.pb / g.pa - 1);
   const peakI = p.indexOf(Math.max(...p));
-  return { L, acts, buys, chase, dip, deep, quick, cuts, peakI, ret: r.eq / CAP - 1, soldStart: r.trades.some((t) => t.k === "sell" && t.why === "start") };
+  return { L, acts, buys, chase, dip, deep, quick, cuts, peakI, ret: r.eq / (r.cap ?? CAP) - 1, soldStart: r.trades.some((t) => t.k === "sell" && t.why === "start") };
 }
 
 function generic(ret: number, acts: number): Stamp {
@@ -75,7 +75,7 @@ export function stampOf(l: Level, r: Run): Stamp {
     if (r.holidayHeld && r.openAct === "hold" && s.ret < 0.12) return { t: "坐了趟过山车", sub: "节后高开没走，又跌了回去", good: null };
   }
   if (l.id === "s2015") {
-    if (r.liq) return { t: "被强平", sub: "亏到只剩 5 万，被人替你卖在了低处", good: false };
+    if (r.liq) return { t: "被强平", sub: "跌破强平线，被人替你卖在了低处", good: false };
     if (r.lockTries > 0 && s.ret < 0) return { t: "跌停卖不掉", sub: `想卖 ${r.lockTries} 次，跌停那天都没卖出去`, good: false };
     if (r.lev > 1 && s.ret < 0) return { t: "借钱的代价", sub: `借了 ${r.lev - 1} 倍，亏也放大了 ${r.lev} 倍`, good: false };
     if (lastSell && s.ret > 0 && lastSell.i >= s.peakI - 6 && lastSell.i <= s.peakI + 10) return { t: "逃顶", sub: "卖在了离最高点不远的地方", good: true };
@@ -115,7 +115,7 @@ export function describe(l: Level, r: Run): string {
   }
   if (l.id === "s2015") {
     out.push(r.lev > 1 ? `行情涨了 ${abs(r.levAt || 0)} 时借了 ${r.lev - 1} 倍（涨跌 ×${r.lev}）` : "有人借钱给他，他没借");
-    if (r.liq) out.push("亏到 5 万被强制平仓");
+    if (r.liq) out.push("跌破强平线被强制平仓");
     if (r.lockTries) out.push(`跌停那几天想卖 ${r.lockTries} 次没卖出去`);
   }
   if (l.id === "smt") {
@@ -132,6 +132,10 @@ export function describe(l: Level, r: Run): string {
   if (s.chase) out.push(`有 ${s.chase} 次是在一周涨了 8% 以上之后追进去`);
   if (s.dip) out.push(`有 ${s.dip} 次是在一周跌了 6% 以上之后买进`);
   if (s.cuts.length) out.push(`亏损离场 ${s.cuts.length} 次（${s.cuts.map((c) => pct(c)).join("、")}）`);
+  if (r.plan && r.plan !== "none") {
+    const said = r.plan === "cut" ? "跌 5% 就走" : "跌 5% 就加";
+    out.push(r.planTriggered ? `开盘前说“${said}”，真跌到了，${r.planFollowed ? "照做了" : "没照做"}` : `开盘前说“${said}”，没跌到那里`);
+  }
   out.push(`这一场 ${pct(s.ret, 1)}`);
   void dates;
   return out.join("；");
@@ -210,7 +214,7 @@ export function localVerdict(runs: Run[], guess: string | null): Verdict {
     .slice(0, 3)
     .map((x) => x.t);
   const gap = deep <= -0.08
-    ? `模拟盘里你最深扛过 ${pct(deep)}。真钱亏损的痛大约是同样赚钱的两倍，实盘里多数人在 ${pct(deep / 2)} 左右就想松手了。`
+    ? `模拟盘里你最深扛过 ${pct(deep)}。亏钱的痛大约是赚钱快乐的两倍，换成真钱，这一下的感受接近 ${pct(deep * 2)}。`
     : "模拟盘里你跑得很快。实盘里还有手续费和犹豫，进出越多，磨损越大。";
   const g = guess && guess !== top ? sp(guess)?.cn : null;
   return {

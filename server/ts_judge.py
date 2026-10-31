@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """交易物种起源 · AI 复盘小服务（只用标准库）
 
-POST /line   一关结束后的一句旁白
-POST /judge  四关结束后的物种判断
+POST /line   一场结束后的一句旁白
+POST /judge  全部场次结束后的物种判断
 GET  /health
 
 key 只从环境变量 DASHSCOPE_API_KEY 读（systemd EnvironmentFile），不写进代码和仓库。
@@ -27,7 +27,7 @@ SPECIES = {
     "cheetah": "猎豹：看见趋势就出发，追涨快、拿得短",
     "elephant": "大象：便宜才买，买了就拿，扛得住波动",
     "fox": "狐狸：先怀疑再检验，有自己的规则，多次进出，常和人群反着做（狂热里卖、恐慌里买）",
-    "owl": "猫头鹰：证据不够就再等等；大部分时间空仓观望，四关里只出手一两次",
+    "owl": "猫头鹰：证据不够就再等等；大部分时间空仓观望，几场里只出手一两次",
     "meerkat": "狐獴：对消息和人群情绪敏感，跟着人群和弹幕动",
     "chameleon": "变色龙：跟着市场换打法，不同行情做法不同",
 }
@@ -39,20 +39,20 @@ SYS_COMMON = (
 )
 
 LINE_PROMPT = (
-    "根据这一关里玩家的操作，写一句旁白（不超过 34 个汉字），点出他这一手最有意思的地方，"
-    "可以带一点幽默，但要贴着事实（这一关的真实结局已经揭晓）。"
+    "根据这一场里玩家的操作，写一句旁白（不超过 34 个汉字），点出他这一手最有意思的地方，"
+    "可以带一点幽默，但要贴着事实（这一场的真实结局已经揭晓）。"
     '输出格式：{"line": "..."}'
 )
 
 JUDGE_PROMPT = (
-    "下面是玩家四关的操作摘要、本地规则给出的各物种得分（仅供参考，你可以不同意），以及玩家自己猜的物种。"
-    "请综合四关做最终判断，物种只能从以下六个里选一个（填英文 id）：\n"
+    "下面是玩家玩过的每一场（共 N 场，见“场数”）的操作摘要、本地规则给出的各物种得分（仅供参考，你可以不同意），以及玩家自己猜的物种。"
+    "请综合这几场做最终判断；只有一场时要说明这只是初步判断，物种只能从以下六个里选一个（填英文 id）：\n"
     + "\n".join(f"- {k}：{v}" for k, v in SPECIES.items())
     + "\n要求：\n"
     "1. species：英文 id。\n"
     "2. title：给他起一个 4~9 字的称号，像'2015 年的幸存者'这样有画面感。\n"
-    "3. read：用 40~60 字说清楚你凭什么这么判断，必须引用至少两关里的具体动作。\n"
-    "4. moments：3 条，每条不超过 26 字，格式'某关：他做了什么'，挑最能说明性格的瞬间。\n"
+    "3. read：用 40~60 字说清楚你凭什么这么判断，必须引用具体动作（两场以上时至少引用两场），场数照实说，不要说成别的数字。\n"
+    "4. moments：3 条，每条不超过 26 字，格式'场名：他做了什么'（场名用“场”字段里的短名，比如“924”），挑最能说明性格的瞬间。\n"
     "5. gap：40~60 字，提醒他模拟盘和实盘的差别：真钱的亏损感受更强、实盘还有手续费/滑点/跌停卖不出等，"
     "结合他这局里扛住或没扛住的那一段来说。\n"
     "6. qube：一句可以直接粘贴到量化平台回测的策略描述（40~80 字），把他的习惯写成明确规则"
@@ -122,10 +122,10 @@ def chat(messages, budget: float, max_tokens: int):
 
 def do_line(p):
     facts = {
-        "这一关": clip(p.get("level"), 40),
+        "这一场": clip(p.get("level"), 40),
         "他的操作": clip(p.get("did"), 300),
         "系统印章": clip(p.get("stamp"), 80),
-        "这一关的教训": clip(p.get("lesson"), 120),
+        "这一场的教训": clip(p.get("lesson"), 120),
     }
     out, model = chat([
         {"role": "system", "content": SYS_COMMON + LINE_PROMPT},
@@ -137,13 +137,13 @@ def do_line(p):
 
 def do_judge(p):
     levels = p.get("levels") if isinstance(p.get("levels"), list) else []
-    levels = [{"关": clip(x.get("name"), 40), "操作": clip(x.get("did"), 300), "印章": clip(x.get("stamp"), 80)} for x in levels[:4] if isinstance(x, dict)]
+    levels = [{"场": clip(x.get("name"), 40), "操作": clip(x.get("did"), 300), "印章": clip(x.get("stamp"), 80)} for x in levels[:4] if isinstance(x, dict)]
     if not levels:
         return None
     sc = p.get("scores") if isinstance(p.get("scores"), dict) else {}
     sc = {k: round(float(v), 2) for k, v in sc.items() if k in SPECIES and isinstance(v, (int, float))}
     guess = p.get("guess") if p.get("guess") in SPECIES else None
-    facts = {"四关": levels, "本地得分": sc, "玩家自己猜": SPECIES[guess].split("：")[0] + f"（{guess}）" if guess else "没猜"}
+    facts = {"场数": len(levels), "每一场": levels, "本地得分": sc, "玩家自己猜": SPECIES[guess].split("：")[0] + f"（{guess}）" if guess else "没猜"}
     out, model = chat([
         {"role": "system", "content": SYS_COMMON + JUDGE_PROMPT},
         {"role": "user", "content": json.dumps(facts, ensure_ascii=False)},
