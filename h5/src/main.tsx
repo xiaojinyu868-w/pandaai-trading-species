@@ -9,6 +9,7 @@ import { QrResolve, BlindPage, EvidencePage, RevealPage, BreakerPage, RulePage, 
 import { RecordPage } from "./pages/Record";
 import { DemoPage } from "./pages/Demo";
 import { TermHost } from "./ui/Term";
+import { Arcade } from "./arcade/Arcade";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/play" element={<Play />} />
+        <Route path="/go" element={<Arcade />} />
         <Route path="/q/:code" element={<QrResolve />} />
         <Route path="/start" element={<StartPage />} />
         <Route path="/b/:scene" element={<BlindPage />} />

@@ -179,7 +179,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
         S.phase = "run";
         setPhase("run");
       }
-    }, 520);
+    }, 600);
   }
   function start() {
     sfx.bell();
@@ -257,7 +257,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
     let raf = 0;
     let last = performance.now();
     const loop = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       const prev = S.head;
       const sp = ev.base * ev.slowAt[Math.min(N - 1, Math.floor(prev))];
@@ -369,6 +369,10 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
     if (S.finger) return;
     S.finger = true;
     setFinger(true);
+    if (S.phase === "ready") {
+      start();
+      return;
+    }
     if (S.firstMs === null && S.phase === "run" && !level.startIn) S.firstMs = ms();
     if (S.phase === "run") buy();
   }
@@ -406,7 +410,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
   const lastBuy = [...S.trades].reverse().find((t) => t.k === "buy");
   const liqLine = level.lev && S.debt > 0 && S.shares > 0 ? (S.debt + level.lev.floor - S.cash) / S.shares : null;
   const stateChip = phase === "pause" && pause?.k === "holiday" ? "休市中" : phase === "pause" && pause?.k === "halt" ? "暂停交易" : S.locked && isIn ? "跌停 · 卖不出" : isIn ? (S.levSet > 1 && S.debt > 0 ? `持有 · ${S.levSet} 倍` : "持有") : "空仓";
-  const btnLabel = phase === "ready" ? "" : phase === "count" ? (finger ? "拿着" : level.startIn || isIn ? "按住\n别松" : "按住\n买入") : phase === "pause" ? (finger ? "按着" : "…") : phase === "end" ? "收盘" : finger ? "松手\n卖出" : "按住\n买入";
+  const btnLabel = phase === "ready" ? "按住\n开盘" : phase === "count" ? (finger ? "拿着" : level.startIn || isIn ? "按住\n别松" : "按住\n买入") : phase === "pause" && pause?.k === "holiday" ? (finger ? "按着" : isIn ? "按住\n拿着" : "按住\n买进") : phase === "pause" ? (finger ? "按着" : "…") : phase === "end" ? "收盘" : finger ? "松手\n卖出" : "按住\n买入";
   const gone = S.crowdLeft;
   const crowdNow = S.crowdMax - gone;
 
@@ -454,7 +458,7 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
             </g>
           )}
           <path d={view.d} fill="none" stroke={isIn ? (d >= 0 ? "#D4432A" : "#3C7A4E") : "#2A2A1C"} strokeWidth={2.6} strokeLinejoin="round" />
-          {S.trades.filter((t) => t.why !== "start" && t.why !== "end").map((t, i) => (
+          {S.trades.filter((t) => t.why !== "end").map((t, i) => (
             <g key={i}>
               <circle cx={view.X(t.i)} cy={view.Y(t.p)} r={7.5} fill={t.why === "liq" ? "#2A2A1C" : t.k === "buy" ? "#D4432A" : "#2D5F6B"} stroke="#2A2A1C" strokeWidth={1.4} />
               <text x={view.X(t.i)} y={view.Y(t.p) + 3.5} fontSize={9} fontWeight={900} textAnchor="middle" fill="#fff">{t.why === "liq" ? "强" : t.k === "buy" ? "买" : "卖"}</text>
@@ -479,6 +483,15 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
         <span className="crowd-tag" style={{ left: 8, bottom: 4 }}>弹幕为虚构的散户声音</span>
 
         <AnimatePresence>
+          {phase === "ready" && (
+            <motion.div key="ready" className="arc-over ready" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="arc-how">
+                <motion.span className="arc-hand" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.2 }}>☝</motion.span>
+                <div><b>按住 = 拿着</b><b>松手 = 卖出</b></div>
+              </div>
+              <div className="arc-rule">{level.rule}</div>
+            </motion.div>
+          )}
           {phase === "count" && (
             <motion.div key={"c" + count} className="arc-count" initial={{ scale: 1.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ opacity: 0 }}>{count}</motion.div>
           )}
@@ -499,24 +512,15 @@ export function Game({ level, onDone }: { level: Level; onDone: (r: Run) => void
           setPause(null);
           countdown(() => reconcile("resume"));
         }} />
-      ) : phase === "ready" ? (
-        <motion.div className="arc-ready" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="arc-how">
-            <span className="arc-hand">☝</span>
-            <div><b>按住 = 拿着</b><br /><b>松手 = 卖出</b></div>
-          </div>
-          <div className="arc-rule">{level.startIn ? "开局你就拿着：倒数结束时，手指要按在按钮上。" : "你现在空仓：想买的时候，就按住。"}{level.rule}</div>
-          <button className="btn primary big block mt12" onClick={start}>开盘</button>
-        </motion.div>
       ) : (
         <div className="arc-pad">
-          <button className={"arc-btn" + (finger ? " on" : "") + (phase === "pause" && pause?.k === "halt" ? " frozen" : "")}
+          <button className={"arc-btn" + (finger ? " on" : "") + (phase === "ready" ? " ready" : "") + (phase === "pause" && pause?.k === "halt" ? " frozen" : "")}
             onPointerDown={(e) => { e.preventDefault(); e.currentTarget.setPointerCapture?.(e.pointerId); down(); }}
             onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} onContextMenu={(e) => e.preventDefault()}>
             {btnLabel}
           </button>
           <div className="arc-hint">
-            {phase === "count" ? (level.startIn ? "按住，就是继续拿着" : "想买就按住，不想买就别按") : phase === "pause" ? "先别急" : isIn ? "拿住，还是走？" : "想买的时候，按住"}
+            {phase === "ready" ? (level.startIn ? "你手里有货。按住开盘，一直按着就是拿着" : "你现在空仓。按一下开盘，想买的时候再按住") : phase === "count" ? (level.startIn ? "按住，就是继续拿着" : "想买就按住，不想买就松开") : phase === "pause" && pause?.k === "holiday" ? (isIn ? "按着过节 = 节后接着拿；松手 = 开盘卖" : "按着过节 = 节后开盘买进") : phase === "pause" ? "先别急" : isIn ? "拿住，还是走？" : "想买的时候，按住"}
           </div>
         </div>
       )}

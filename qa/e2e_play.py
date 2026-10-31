@@ -119,10 +119,10 @@ class Bot:
             self.shot(f"{phase}_{step if phase == 'scene' else ''}_s{si}")
         c = self.cfg
 
-        if c.get("quick") and phase == "home" and self.find(bs, "先玩一场"):
-            return self.click(self.find(bs, "先玩一场"))
-        if not c.get("quick") and self.find(bs, "开始一局"):
-            return self.click(self.find(bs, "开始一局"))
+        if c.get("quick") and phase == "home" and self.find(bs, "3 分钟版"):
+            return self.click(self.find(bs, "3 分钟版"))
+        if not c.get("quick") and phase == "home" and self.find(bs, "完整四季"):
+            return self.click(self.find(bs, "完整四季"))
         if phase == "pick":
             cards = [x for x in bs if "card" in x["c"] and not x["sheet"]]
             if cards:

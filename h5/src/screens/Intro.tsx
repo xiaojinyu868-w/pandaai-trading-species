@@ -8,11 +8,14 @@ import { sfx } from "../lib/sound";
 import { MuteButton, SpeciesAvatar } from "../ui/kit";
 import { Ride } from "../ride/Ride";
 import { Help } from "../ui/Term";
+import { useArcade } from "../arcade/store";
 
 export function Home() {
   const nav = useNavigate();
   const { g, start, startQuick } = useGame();
   const resumable = g && g.phase !== "ending" && g.source === "h5";
+  const arc = useArcade();
+  const arcOn = arc.stage !== "final" && (arc.idx > 0 || arc.stage !== "cold");
   return (
     <div className="screen" style={{ background: "#3d7f92" }}>
       <motion.img src={ART("opening")} alt="" className="abs-fill" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 30%" }}
@@ -35,9 +38,14 @@ export function Home() {
       <motion.div className="pad" style={{ position: "relative", zIndex: 2 }} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, type: "spring", damping: 20 }}>
         <div className="card" style={{ padding: 14 }}>
           <Ride />
-          <button className="btn primary big block mt12" onClick={() => { sfx.bell(); startQuick(); nav("/play"); }}>先玩一场 · 3 分钟</button>
-          <div className="tiny center mt4">回到一个真实的名场面，玩完拿到你的交易物种、判断依据和 PandaAI 下一步</div>
-          <button className="btn block mt8" onClick={() => { sfx.bell(); start(); nav("/play"); }}>开始一局 · 完整四季 约 15 分钟</button>
+          <button className="btn primary big block mt12 home-go" onClick={() => { sfx.bell(); if (arc.stage === "final") arc.reset(); nav("/go"); }}>
+            {arcOn ? `继续 · 第 ${arc.idx + 1} 场` : "开始游戏"}
+            <small>按住买，松手卖 · 4 个名场面 · 约 5 分钟</small>
+          </button>
+          <div className="row mt8 gap8">
+            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); startQuick(); nav("/play"); }}>桌游同款 · 3 分钟版</button>
+            <button className="btn sm grow" style={{ padding: "8px 10px", whiteSpace: "nowrap" }} onClick={() => { sfx.bell(); start(); nav("/play"); }}>桌游同款 · 完整四季</button>
+          </div>
           {resumable && (
             <button className="btn ghost block mt8" onClick={() => { sfx.tap(); nav("/play"); }}>继续上一局（{g!.mode === "quick" ? "快速版" : `${SEASONS[g!.seasonIdx]?.cn || "终"}季`}）</button>
           )}

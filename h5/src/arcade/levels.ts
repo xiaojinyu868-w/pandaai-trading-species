@@ -125,6 +125,12 @@ export const LEVELS: Level[] = [
 
 export const levelById = (id: string) => LEVELS.find((l) => l.id === id)!;
 
+/** 某天开盘或收盘在 ticks 里的位置；没有这天返回 -1 */
+export function tickOf(l: Level, date: string, which: "open" | "close") {
+  const i = l.series.dates.indexOf(date);
+  return i < 0 ? -1 : i * 2 + (which === "close" ? 1 : 0);
+}
+
 /** 每天两个点：开盘、收盘。跳空（长假、熔断后的开盘）就是一根竖线 */
 export function ticksOf(l: Level) {
   const s = l.series;

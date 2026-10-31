@@ -1,0 +1,17 @@
+[Unit]
+Description=交易物种起源 · AI 复盘小服务（127.0.0.1:8796）
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/life-plaza/runtime.env
+ExecStart=/usr/bin/python3.11 /opt/ts-judge/ts_judge.py
+Restart=always
+RestartSec=2
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
