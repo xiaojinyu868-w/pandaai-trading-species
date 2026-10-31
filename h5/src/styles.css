@@ -593,10 +593,11 @@ a.btn { text-decoration: none; color: var(--ink); }
 .arc-chart { position: relative; flex: 1; min-height: 200px; border: 2px solid var(--ink); border-radius: var(--r); padding: 26px 10px 22px; display: flex; align-items: center; overflow: hidden; }
 .arc-chart > svg { flex: 1; }
 .arc-hidden { position: absolute; right: 10px; top: 6px; }
-.arc-toast { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); font-family: var(--display); font-size: 34px; padding: 6px 18px; border-radius: 14px; background: var(--paper-light); border: 2.5px solid var(--ink); box-shadow: var(--shadow); white-space: nowrap; z-index: 2; }
+.arc-toast { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; max-width: 88%; top: 30%; font-family: var(--display); font-size: 34px; padding: 6px 18px; border-radius: 14px; background: var(--paper-light); border: 2.5px solid var(--ink); box-shadow: var(--shadow); white-space: nowrap; z-index: 2; }
 .arc-toast.up { color: var(--kite); }
 .arc-toast.down { color: var(--leaf); }
 .arc-toast.dark { background: var(--ink); color: #F3D27F; }
+.arc-toast.long { font-size: 24px; white-space: normal; text-align: center; }
 .arc-count { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: 120px; color: var(--kite); text-shadow: 4px 4px 0 var(--ink); z-index: 3; pointer-events: none; }
 .arc-over { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 18px; background: rgba(255, 251, 241, .94); z-index: 3; }
 .arc-over.dark, .arc-over.halt { background: rgba(31, 36, 32, .93); color: #FBF4E4; }
@@ -771,3 +772,11 @@ a.btn { text-decoration: none; color: var(--ink); }
   .live-blind .live-poster-txt h1 { font-size: 26px; }
   .live-card { min-height: 96px; }
 }
+
+/* 按住 = 拿着：动作提示放在按钮下面，不被手指挡住 */
+.arc-how-sub { margin-top: 10px; font-size: 16px; font-weight: 800; color: var(--ink-2); text-align: center; }
+.arc-hint-key { display: inline-block; padding: 1px 10px; border-radius: 8px; background: var(--ink); color: var(--paper-light); margin-right: 2px; }
+.arc-count.wait { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 34px; background: rgba(255, 251, 241, .72); }
+.arc-count.wait .arc-hand { font-size: 56px; }
+.arc-btn.on { animation: arc-hold 1.1s ease-in-out infinite; }
+@keyframes arc-hold { 50% { box-shadow: 0 1px 0 var(--kite-deep), 0 1px 0 3px var(--ink), 0 0 0 20px rgba(212, 67, 42, .10); } }

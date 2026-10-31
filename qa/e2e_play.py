@@ -460,6 +460,9 @@ class Bot:
 
         press(True)
         down = True
+        t1 = time.time()
+        while (p.query_selector(".arc-count") or p.query_selector(".arc-over.ready")) and time.time() - t1 < 12:
+            time.sleep(0.05)
         t0 = time.time()
         seen = set()
         while not p.query_selector(".arc-reveal"):

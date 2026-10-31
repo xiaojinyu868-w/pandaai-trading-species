@@ -61,7 +61,7 @@ export function LiveEnding() {
                   <span>开局把{m.cn}卡摆在面前，看看桌上的你还是不是它</span>
                 </div>
               </div>
-              <div className="arc-qube mt12">同样的名场面卡、证据牌和委托单。玩完扫终局档案卡上的码，AI 用同一套方法再读你一次。</div>
+              <div className="arc-qube mt12">同样的名场面卡、证据牌和委托单。玩完扫终局档案卡上的码，手机用同一套规则再读你一次。</div>
             </>
           }
           actions={
