@@ -1,0 +1,13 @@
+node_modules/
+dist/
+renders/
+.build/
+evidence/stills/
+evidence/s2/
+evidence/s3/
+# 指向仓库其他目录或 /tmp 的软链接（见 DIRECTION.md）
+public/art
+public/clips
+public/fonts/
+assets/master.wav
+assets/mix-raw.wav

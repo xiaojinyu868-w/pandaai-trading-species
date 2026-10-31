@@ -1,0 +1,1722 @@
+{
+ "demo": false,
+ "product": "交易物种起源 · 宣传片 + 桌游玩法",
+ "style": "repo",
+ "width": 1920,
+ "height": 1080,
+ "fps": 30,
+ "duration": 283.54,
+ "repo": "/mnt/pandaai-trading-species/h5",
+ "audioRequired": true,
+ "sfxRequired": true,
+ "typography": {
+  "mode": "zh",
+  "zhFont": "Smiley Sans Oblique（标题）/ Noto Sans SC（正文）",
+  "enFont": "Smiley Sans Oblique",
+  "zhStyle": "sans-serif",
+  "exceptionReason": "产品和印刷件的标题中英文都用得意黑，沿用产品设计"
+ },
+ "audio": {
+  "ducking": {
+   "enabled": true
+  },
+  "music": {
+   "file": "assets/music.wav",
+   "gain": 0.65
+  },
+  "cues": [
+   {
+    "at": 3.45,
+    "actionId": "component-appear",
+    "file": "assets/sfx/click.wav",
+    "gain": 0.8,
+    "role": "sfx",
+    "kind": "click"
+   },
+   {
+    "at": 7.0,
+    "actionId": "close-enter",
+    "file": "assets/sfx/ding-dong.wav",
+    "gain": 0.7,
+    "role": "sfx",
+    "kind": "ding-dong"
+   }
+  ]
+ },
+ "shots": [
+  {
+   "id": "hook",
+   "film": "promo",
+   "start": 0.0,
+   "end": 9.48,
+   "type": "title",
+   "headlineEn": "1720 · South Sea Bubble",
+   "headline": "南海泡沫",
+   "plainExplanation": "1720 年，南海泡沫。相传牛顿先赚了一笔，又在更高的价格买了回去，最后亏掉两万英镑。",
+   "description": "1720 年，南海泡沫。相传牛顿先赚了一笔，又在更高的价格买了回去，最后亏掉两万英镑。",
+   "descriptionAt": 0.9,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "hook-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p01",
+     "at": 0.9
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "montage",
+   "film": "promo",
+   "start": 9.48,
+   "end": 23.05,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "同样的名场面，一次次重演",
+   "plainExplanation": "这些名场面，现在可以亲手再玩一遍：2015 年人人借钱买股票，2020 年美股十天熔断四次，2024 年国庆前全民排队开户。",
+   "description": "这些名场面，现在可以亲手再玩一遍：2015 年人人借钱买股票，2020 年美股十天熔断四次，2024 年国庆前全民排队开户。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "montage-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p02",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "choices",
+   "film": "promo",
+   "start": 23.05,
+   "end": 31.1,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "追，还是等？借钱加仓，还是先跑？",
+   "plainExplanation": "每一场，你都站在当年那个路口：追，还是等？借钱加仓，还是先跑？",
+   "description": "每一场，你都站在当年那个路口：追，还是等？借钱加仓，还是先跑？",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "choices-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p03",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "title",
+   "film": "promo",
+   "start": 31.1,
+   "end": 39.59,
+   "type": "title",
+   "headlineEn": "The Origin of Trading Species",
+   "headline": "不是韭菜，那你是哪一种？",
+   "plainExplanation": "不是韭菜，那你是哪一种？交易物种起源。一盒桌游，一部手机，同一个游戏。",
+   "description": "不是韭菜，那你是哪一种？交易物种起源。一盒桌游，一部手机，同一个游戏。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "title-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p04",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "blind",
+   "film": "promo",
+   "start": 39.59,
+   "end": 46.28,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "名字和日期藏起来",
+   "plainExplanation": "名字和日期都藏起来，只给你当时能看到的走势和处境。先猜猜，这是哪一年？",
+   "description": "名字和日期都藏起来，只给你当时能看到的走势和处境。先猜猜，这是哪一年？",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "blind-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p05",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 15.94,
+     "len": 7.49,
+     "speed": 1,
+     "frames": 225
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "clues",
+   "film": "promo",
+   "start": 46.28,
+   "end": 54.07,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "按着 = 拿着，松开 = 卖掉",
+   "plainExplanation": "翻线索，定计划，然后出手。手指按着，就是拿着；松开，就是卖掉。",
+   "description": "翻线索，定计划，然后出手。手指按着，就是拿着；松开，就是卖掉。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "clues-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p06",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 23.03,
+     "len": 2.9,
+     "speed": 1,
+     "frames": 88
+    },
+    {
+     "src": "play",
+     "at": 2.9,
+     "from": 37.92,
+     "len": 1.9,
+     "speed": 1,
+     "frames": 58
+    },
+    {
+     "src": "play",
+     "at": 4.8,
+     "from": 46.26,
+     "len": 3.79,
+     "speed": 1,
+     "frames": 114
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "game",
+   "film": "promo",
+   "start": 54.07,
+   "end": 62.8,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "借钱、跌停、AI 对手",
+   "plainExplanation": "涨多了，有人借钱给你；跌停那天，想卖也卖不出去。两位 AI 对手，在同一张图上和你一起买卖。",
+   "description": "涨多了，有人借钱给你；跌停那天，想卖也卖不出去。两位 AI 对手，在同一张图上和你一起买卖。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "game-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p07",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 59.44,
+     "len": 4.4,
+     "speed": 1,
+     "frames": 132
+    },
+    {
+     "src": "play",
+     "at": 4.4,
+     "from": 68.88,
+     "len": 5.13,
+     "speed": 1,
+     "frames": 155
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "reveal",
+   "film": "promo",
+   "start": 62.8,
+   "end": 73.77,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "真实走势，真实结算",
+   "plainExplanation": "揭幕：原来是 2015 年。真实走势一根根长出来，行情和结算都来自 Panda Data 的真实日线。",
+   "description": "揭幕：原来是 2015 年。真实走势一根根长出来，行情和结算都来自 Panda Data 的真实日线。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "reveal-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p08",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 77.3,
+     "len": 11.77,
+     "speed": 1,
+     "frames": 354
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "judge",
+   "film": "promo",
+   "start": 73.77,
+   "end": 80.66,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "玩完，AI 给你复盘",
+   "plainExplanation": "玩完，AI 给你复盘：在哪儿买的，扛了多深，说好跌 5% 就走，最后走没走。",
+   "description": "玩完，AI 给你复盘：在哪儿买的，扛了多深，说好跌 5% 就走，最后走没走。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "judge-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p09",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 105.73,
+     "len": 7.69,
+     "speed": 1,
+     "frames": 232
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "species",
+   "film": "promo",
+   "start": 80.66,
+   "end": 92.03,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "你像哪一种，下一步做什么",
+   "plainExplanation": "它还会告诉你像哪种交易物种；再把你的习惯写成一句交易规则，一键复制进 PandaAI 的 Qube，拿历史数据回测，看它灵不灵。",
+   "description": "它还会告诉你像哪种交易物种；再把你的习惯写成一句交易规则，一键复制进 PandaAI 的 Qube，拿历史数据回测，看它灵不灵。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "species-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p10",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "play",
+     "at": 0,
+     "from": 101.11,
+     "len": 4.0,
+     "speed": 1,
+     "frames": 120
+    },
+    {
+     "src": "play",
+     "at": 4.0,
+     "from": 115.48,
+     "len": 8.17,
+     "speed": 1,
+     "frames": 246
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "demo",
+   "film": "promo",
+   "start": 92.03,
+   "end": 97.43,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "换一个选择，当场重算",
+   "plainExplanation": "换一个选择，结果和复盘当场就变。",
+   "description": "换一个选择，结果和复盘当场就变。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "demo-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p11",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "demo",
+     "at": 0,
+     "from": 7.83,
+     "len": 6.2,
+     "speed": 1,
+     "frames": 186
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "handoff",
+   "film": "promo",
+   "start": 97.43,
+   "end": 104.14,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "八十八个二维码，接回同一部手机",
+   "plainExplanation": "桌上的八十八个二维码，接回同一部手机。接下来，看看这盒桌游怎么玩。",
+   "description": "桌上的八十八个二维码，接回同一部手机。接下来，看看这盒桌游怎么玩。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "handoff-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "p12",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "qr_blind",
+     "at": 0,
+     "from": 5.83,
+     "len": 7.51,
+     "speed": 1,
+     "frames": 226
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "endcard",
+   "film": "promo",
+   "start": 104.14,
+   "end": 107.74,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "",
+   "description": "",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "endcard-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "btitle",
+   "film": "board",
+   "start": 107.74,
+   "end": 110.74,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "",
+   "description": "",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "btitle-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b01",
+   "film": "board",
+   "start": 110.74,
+   "end": 119.75,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "这是交易物种起源的桌游。一到五个人，展台快玩一场十五分钟，完整一局六十到九十分钟。",
+   "description": "这是交易物种起源的桌游。一到五个人，展台快玩一场十五分钟，完整一局六十到九十分钟。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b01-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b01",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b02",
+   "film": "board",
+   "start": 119.75,
+   "end": 131.72,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "棋盘是一圈四季：春入场，夏狂热，秋松动，冬危机。每人拿一块玩家板，资金二十万，一个研究点。",
+   "description": "棋盘是一圈四季：春入场，夏狂热，秋松动，冬危机。每人拿一块玩家板，资金二十万，一个研究点。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b02-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b02",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b03",
+   "film": "board",
+   "start": 131.72,
+   "end": 140.09,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "开局前，先在档案卡上偷偷圈一个“我觉得我是”的物种，扣好，最后再翻开。",
+   "description": "开局前，先在档案卡上偷偷圈一个“我觉得我是”的物种，扣好，最后再翻开。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b03-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b03",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b04",
+   "film": "board",
+   "start": 140.09,
+   "end": 151.26,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "每一季，掷两颗骰子，挑一个点数往前走：补给站、机会、研究所、数据港口、冷静亭，每一格都有自己的事。",
+   "description": "每一季，掷两颗骰子，挑一个点数往前走：补给站、机会、研究所、数据港口、冷静亭，每一格都有自己的事。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b04-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b04",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b05",
+   "film": "board",
+   "start": 151.26,
+   "end": 160.51,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "走到门口，推开名场面之门。翻开场景牌，只有一张走势图和当时的处境，没有名字，也没有日期。",
+   "description": "走到门口，推开名场面之门。翻开场景牌，只有一张走势图和当时的处境，没有名字，也没有日期。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b05-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b05",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b06",
+   "film": "board",
+   "start": 160.51,
+   "end": 173.28,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "觉得认出来了？写下事件名，放一枚认出令牌。这一场的钱不按自己的选项算，记其他人的平均，物种币也只算半枚。",
+   "description": "觉得认出来了？写下事件名，放一枚认出令牌。这一场的钱不按自己的选项算，记其他人的平均，物种币也只算半枚。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b06-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b06",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b07",
+   "film": "board",
+   "start": 173.28,
+   "end": 183.81,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "接着花研究点看证据：量价、数据、消息，还有锦囊。研究点不够看全，先看哪一张，也是线索。",
+   "description": "接着花研究点看证据：量价、数据、消息，还有锦囊。研究点不够看全，先看哪一张，也是线索。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b07-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b07",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b08",
+   "film": "board",
+   "start": 183.81,
+   "end": 195.14,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "然后撕一张这一季的委托单：勾选项，勾理由，再勾跌了怎么办。对折扣好，三、二、一，一起翻开。",
+   "description": "然后撕一张这一季的委托单：勾选项，勾理由，再勾跌了怎么办。对折扣好，三、二、一，一起翻开。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b08-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b08",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b09",
+   "film": "board",
+   "start": 195.14,
+   "end": 206.45,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "同样选了等，一个在等数据，一个是看不懂。理由不同，拿到的物种图标就不同，最后像的动物也不同。",
+   "description": "同样选了等，一个在等数据，一个是看不懂。理由不同，拿到的物种图标就不同，最后像的动物也不同。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b09-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b09",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b10",
+   "film": "board",
+   "start": 206.45,
+   "end": 224.2,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "翻开快进牌，结算第一段。每一场都有一个招牌机制：春天是开户排队条，夏天是卖出窗口和跌停锁，秋天是抱团圈，冬天是熔断沙漏，全桌三十秒，不许说话，不许碰牌。",
+   "description": "翻开快进牌，结算第一段。每一场都有一个招牌机制：春天是开户排队条，夏天是卖出窗口和跌停锁，秋天是抱团圈，冬天是熔断沙漏，全桌三十秒，不许说话，不许碰牌。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "b10-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b10",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "qr_ff",
+     "at": 12.2,
+     "from": 1.01,
+     "len": 6.35,
+     "speed": 1,
+     "frames": 191
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "b11",
+   "film": "board",
+   "start": 224.2,
+   "end": 232.63,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "最后翻开揭幕牌，结算第二段；扫上面的码，真实走势在手机上一根根长出来。",
+   "description": "最后翻开揭幕牌，结算第二段；扫上面的码，真实走势在手机上一根根长出来。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "b11-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b11",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "qr_reveal",
+     "at": 1.6,
+     "from": 0.77,
+     "len": 7.63,
+     "speed": 1,
+     "frames": 229
+    }
+   ],
+   "enter": "fade"
+  },
+  {
+   "id": "b12",
+   "film": "board",
+   "start": 232.63,
+   "end": 241.4,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "走到驿站，数一数委托单上的图标，领一枚物种币。四季下来，哪种币最多，你就像哪一种。",
+   "description": "走到驿站，数一数委托单上的图标，领一枚物种币。四季下来，哪种币最多，你就像哪一种。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b12-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b12",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b13",
+   "film": "board",
+   "start": 241.4,
+   "end": 253.13,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "终局分两本账：资金账看赚了多少；方法账看你有没有看证据、理由对不对得上、计划有没有照做。两样加起来定胜负。",
+   "description": "终局分两本账：资金账看赚了多少；方法账看你有没有看证据、理由对不对得上、计划有没有照做。两样加起来定胜负。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b13-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b13",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b14",
+   "film": "board",
+   "start": 253.13,
+   "end": 262.54,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "翻开档案卡背面的决策树，从上往下，第一个符合的就是你的任务牌，指向 PandaAI 的真实工具。",
+   "description": "翻开档案卡背面的决策树，从上往下，第一个符合的就是你的任务牌，指向 PandaAI 的真实工具。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b14-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b14",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b15",
+   "film": "board",
+   "start": 262.54,
+   "end": 270.27,
+   "type": "title",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "一个人也能玩：选两张 AI 物种牌当对手，背面写着它每一场选什么、凭什么。",
+   "description": "一个人也能玩：选两张 AI 物种牌当对手，背面写着它每一场选什么、凭什么。",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": null,
+   "actions": [
+    {
+     "id": "b15-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b15",
+     "at": 0.35
+    }
+   ],
+   "clips": [],
+   "enter": "fade"
+  },
+  {
+   "id": "b16",
+   "film": "board",
+   "start": 270.27,
+   "end": 283.54,
+   "type": "feature",
+   "headlineEn": "",
+   "headline": "",
+   "plainExplanation": "玩完扫档案卡上的码，手机用同一套规则，再帮你复盘一次。不是韭菜，那你是哪一种？",
+   "description": "玩完扫档案卡上的码，手机用同一套规则，再帮你复盘一次。不是韭菜，那你是哪一种？",
+   "descriptionAt": 0.35,
+   "claim": false,
+   "source": [],
+   "component": "录屏：tools/rec_phone.py（线上真站）",
+   "actions": [
+    {
+     "id": "b16-enter",
+     "at": 0,
+     "action": "enter",
+     "soundRequired": false
+    }
+   ],
+   "vo": [
+    {
+     "id": "b16",
+     "at": 0.35
+    }
+   ],
+   "clips": [
+    {
+     "src": "qr_record",
+     "at": 0.6,
+     "from": 0.92,
+     "len": 13.47,
+     "speed": 1,
+     "frames": 170
+    }
+   ],
+   "enter": "fade"
+  }
+ ],
+ "boundary": 107.74,
+ "captions": [
+  {
+   "start": 0.9,
+   "end": 3.155,
+   "text": "1720 年，南海泡沫。",
+   "film": "promo"
+  },
+  {
+   "start": 3.155,
+   "end": 7.289,
+   "text": "相传牛顿先赚了一笔，又在更高的价格买了回去，",
+   "film": "promo"
+  },
+  {
+   "start": 7.289,
+   "end": 8.98,
+   "text": "最后亏掉两万英镑。",
+   "film": "promo"
+  },
+  {
+   "start": 9.83,
+   "end": 13.318,
+   "text": "这些名场面，现在可以亲手再玩一遍：",
+   "film": "promo"
+  },
+  {
+   "start": 13.318,
+   "end": 16.19,
+   "text": "2015 年人人借钱买股票，",
+   "film": "promo"
+  },
+  {
+   "start": 16.19,
+   "end": 19.267,
+   "text": "2020 年美股十天熔断四次，",
+   "film": "promo"
+  },
+  {
+   "start": 19.267,
+   "end": 22.55,
+   "text": "2024 年国庆前全民排队开户。",
+   "film": "promo"
+  },
+  {
+   "start": 23.4,
+   "end": 28.006,
+   "text": "每一场，你都站在当年那个路口：追，还是等？",
+   "film": "promo"
+  },
+  {
+   "start": 28.006,
+   "end": 30.2,
+   "text": "借钱加仓，还是先跑？",
+   "film": "promo"
+  },
+  {
+   "start": 31.45,
+   "end": 33.864,
+   "text": "不是韭菜，那你是哪一种？",
+   "film": "promo"
+  },
+  {
+   "start": 33.864,
+   "end": 35.272,
+   "text": "交易物种起源。",
+   "film": "promo"
+  },
+  {
+   "start": 35.272,
+   "end": 38.49,
+   "text": "一盒桌游，一部手机，同一个游戏。",
+   "film": "promo"
+  },
+  {
+   "start": 39.94,
+   "end": 44.111,
+   "text": "名字和日期都藏起来，只给你当时能看到的走势和处境。",
+   "film": "promo"
+  },
+  {
+   "start": 44.111,
+   "end": 45.78,
+   "text": "先猜猜，这是哪一年？",
+   "film": "promo"
+  },
+  {
+   "start": 46.63,
+   "end": 49.415,
+   "text": "翻线索，定计划，然后出手。",
+   "film": "promo"
+  },
+  {
+   "start": 49.415,
+   "end": 51.556,
+   "text": "手指按着，就是拿着；",
+   "film": "promo"
+  },
+  {
+   "start": 51.556,
+   "end": 53.27,
+   "text": "松开，就是卖掉。",
+   "film": "promo"
+  },
+  {
+   "start": 54.42,
+   "end": 56.257,
+   "text": "涨多了，有人借钱给你；",
+   "film": "promo"
+  },
+  {
+   "start": 56.257,
+   "end": 58.427,
+   "text": "跌停那天，想卖也卖不出去。",
+   "film": "promo"
+  },
+  {
+   "start": 58.427,
+   "end": 62.1,
+   "text": "两位 AI 对手，在同一张图上和你一起买卖。",
+   "film": "promo"
+  },
+  {
+   "start": 63.15,
+   "end": 65.873,
+   "text": "揭幕：原来是 2015 年。",
+   "film": "promo"
+  },
+  {
+   "start": 65.873,
+   "end": 68.013,
+   "text": "真实走势一根根长出来，",
+   "film": "promo"
+  },
+  {
+   "start": 68.013,
+   "end": 73.07,
+   "text": "行情和结算都来自 Panda Data 的真实日线。",
+   "film": "promo"
+  },
+  {
+   "start": 74.12,
+   "end": 77.501,
+   "text": "玩完，AI 给你复盘：在哪儿买的，扛了多深，",
+   "film": "promo"
+  },
+  {
+   "start": 77.501,
+   "end": 79.96,
+   "text": "说好跌 5% 就走，最后走没走。",
+   "film": "promo"
+  },
+  {
+   "start": 81.01,
+   "end": 83.268,
+   "text": "它还会告诉你像哪种交易物种；",
+   "film": "promo"
+  },
+  {
+   "start": 83.268,
+   "end": 85.686,
+   "text": "再把你的习惯写成一句交易规则，",
+   "film": "promo"
+  },
+  {
+   "start": 85.686,
+   "end": 89.073,
+   "text": "一键复制进 PandaAI 的 Qube，",
+   "film": "promo"
+  },
+  {
+   "start": 89.073,
+   "end": 91.33,
+   "text": "拿历史数据回测，看它灵不灵。",
+   "film": "promo"
+  },
+  {
+   "start": 92.38,
+   "end": 95.02,
+   "text": "换一个选择，结果和复盘当场就变。",
+   "film": "promo"
+  },
+  {
+   "start": 97.78,
+   "end": 101.096,
+   "text": "桌上的八十八个二维码，接回同一部手机。",
+   "film": "promo"
+  },
+  {
+   "start": 101.096,
+   "end": 103.54,
+   "text": "接下来，看看这盒桌游怎么玩。",
+   "film": "promo"
+  },
+  {
+   "start": 111.09,
+   "end": 113.478,
+   "text": "这是交易物种起源的桌游。",
+   "film": "board"
+  },
+  {
+   "start": 113.478,
+   "end": 116.862,
+   "text": "一到五个人，展台快玩一场十五分钟，",
+   "film": "board"
+  },
+  {
+   "start": 116.862,
+   "end": 119.25,
+   "text": "完整一局六十到九十分钟。",
+   "film": "board"
+  },
+  {
+   "start": 120.1,
+   "end": 126.031,
+   "text": "棋盘是一圈四季：春入场，夏狂热，秋松动，冬危机。",
+   "film": "board"
+  },
+  {
+   "start": 126.031,
+   "end": 131.22,
+   "text": "每人拿一块玩家板，资金二十万，一个研究点。",
+   "film": "board"
+  },
+  {
+   "start": 132.07,
+   "end": 137.656,
+   "text": "开局前，先在档案卡上偷偷圈一个“我觉得我是”的物种，",
+   "film": "board"
+  },
+  {
+   "start": 137.656,
+   "end": 139.59,
+   "text": "扣好，最后再翻开。",
+   "film": "board"
+  },
+  {
+   "start": 140.44,
+   "end": 145.916,
+   "text": "每一季，掷两颗骰子，挑一个点数往前走：补给站、机会、",
+   "film": "board"
+  },
+  {
+   "start": 145.916,
+   "end": 150.76,
+   "text": "研究所、数据港口、冷静亭，每一格都有自己的事。",
+   "film": "board"
+  },
+  {
+   "start": 151.61,
+   "end": 154.092,
+   "text": "走到门口，推开名场面之门。",
+   "film": "board"
+  },
+  {
+   "start": 154.092,
+   "end": 158.865,
+   "text": "翻开场景牌，只有一张走势图和当时的处境，没有名字，",
+   "film": "board"
+  },
+  {
+   "start": 158.865,
+   "end": 160.01,
+   "text": "也没有日期。",
+   "film": "board"
+  },
+  {
+   "start": 160.86,
+   "end": 162.465,
+   "text": "觉得认出来了？",
+   "film": "board"
+  },
+  {
+   "start": 162.465,
+   "end": 165.674,
+   "text": "写下事件名，放一枚认出令牌。",
+   "film": "board"
+  },
+  {
+   "start": 165.674,
+   "end": 170.717,
+   "text": "这一场的钱不按自己的选项算，记其他人的平均，",
+   "film": "board"
+  },
+  {
+   "start": 170.717,
+   "end": 172.78,
+   "text": "物种币也只算半枚。",
+   "film": "board"
+  },
+  {
+   "start": 173.63,
+   "end": 179.033,
+   "text": "接着花研究点看证据：量价、数据、消息，还有锦囊。",
+   "film": "board"
+  },
+  {
+   "start": 179.033,
+   "end": 183.31,
+   "text": "研究点不够看全，先看哪一张，也是线索。",
+   "film": "board"
+  },
+  {
+   "start": 184.16,
+   "end": 189.051,
+   "text": "然后撕一张这一季的委托单：勾选项，勾理由，",
+   "film": "board"
+  },
+  {
+   "start": 189.051,
+   "end": 190.914,
+   "text": "再勾跌了怎么办。",
+   "film": "board"
+  },
+  {
+   "start": 190.914,
+   "end": 194.64,
+   "text": "对折扣好，三、二、一，一起翻开。",
+   "film": "board"
+  },
+  {
+   "start": 195.49,
+   "end": 199.907,
+   "text": "同样选了等，一个在等数据，一个是看不懂。",
+   "film": "board"
+  },
+  {
+   "start": 199.907,
+   "end": 205.65,
+   "text": "理由不同，拿到的物种图标就不同，最后像的动物也不同。",
+   "film": "board"
+  },
+  {
+   "start": 206.8,
+   "end": 209.453,
+   "text": "翻开快进牌，结算第一段。",
+   "film": "board"
+  },
+  {
+   "start": 209.453,
+   "end": 214.095,
+   "text": "每一场都有一个招牌机制：春天是开户排队条，",
+   "film": "board"
+  },
+  {
+   "start": 214.095,
+   "end": 218.295,
+   "text": "夏天是卖出窗口和跌停锁，秋天是抱团圈，",
+   "film": "board"
+  },
+  {
+   "start": 218.295,
+   "end": 223.6,
+   "text": "冬天是熔断沙漏，全桌三十秒，不许说话，不许碰牌。",
+   "film": "board"
+  },
+  {
+   "start": 224.55,
+   "end": 227.462,
+   "text": "最后翻开揭幕牌，结算第二段；",
+   "film": "board"
+  },
+  {
+   "start": 227.462,
+   "end": 231.83,
+   "text": "扫上面的码，真实走势在手机上一根根长出来。",
+   "film": "board"
+  },
+  {
+   "start": 232.98,
+   "end": 237.423,
+   "text": "走到驿站，数一数委托单上的图标，领一枚物种币。",
+   "film": "board"
+  },
+  {
+   "start": 237.423,
+   "end": 240.9,
+   "text": "四季下来，哪种币最多，你就像哪一种。",
+   "film": "board"
+  },
+  {
+   "start": 241.75,
+   "end": 245.035,
+   "text": "终局分两本账：资金账看赚了多少；",
+   "film": "board"
+  },
+  {
+   "start": 245.035,
+   "end": 249.14,
+   "text": "方法账看你有没有看证据、理由对不对得上、",
+   "film": "board"
+  },
+  {
+   "start": 249.14,
+   "end": 250.782,
+   "text": "计划有没有照做。",
+   "film": "board"
+  },
+  {
+   "start": 250.782,
+   "end": 252.63,
+   "text": "两样加起来定胜负。",
+   "film": "board"
+  },
+  {
+   "start": 253.48,
+   "end": 256.512,
+   "text": "翻开档案卡背面的决策树，从上往下，",
+   "film": "board"
+  },
+  {
+   "start": 256.512,
+   "end": 259.008,
+   "text": "第一个符合的就是你的任务牌，",
+   "film": "board"
+  },
+  {
+   "start": 259.008,
+   "end": 262.04,
+   "text": "指向 PandaAI 的真实工具。",
+   "film": "board"
+  },
+  {
+   "start": 262.89,
+   "end": 266.795,
+   "text": "一个人也能玩：选两张 AI 物种牌当对手，",
+   "film": "board"
+  },
+  {
+   "start": 266.795,
+   "end": 269.77,
+   "text": "背面写着它每一场选什么、凭什么。",
+   "film": "board"
+  },
+  {
+   "start": 270.62,
+   "end": 274.868,
+   "text": "玩完扫档案卡上的码，手机用同一套规则，",
+   "film": "board"
+  },
+  {
+   "start": 274.868,
+   "end": 276.657,
+   "text": "再帮你复盘一次。",
+   "film": "board"
+  },
+  {
+   "start": 276.657,
+   "end": 279.34,
+   "text": "不是韭菜，那你是哪一种？",
+   "film": "board"
+  }
+ ],
+ "voice": [
+  {
+   "at": 0.9,
+   "file": "assets/vo/p01.wav",
+   "id": "p01",
+   "dur": 8.08
+  },
+  {
+   "at": 9.83,
+   "file": "assets/vo/p02.wav",
+   "id": "p02",
+   "dur": 12.72
+  },
+  {
+   "at": 23.4,
+   "file": "assets/vo/p03.wav",
+   "id": "p03",
+   "dur": 6.8
+  },
+  {
+   "at": 31.45,
+   "file": "assets/vo/p04.wav",
+   "id": "p04",
+   "dur": 7.04
+  },
+  {
+   "at": 39.94,
+   "file": "assets/vo/p05.wav",
+   "id": "p05",
+   "dur": 5.84
+  },
+  {
+   "at": 46.63,
+   "file": "assets/vo/p06.wav",
+   "id": "p06",
+   "dur": 6.64
+  },
+  {
+   "at": 54.42,
+   "file": "assets/vo/p07.wav",
+   "id": "p07",
+   "dur": 7.68
+  },
+  {
+   "at": 63.15,
+   "file": "assets/vo/p08.wav",
+   "id": "p08",
+   "dur": 9.92
+  },
+  {
+   "at": 74.12,
+   "file": "assets/vo/p09.wav",
+   "id": "p09",
+   "dur": 5.84
+  },
+  {
+   "at": 81.01,
+   "file": "assets/vo/p10.wav",
+   "id": "p10",
+   "dur": 10.32
+  },
+  {
+   "at": 92.38,
+   "file": "assets/vo/p11.wav",
+   "id": "p11",
+   "dur": 2.64
+  },
+  {
+   "at": 97.78,
+   "file": "assets/vo/p12.wav",
+   "id": "p12",
+   "dur": 5.76
+  },
+  {
+   "at": 111.09,
+   "file": "assets/vo/b01.wav",
+   "id": "b01",
+   "dur": 8.16
+  },
+  {
+   "at": 120.1,
+   "file": "assets/vo/b02.wav",
+   "id": "b02",
+   "dur": 11.12
+  },
+  {
+   "at": 132.07,
+   "file": "assets/vo/b03.wav",
+   "id": "b03",
+   "dur": 7.52
+  },
+  {
+   "at": 140.44,
+   "file": "assets/vo/b04.wav",
+   "id": "b04",
+   "dur": 10.32
+  },
+  {
+   "at": 151.61,
+   "file": "assets/vo/b05.wav",
+   "id": "b05",
+   "dur": 8.4
+  },
+  {
+   "at": 160.86,
+   "file": "assets/vo/b06.wav",
+   "id": "b06",
+   "dur": 11.92
+  },
+  {
+   "at": 173.63,
+   "file": "assets/vo/b07.wav",
+   "id": "b07",
+   "dur": 9.68
+  },
+  {
+   "at": 184.16,
+   "file": "assets/vo/b08.wav",
+   "id": "b08",
+   "dur": 10.48
+  },
+  {
+   "at": 195.49,
+   "file": "assets/vo/b09.wav",
+   "id": "b09",
+   "dur": 10.16
+  },
+  {
+   "at": 206.8,
+   "file": "assets/vo/b10.wav",
+   "id": "b10",
+   "dur": 16.8
+  },
+  {
+   "at": 224.55,
+   "file": "assets/vo/b11.wav",
+   "id": "b11",
+   "dur": 7.28
+  },
+  {
+   "at": 232.98,
+   "file": "assets/vo/b12.wav",
+   "id": "b12",
+   "dur": 7.92
+  },
+  {
+   "at": 241.75,
+   "file": "assets/vo/b13.wav",
+   "id": "b13",
+   "dur": 10.88
+  },
+  {
+   "at": 253.48,
+   "file": "assets/vo/b14.wav",
+   "id": "b14",
+   "dur": 8.56
+  },
+  {
+   "at": 262.89,
+   "file": "assets/vo/b15.wav",
+   "id": "b15",
+   "dur": 6.88
+  },
+  {
+   "at": 270.62,
+   "file": "assets/vo/b16.wav",
+   "id": "b16",
+   "dur": 8.72
+  }
+ ]
+}

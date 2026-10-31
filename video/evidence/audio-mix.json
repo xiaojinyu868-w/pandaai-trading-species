@@ -1,0 +1,517 @@
+{
+  "planSha256": "49f57c791b85564a8d242fe11dcca81c7bda9a432599ebe3260c4d72f3ce651e",
+  "master": {
+    "file": "assets/master.wav",
+    "sha256": "796832c1e1f3b48736bd757c429583a0322cd36ebc6a2a6089e2d6b4aa0cd0ba"
+  },
+  "music": {
+    "source": "numpy 合成（tools/audio.py）：宣传片 100 BPM 小调拨弦，桌游片 84 BPM 电钢琴"
+  },
+  "voice": [
+    {
+      "id": "p01",
+      "at": 0.9,
+      "file": "assets/vo/p01.wav"
+    },
+    {
+      "id": "p02",
+      "at": 9.83,
+      "file": "assets/vo/p02.wav"
+    },
+    {
+      "id": "p03",
+      "at": 23.4,
+      "file": "assets/vo/p03.wav"
+    },
+    {
+      "id": "p04",
+      "at": 31.45,
+      "file": "assets/vo/p04.wav"
+    },
+    {
+      "id": "p05",
+      "at": 39.94,
+      "file": "assets/vo/p05.wav"
+    },
+    {
+      "id": "p06",
+      "at": 46.63,
+      "file": "assets/vo/p06.wav"
+    },
+    {
+      "id": "p07",
+      "at": 54.42,
+      "file": "assets/vo/p07.wav"
+    },
+    {
+      "id": "p08",
+      "at": 63.15,
+      "file": "assets/vo/p08.wav"
+    },
+    {
+      "id": "p09",
+      "at": 74.12,
+      "file": "assets/vo/p09.wav"
+    },
+    {
+      "id": "p10",
+      "at": 81.01,
+      "file": "assets/vo/p10.wav"
+    },
+    {
+      "id": "p11",
+      "at": 92.38,
+      "file": "assets/vo/p11.wav"
+    },
+    {
+      "id": "p12",
+      "at": 97.78,
+      "file": "assets/vo/p12.wav"
+    },
+    {
+      "id": "b01",
+      "at": 111.09,
+      "file": "assets/vo/b01.wav"
+    },
+    {
+      "id": "b02",
+      "at": 120.1,
+      "file": "assets/vo/b02.wav"
+    },
+    {
+      "id": "b03",
+      "at": 132.07,
+      "file": "assets/vo/b03.wav"
+    },
+    {
+      "id": "b04",
+      "at": 140.44,
+      "file": "assets/vo/b04.wav"
+    },
+    {
+      "id": "b05",
+      "at": 151.61,
+      "file": "assets/vo/b05.wav"
+    },
+    {
+      "id": "b06",
+      "at": 160.86,
+      "file": "assets/vo/b06.wav"
+    },
+    {
+      "id": "b07",
+      "at": 173.63,
+      "file": "assets/vo/b07.wav"
+    },
+    {
+      "id": "b08",
+      "at": 184.16,
+      "file": "assets/vo/b08.wav"
+    },
+    {
+      "id": "b09",
+      "at": 195.49,
+      "file": "assets/vo/b09.wav"
+    },
+    {
+      "id": "b10",
+      "at": 206.8,
+      "file": "assets/vo/b10.wav"
+    },
+    {
+      "id": "b11",
+      "at": 224.55,
+      "file": "assets/vo/b11.wav"
+    },
+    {
+      "id": "b12",
+      "at": 232.98,
+      "file": "assets/vo/b12.wav"
+    },
+    {
+      "id": "b13",
+      "at": 241.75,
+      "file": "assets/vo/b13.wav"
+    },
+    {
+      "id": "b14",
+      "at": 253.48,
+      "file": "assets/vo/b14.wav"
+    },
+    {
+      "id": "b15",
+      "at": 262.89,
+      "file": "assets/vo/b15.wav"
+    },
+    {
+      "id": "b16",
+      "at": 270.62,
+      "file": "assets/vo/b16.wav"
+    }
+  ],
+  "cues": [
+    {
+      "at": 5.6,
+      "shot": "hook",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 12.93,
+      "shot": "montage",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 15.53,
+      "shot": "montage",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 17.93,
+      "shot": "montage",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 29.05,
+      "shot": "choices",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 31.1,
+      "shot": "title",
+      "kind": "hit",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 32.0,
+      "shot": "title",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 44.19,
+      "shot": "blind",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 52.13,
+      "shot": "clues",
+      "kind": "hold",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 75.67,
+      "shot": "judge",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 76.37,
+      "shot": "judge",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 77.17,
+      "shot": "judge",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 78.77,
+      "shot": "judge",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 87.86,
+      "shot": "species",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 97.73,
+      "shot": "handoff",
+      "kind": "whoosh",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 107.94,
+      "shot": "btitle",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 137.32,
+      "shot": "b03",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 140.69,
+      "shot": "b04",
+      "kind": "dice",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 152.96,
+      "shot": "b05",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 157.26,
+      "shot": "b05",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 158.16,
+      "shot": "b05",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 162.41,
+      "shot": "b06",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 162.91,
+      "shot": "b06",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 163.91,
+      "shot": "b06",
+      "kind": "coin",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 175.98,
+      "shot": "b07",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 186.41,
+      "shot": "b08",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 187.41,
+      "shot": "b08",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 188.81,
+      "shot": "b08",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 190.61,
+      "shot": "b08",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 191.41,
+      "shot": "b08",
+      "kind": "beep",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 192.26,
+      "shot": "b08",
+      "kind": "beep",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 193.11,
+      "shot": "b08",
+      "kind": "beep",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 194.01,
+      "shot": "b08",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 194.11,
+      "shot": "b08",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 196.14,
+      "shot": "b09",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 196.44,
+      "shot": "b09",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 197.34,
+      "shot": "b09",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 198.44,
+      "shot": "b09",
+      "kind": "tick",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 200.74,
+      "shot": "b09",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 207.05,
+      "shot": "b10",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 211.45,
+      "shot": "b10",
+      "kind": "whoosh",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 213.65,
+      "shot": "b10",
+      "kind": "whoosh",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 216.05,
+      "shot": "b10",
+      "kind": "whoosh",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 217.85,
+      "shot": "b10",
+      "kind": "whoosh",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 235.03,
+      "shot": "b12",
+      "kind": "coin",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 235.58,
+      "shot": "b12",
+      "kind": "coin",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 236.13,
+      "shot": "b12",
+      "kind": "coin",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 236.68,
+      "shot": "b12",
+      "kind": "coin",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 238.93,
+      "shot": "b12",
+      "kind": "stamp",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 265.94,
+      "shot": "b15",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    },
+    {
+      "at": 266.04,
+      "shot": "b15",
+      "kind": "flip",
+      "role": "sfx",
+      "source": "numpy 合成（tools/audio.py）"
+    }
+  ],
+  "ducking": {
+    "musicDuckUnderSpeechDb": 9.0,
+    "attack": 0.08,
+    "release": 0.45
+  },
+  "loudness": "ffmpeg loudnorm I=-16 TP=-1.5"
+}
