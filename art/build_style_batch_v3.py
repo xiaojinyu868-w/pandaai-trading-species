@@ -1,0 +1,277 @@
+"""生成风格样张 v3：带文字的桌游卡片（2015 快玩局）和 H5 关键屏。
+
+文字由 GPT Image 2.5 直接渲染；二维码位置留空白方框，印前用代码贴真码。
+参考图优先用 v2 里我们自己的出图（群像、棋盘、2015 房间、周刊封面），再配原作参考图定版式。
+
+输出：
+  style-samples-v3.jsonl         带 id，留档用
+  style-samples-v3.submit.jsonl  去掉 id，直接给 vmc image batch --file
+"""
+
+import json
+from pathlib import Path
+
+HERE = Path(__file__).parent
+K = json.loads((HERE / "refs" / "vmc_ref_keys.json").read_text(encoding="utf-8"))
+
+COVER = K["ref1_cover_landscape.jpg"]
+BOOKSTORE = K["ref2_iso_bookstore_magazine.jpg"]
+CAFE = K["ref3_iso_cafe_menu.jpg"]
+TRAM = K["ref4_tram_poster.jpg"]
+MAP = K["ref5_map_station_ui.jpg"]
+OWN_LINEUP = K["own_lineup"]
+OWN_BOARD = K["own_board"]
+OWN_ROOM2015 = K["own_room2015"]
+OWN_MAGAZINE = K["own_magazine"]
+
+MODEL = {"model": "gpt", "version": "gpt-image-2.5-flare", "quality": "high"}
+
+CARD = (
+    "Board game card design. The image is the flat front face of a single printed card filling the whole "
+    "frame edge to edge: no table, no hands, no perspective, no mockup. Thin cream border with slightly "
+    "rounded corners. Visual language of the reference images: retro-modernist graphic design, flat color "
+    "blocks, editorial layout with clear modules and color stripes, bold dark outlines on panels, subtle "
+    "risograph print grain. Palette: warm cream paper, brick red, terracotta orange, mustard yellow, olive "
+    "green, deep teal blue, dark espresso brown. "
+)
+
+SCREEN = (
+    "Mobile game UI screen, portrait 9:16, shown flat and full-frame like a screenshot: no phone frame, no "
+    "hands. Visual language of the reference images: retro-modernist editorial UI, cream panels with bold "
+    "dark outlines, color stripes, big mustard action buttons, subtle print grain, illustrations in the same "
+    "flat painted style. Palette: warm cream, brick red, terracotta, mustard, olive green, deep teal, "
+    "espresso brown. Price colors follow the Chinese convention: red means up, green means down. "
+)
+
+TYPE = (
+    "Typography: titles in bold condensed retro Chinese display lettering like 1980s Chinese shop signs; body "
+    "text in a clean, highly legible Chinese sans-serif; small condensed English capitals as subtitles. "
+    "Render every quoted string exactly as written, in simplified Chinese with correct strokes. Do not add "
+    "any other words, letters, numbers or fake text. Keep all text at least 6% away from the edges. "
+)
+
+RULES = (
+    "No logos, no brand names, no watermark, no pandas. Where a QR code space is requested, leave a "
+    "completely empty white square with a thin dark border; never draw a QR pattern."
+)
+
+
+def task(id_, size, body, refs, count=1, kind="card"):
+    frame = CARD if kind == "card" else SCREEN
+    return {
+        "id": id_,
+        "size": size,
+        "count": count,
+        "prompt": frame + body + " " + TYPE + RULES,
+        "ref": refs,
+        **MODEL,
+    }
+
+
+TASKS = [
+    # ---------- 桌游卡片：2015 快玩局 ----------
+    task(
+        "v3_c01_scene_blind",
+        "1024x1536",
+        "Mystery event card, blind side, designed as the front cover of a retro weekly magazine. Use the "
+        "first reference image as the cover illustration and keep its composition (the crowd of animals "
+        "pulling strings to lift a giant red arrow kite over a summer city). Add: on the cream masthead "
+        "band, a large title '丛林周刊' with small English 'JUNGLE WEEKLY' and a small tag 'No.02 · 夏 · 狂热'. "
+        "Across the sky, a big bold cream headline with a dark outline: '人人都在借钱买的夏天'. A cream text "
+        "box at the lower left with three short lines: '菜市场里，大家都在聊股票。' '身边有人借了钱，赚得比你多。' "
+        "'你已经满仓，还借了一倍。'. The small box at the bottom right becomes an empty white square with a "
+        "thin dark border, labeled '扫码开档案' below it. A small rotated stamp at the top right: "
+        "'盲测 · 先别说出年份'.",
+        [OWN_MAGAZINE, BOOKSTORE],
+        count=2,
+    ),
+    task(
+        "v3_c02_scene_reveal",
+        "1024x1536",
+        "Mystery event card, reveal side, designed as a retro newspaper extra edition. Top band in brick red "
+        "with cream lettering: '丛林周刊 · 号外' and small English 'EXTRA'. Huge bold headline: "
+        "'2015 · 杠杆牛与千股跌停'. In the middle, a flat poster illustration continuing the first reference "
+        "image: the giant red arrow kite now falls toward the city as its strings snap, the tiny animals "
+        "scatter, the sky turns stormy. Under it, a dark band with a cream dateline: "
+        "'2015 年 6 月 12 日，上证指数盘中见顶 5178 点'. Body text in two short paragraphs: "
+        "'此后不到一个月，指数最多跌去三成以上。' and '多个交易日上千只股票跌停，想卖也卖不出去。'. A mustard "
+        "callout box: '借来的钱，会在你最需要时间的时候，逼你离场。'. Small footer: '揭幕后再翻看 · 不构成投资建议'.",
+        [OWN_MAGAZINE, BOOKSTORE],
+    ),
+    task(
+        "v3_c03_menu_card",
+        "1024x1536",
+        "Decision card designed like a retro café menu board. Top: a big bold title '今日菜单' with small "
+        "English 'MENU' and a small mustard tag '夏 · 名场面'. Under the title, an espresso brown box with "
+        "cream text: '你现在：满仓 + 借了一倍'. Then four menu rows, each with a large letter, a name and a "
+        "row of three round dots showing position size (filled dot = one share): 'A  再加杠杆' with three "
+        "filled dots; 'B  保持不动' with two filled dots and one empty dot; 'C  还掉借款' with one filled dot "
+        "and two empty dots; 'D  全部卖出' with three empty dots. At the bottom, a wide mustard band with dark "
+        "lettering: '扣一张选择牌 + 一张理由票', and a thin line under it: '倒数 3 · 2 · 1，一起亮牌'.",
+        [CAFE, BOOKSTORE],
+    ),
+    task(
+        "v3_c04_reason_tickets",
+        "1536x1024",
+        "A print sheet of six small paper tickets for a board game, laid out in a neat 3 by 2 grid on a cream "
+        "background. Each ticket has a perforated stub edge, a color band, one simple bold icon, a big title "
+        "and one small line. Ticket 1, olive green, line chart icon: '量价' / '我看了走势和成交'. Ticket 2, deep "
+        "teal, ledger icon: '数据' / '我看了数字'. Ticket 3, brick red, folded newspaper icon: '消息' / "
+        "'我听到了消息'. Ticket 4, terracotta, footprints icon: '跟别人' / '大家都这么做'. Ticket 5, mustard, "
+        "lightning icon: '直觉' / '感觉对了'. Ticket 6, espresso brown, question mark icon: '看不懂' / "
+        "'其实我没看明白'. A small header at the top of the sheet: '理由票 REASON TICKETS'.",
+        [CAFE, MAP],
+    ),
+    task(
+        "v3_c05_evidence_file",
+        "1024x1536",
+        "Evidence card designed like a retro archive file folder. A folder tab at the top: '档案 · 数据'. A small "
+        "brick red stamp: '风险类'. Bold title: '借钱买股票的人，有多少？'. A simple bar chart on cream grid "
+        "paper: deep teal bars rising steadily from left to right, a dashed vertical line near the right "
+        "edge, and to the right of the dashed line the area is hidden behind a soft folded curtain. Chart "
+        "label at the top left: '融资余额（示意）'; no axis numbers. Under the chart: "
+        "'只含决策日之前看得到的数据'. Bottom left: '花 1 研究点'. Bottom right: an empty white square with a "
+        "thin dark border, labeled '扫码看完整数据'.",
+        [BOOKSTORE, MAP],
+    ),
+    task(
+        "v3_c06_species_pass_fox",
+        "1024x1536",
+        "Species card designed like a vintage transit pass or ID document. Use the fox from the first "
+        "reference image (short trench coat, magnifying glass, notebook) as the portrait, in the same painted "
+        "style. Header band in deep teal: '物种通行证' with small English 'SPECIES PASS'. The fox portrait in a "
+        "framed window on the left; on the right a large bold '狐狸' and small 'FOX'. Tagline: '先怀疑，再检验'. "
+        "Two labeled rows: '常做的事：先翻历史统计，愿意把想法写成规则' and '要留意：规则写多了，会错过简单的机会'. "
+        "A slightly rotated dashed-outline stamp: '初判 · 还需要更多场景'. Bottom band: "
+        "'下一站推荐：因子评估 · 入门', and an empty white square with a thin dark border labeled '扫码看完整画像'.",
+        [OWN_LINEUP, BOOKSTORE],
+    ),
+    task(
+        "v3_c07_next_stop_ticket",
+        "1536x1024",
+        "Task card designed like a vintage train ticket, landscape, with a perforated stub on the right. Top "
+        "left: '下一站' with small English 'NEXT STOP'. Big bold destination: '因子评估 · 入门'. A route line "
+        "with three station dots labeled '提出想法', '查看数据', '检验结果', the last one highlighted in "
+        "mustard. Info rows: '约 10 分钟' and '因为你：先看历史统计，还用了一条自己的规则'. One more line: "
+        "'去做：用沪深 300 的历史数据，检验一个你相信的规律'. A small grey tag: '示例资源'. On the stub: an empty "
+        "white square with a thin dark border and the label '扫码前往'.",
+        [MAP, CAFE],
+    ),
+    task(
+        "v3_c08_box_cover",
+        "1536x1024",
+        "Box lid art for a board game, landscape, retro travel poster composition. A small tram platform at "
+        "sunset in a valley market town, faceted olive mountains, peach sky with long horizontal brush "
+        "clouds. The seven animal characters from the first reference image (cheetah, elephant, fox, owl, "
+        "meerkat, chameleon, beaver) wait on the platform, with the little egg sitting on a suitcase in "
+        "front of them; a cream and brick red tram approaches. The title is set on a large station name "
+        "signboard hanging above the platform: bold condensed '交易物种起源', with small English "
+        "'THE ORIGIN OF TRADING SPECIES' under it. A smaller line on a banner: '一套金融史名场面桌游'. A small "
+        "round badge at the bottom right: '1–5 人 · 15–60 分钟 · 扫码线上续玩'.",
+        [OWN_LINEUP, COVER, TRAM],
+        count=2,
+    ),
+    task(
+        "v3_c09_summer_board",
+        "1536x1024",
+        "One quarter of the game board, printed as an A4 landscape panel: the summer district of the market "
+        "town in brick red and terracotta, seen from above like a retro transit map on cream grid paper, "
+        "matching the summer corner of the first reference image. Along a bold dark tram line, round cream "
+        "station markers with small bold labels: '夏 · 起点', '补给站', '机会', '研究所', '数据港口', '冷静亭'. "
+        "The line reaches a larger interchange marker labeled '换乘 · 名场面' that splits into two short "
+        "branches ending at two small isometric buildings: one labeled '门 A · 一个人人借钱的夏天', the other "
+        "grey and labeled '门 B · 未开放'. A small station building in the corner labeled '驿站'. A large title "
+        "in the top left: '夏 · 狂热' with small English 'SUMMER'.",
+        [OWN_BOARD, MAP],
+    ),
+    # ---------- H5 关键屏 ----------
+    task(
+        "v3_h01_start",
+        "1088x1920",
+        "Start screen. Illustration: a small tram platform at dawn in a valley market town, faceted "
+        "mountains, the little cream egg from the first reference image (a paper tram ticket tucked in its "
+        "band) sitting on a suitcase on the platform, a tram arriving in the distance. Big bold condensed "
+        "title in the upper third: '交易物种起源', small English 'THE ORIGIN OF TRADING SPECIES'. One line under "
+        "it: '坐上周期线，穿过金融史四季，孵出你的交易物种'. Bottom: a large mustard ticket-shaped button with dark "
+        "text '检票上车', and a small line under it: '约 5 分钟 · 不比谁赚得多'.",
+        [OWN_LINEUP, COVER],
+        kind="screen",
+    ),
+    task(
+        "v3_h02_map",
+        "1088x1920",
+        "Map screen. Top: a slim cream status bar with three pills '收益账 20', '方法账 ★3', '研究点 ●●○', and "
+        "four small season tabs '春' '夏' '秋' '冬' with '夏' highlighted. Middle, about 55% of the screen: a "
+        "framed map panel on cream grid paper showing the market town and the looped tram line from the "
+        "first reference image, the current station highlighted in mustard with a small egg pawn on it. "
+        "Lower part: a station info panel like a retro signboard with a bold title '数据港口', a short line "
+        "'读一段代码，答对得 1 研究点', a brick red and orange stripe, and a big mustard button '前往'. Bottom "
+        "right: a round dice button labeled '掷骰'.",
+        [OWN_BOARD, MAP],
+        kind="screen",
+    ),
+    task(
+        "v3_h03_room",
+        "1088x1920",
+        "Scene screen. Top 60%: the isometric trading hall diorama from the first reference image; keep it. "
+        "On four props, small round tap markers with labels: on the quote board '量价', on the stack of loan "
+        "papers '数据', on the newspaper rack '消息', on the owl at the side desk '锦囊'. A small tag at the top "
+        "left: '夏 · 名场面 · 盲测'. Bottom 40%: a cream panel with a bold line '你走进一间挤满人的营业部。', a "
+        "second line '研究点 ●●  每看一样，花 1 点', a small outlined text button '我认出来了', and a large "
+        "mustard button '去点单'.",
+        [OWN_ROOM2015, BOOKSTORE],
+        kind="screen",
+    ),
+    task(
+        "v3_h04_menu",
+        "1088x1920",
+        "Decision screen designed like a retro café menu board. Top strip: a small cropped view of the "
+        "trading hall diorama from the second reference image. Main panel: big title '今日菜单' with small "
+        "'MENU'; an espresso brown box '你现在：满仓 + 借了一倍'; four rows 'A  再加杠杆 ●●●', "
+        "'B  保持不动 ●●○', 'C  还掉借款 ●○○', 'D  全部卖出 ○○○', with row C highlighted in mustard as "
+        "selected. Below: a label '理由（选一个）' and six chips '量价' '数据' '消息' '跟别人' '直觉' '看不懂', "
+        "with '数据' selected. Another row: '跌了怎么办' with two toggle chips '跌了就走' and '跌了就加'. "
+        "Bottom: a wide mustard button '确定下单'.",
+        [CAFE, OWN_ROOM2015],
+        kind="screen",
+    ),
+    task(
+        "v3_h05_reveal",
+        "1088x1920",
+        "Reveal screen. Top half: a retro magazine extra edition with the masthead '丛林周刊 · 号外', a huge "
+        "headline '2015 · 杠杆牛与千股跌停', and a small illustration of the red arrow kite from the first "
+        "reference image with its strings snapping. Middle: a line chart on cream grid paper; the left part "
+        "is drawn solid, and a curtain on the right is lifting to reveal a sharp drop drawn in green. "
+        "Bottom: a receipt-style card titled '两本账' with two equal columns, '收益账  −4' in green and "
+        "'方法账  ★★★' in mustard; a line '你当时：C 还掉借款 · 理由：数据'; and a mustard button '继续'.",
+        [OWN_MAGAZINE, BOOKSTORE],
+        kind="screen",
+    ),
+    task(
+        "v3_h06_result",
+        "1088x1920",
+        "Result screen, poster style. Upper half: the fox from the first reference image standing on a hill "
+        "above the market town at sunset, faceted mountains, with a giant bold condensed title '狐狸', small "
+        "'FOX', and the tagline '先怀疑，再检验'. Middle: two small badges '证据控' and '规则派', and a "
+        "dashed-outline stamp '待确认 · 风险偏好'. A two-column comparison strip: '你说的你：大象' and "
+        "'游戏里的你：狐狸'. Bottom: a train-ticket card '下一站：因子评估 · 入门 · 约 10 分钟' with a mustard "
+        "button '前往'.",
+        [OWN_LINEUP, COVER],
+        kind="screen",
+    ),
+]
+
+
+def main():
+    with open(HERE / "style-samples-v3.jsonl", "w", encoding="utf-8") as archive, open(
+        HERE / "style-samples-v3.submit.jsonl", "w", encoding="utf-8"
+    ) as submit:
+        for t in TASKS:
+            archive.write(json.dumps(t, ensure_ascii=False) + "\n")
+            submit.write(json.dumps({k: v for k, v in t.items() if k != "id"}, ensure_ascii=False) + "\n")
+    total = sum(t["count"] for t in TASKS)
+    print(f"{len(TASKS)} tasks, {total} images")
+
+
+if __name__ == "__main__":
+    main()

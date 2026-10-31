@@ -1,0 +1,76 @@
+/* 《交易物种起源》印刷版式 · 基础样式
+   单位一律 mm / pt。颜色来自 design/tokens.css（构建时注入 :root 变量）。 */
+
+@import url("../fonts/smiley/result.css");
+@import url("../fonts/noto900/900.css");
+
+@font-face { font-family: "Noto Sans SC"; font-weight: 400; src: url("../build/fonts/NotoSansSC-400.ttf") format("truetype"); }
+@font-face { font-family: "Noto Sans SC"; font-weight: 500; src: url("../build/fonts/NotoSansSC-500.ttf") format("truetype"); }
+@font-face { font-family: "Noto Sans SC"; font-weight: 700; src: url("../build/fonts/NotoSansSC-700.ttf") format("truetype"); }
+@font-face { font-family: "TS Mono"; font-weight: 400; src: url("../build/fonts/SourceCodePro-400.ttf") format("truetype"); }
+@font-face { font-family: "TS Mono"; font-weight: 600; src: url("../build/fonts/SourceCodePro-600.ttf") format("truetype"); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-synthesis: none; }
+html, body { background: #fff; }
+body {
+  font-family: "Noto Sans SC", sans-serif;
+  color: var(--ink);
+  font-size: 8pt;
+  line-height: 1.42;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-kerning: normal;
+  text-rendering: geometricPrecision;
+}
+
+.page { position: relative; overflow: hidden; break-after: page; page-break-after: always; }
+.page:last-child { break-after: auto; page-break-after: auto; }
+
+/* 字体 */
+.disp { font-family: "Smiley Sans Oblique", "Noto Sans SC", sans-serif; font-weight: 400; letter-spacing: 0.01em; }
+.num { font-family: "Smiley Sans Oblique", "Noto Sans SC", sans-serif; font-variant-numeric: tabular-nums; }
+.mono { font-family: "TS Mono", "Noto Sans SC", monospace; }
+.b9 { font-weight: 900; }
+.b7 { font-weight: 700; }
+.b5 { font-weight: 500; }
+.caps { letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+
+/* 卡牌基础：根元素是带出血的尺寸，--b 为出血，--s 为安全边距（距裁切线） */
+.card { position: absolute; overflow: hidden; background: var(--paper); --b: 3mm; --s: 5mm; }
+.card .abs { position: absolute; }
+.bleed { position: absolute; left: 0; top: 0; right: -1mm; bottom: -1mm; }
+.safe { position: absolute; left: calc(var(--b) + var(--s)); right: calc(var(--b) + var(--s)); top: calc(var(--b) + var(--s)); bottom: calc(var(--b) + var(--s)); }
+
+/* 涨跌 */
+.up { color: var(--up); }
+.down { color: var(--down); }
+.flat { color: var(--ink-2); }
+
+/* 常用部件 */
+.pill { display: inline-flex; align-items: center; gap: 0.8mm; border-radius: 10mm; padding: 0.35mm 2.2mm 0.45mm; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.tag { display: inline-block; border-radius: 0.8mm; padding: 0.2mm 1.2mm 0.3mm; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+.rule-m { height: 1.2mm; background: var(--mustard); }
+.hair { border-top: 0.5pt solid var(--ink); }
+.dash { border-top: 0.6pt dashed var(--ink-3); }
+
+.qrbox { position: absolute; background: #fff; border-radius: 1.2mm; }
+.qrbox svg { position: absolute; display: block; }
+.qrcap { position: absolute; left: 0; right: 0; text-align: center; font-size: 7pt; line-height: 1.15; font-weight: 700; color: #000; }
+
+.fit { overflow: hidden; }
+ul.dots { list-style: none; }
+ul.dots li { position: relative; padding-left: 1em; }
+ul.dots li::before { content: ""; position: absolute; left: 0.15em; top: 0.62em; width: 0.38em; height: 0.38em; border-radius: 50%; background: currentColor; opacity: 0.85; }
+
+img.art { position: absolute; display: block; object-fit: cover; }
+
+/* 拼版 */
+.sheet { position: relative; background: #fff; }
+.sheet .slug { position: absolute; font-size: 7pt; color: #000; font-family: "Noto Sans SC"; white-space: nowrap; }
+.sheet svg.marks { position: absolute; left: 0; top: 0; }
+
+/* 预览 */
+.preview-body { background: #8a8778; padding: 8mm; }
+.pv-grid { display: flex; flex-wrap: wrap; gap: 6mm; align-items: flex-start; }
+.pv-item { position: relative; box-shadow: 0 0.6mm 2.4mm rgba(0,0,0,.35); background: #fff; }
+.pv-cap { position: absolute; left: 0; right: 0; bottom: -5mm; text-align: center; font-size: 8pt; color: #fff; }

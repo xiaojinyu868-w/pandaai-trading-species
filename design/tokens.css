@@ -1,0 +1,34 @@
+/* 《交易物种起源》线上线下共用的设计规范。颜色取自定稿的红风筝海报（style-v2 img_50322）。
+   红涨绿跌：--up 只用于上涨、盈利，--down 只用于下跌、亏损，不拿来做装饰。 */
+:root {
+  --paper: #F2E6CC;
+  --paper-deep: #E6D3AA;
+  --paper-light: #FBF4E4;
+  --ink: #2A2A1C;
+  --ink-2: #4A4A33;
+  --ink-3: #77745A;
+
+  --sky: #4E8792;
+  --sky-deep: #2D5F6B;
+  --sky-light: #9CC3C6;
+  --kite: #D4432A;
+  --kite-deep: #A8321E;
+  --leaf: #3C7A4E;
+  --leaf-deep: #275A38;
+  --mustard: #C79A2E;
+  --sun: #F3D27F;
+  --ochre: #B07D3F;
+  --sage: #A3AE91;
+
+  --up: var(--kite);
+  --down: var(--leaf);
+
+  --season-spring: #6FA463;
+  --season-summer: #D4432A;
+  --season-autumn: #C98A2E;
+  --season-winter: #4E8792;
+
+  --font-display: "Smiley Sans Oblique", "Noto Sans SC", sans-serif;
+  --font-body: "Noto Sans SC", sans-serif;
+  --font-num: "Smiley Sans Oblique", "Noto Sans SC", sans-serif;
+}

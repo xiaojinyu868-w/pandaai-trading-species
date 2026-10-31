@@ -1,0 +1,28 @@
+{
+  "species": "chameleon",
+  "task_id": "f51b832e-f1e5-47bd-83c5-aca8cf0ed5ab",
+  "failed_attempts": [],
+  "endpoint": "POST /v3/generation/image-to-model",
+  "params": {
+    "model": "v3.1-20260211",
+    "texture": true,
+    "pbr": true,
+    "texture_version": "v3.5-20260815",
+    "texture_quality": "detailed",
+    "geometry_quality": "detailed",
+    "texture_alignment": "original_image",
+    "enable_image_autofix": false,
+    "model_seed": 1031,
+    "texture_seed": 1031
+  },
+  "source_image": "art/vmc-output/style-v7/v7_figurine_chameleon/img_50590/ai_generate_50590_1.png",
+  "status": "success",
+  "credits_consumed": 60.0,
+  "created_at": "2026-10-30T18:29:50.081719Z",
+  "completed_at": "2026-10-30T18:32:26.634345Z",
+  "output_keys": [
+    "model_url",
+    "rendered_image_url"
+  ],
+  "glb_bytes": 65981916
+}

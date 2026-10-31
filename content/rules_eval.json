@@ -1,0 +1,757 @@
+{
+ "note": "规则放回名场面：T 日收盘看信号、T+1 开盘成交，到第 20 个交易日；持有 2 份或空仓，口径和游戏一致。",
+ "rules": {
+  "rule-ma520": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘持有 1 份"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2015-06-23",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2021-03-01",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 4,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘空仓"
+     },
+     {
+      "date": "2020-04-02",
+      "action": "开盘买入 2 份"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 2,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘空仓"
+     },
+     {
+      "date": "2024-02-26",
+      "action": "开盘买入 2 份"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   }
+  },
+  "rule-ma52060": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘空仓"
+     },
+     {
+      "date": "2024-10-11",
+      "action": "开盘买入 1 份"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2015-06-23",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2021-03-01",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   }
+  },
+  "rule-mom20": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘持有 1 份"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2015-06-23",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -8,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2021-03-02",
+      "action": "开盘卖出"
+     },
+     {
+      "date": "2021-03-04",
+      "action": "开盘买入 2 份"
+     },
+     {
+      "date": "2021-03-05",
+      "action": "开盘卖出"
+     }
+    ],
+    "note": "T 日信号：亮（持有）"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘空仓"
+     },
+     {
+      "date": "2024-02-28",
+      "action": "开盘买入 2 份"
+     },
+     {
+      "date": "2024-02-29",
+      "action": "开盘卖出"
+     },
+     {
+      "date": "2024-03-01",
+      "action": "开盘买入 2 份"
+     },
+     {
+      "date": "2024-03-04",
+      "action": "开盘卖出"
+     },
+     {
+      "date": "2024-03-05",
+      "action": "开盘买入 2 份"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘空仓"
+     }
+    ],
+    "note": "T 日信号：灭（空仓）"
+   }
+  },
+  "rule-stop10": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘持有 1 份"
+     },
+     {
+      "date": "2024-10-09",
+      "action": "跌破 10%，收盘止损"
+     }
+    ],
+    "note": "止损规则不决定买不买：这一场按小仓位试水 1 份算"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -6,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2015-06-19",
+      "action": "跌破 10%，收盘止损"
+     }
+    ],
+    "note": ""
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2021-02-22",
+      "action": "跌破 10%，收盘止损"
+     }
+    ],
+    "note": ""
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2020-03-12",
+      "action": "跌破 10%，收盘止损"
+     }
+    ],
+    "note": ""
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 8,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": ""
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": -24,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": "止损规则不决定买不买：这一场按买入 2 份算；结算价一天之内跌成负数，止损来不及"
+   }
+  },
+  "rule-dip": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘持有 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -11,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2015-06-26",
+      "action": "离高点 -19%，收盘加 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -9,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2021-02-24",
+      "action": "离高点 -16%，收盘加 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2020-03-11",
+      "action": "离高点 -18%，收盘加 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 13,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘持有 2 份"
+     },
+     {
+      "date": "2024-02-05",
+      "action": "离高点 -33%，收盘加 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": -24,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘持有 2 份（离高点 -55%，规则说抄底）"
+     }
+    ],
+    "note": "这一场快进只结算不操作，加不了第 3 份"
+   }
+  },
+  "rule-cap1": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘持有 1 份，拿到最后"
+     }
+    ],
+    "note": "最多 1 份：规则不决定买不买，这一场按买入 1 份算"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -5,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 1 份，拿到最后"
+     }
+    ],
+    "note": "开局超过 1 份的，马上减到 1 份，拿到最后"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 1 份，拿到最后"
+     }
+    ],
+    "note": "开局超过 1 份的，马上减到 1 份，拿到最后"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘持有 1 份，拿到最后"
+     }
+    ],
+    "note": "开局超过 1 份的，马上减到 1 份，拿到最后"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 4,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘持有 1 份，拿到最后"
+     }
+    ],
+    "note": "开局超过 1 份的，马上减到 1 份，拿到最后"
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "开盘持有 1 份（远月合约）"
+     }
+    ],
+    "note": "最多 1 份：这一场只有远月合约是 1 份"
+   }
+  },
+  "rule-vol2x": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2024-10-08",
+      "action": "开盘空仓"
+     },
+     {
+      "date": "2024-10-08",
+      "action": "前一天放量 3.4 倍，开盘追进 1 份"
+     }
+    ],
+    "note": ""
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -10,
+    "trades": [
+     {
+      "date": "2015-06-15",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": "这 20 个交易日里没有一天放量到 2 倍，规则没有出手"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -8,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": "这 20 个交易日里没有一天放量到 2 倍，规则没有出手"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-03-10",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": "这 20 个交易日里没有一天放量到 2 倍，规则没有出手"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 8,
+    "trades": [
+     {
+      "date": "2024-02-05",
+      "action": "开盘持有 2 份"
+     }
+    ],
+    "note": "这 20 个交易日里没有一天放量到 2 倍，规则没有出手"
+   },
+   "soil": {
+    "applicable": false,
+    "note": "这一场的行情没有成交量数据，这条规则不适用"
+   }
+  },
+  "rule-val80": {
+   "s924": {
+    "applicable": false,
+    "note": "这一场没有预备逐日估值分位，只在秋季“抱团”那一场算"
+   },
+   "s2015": {
+    "applicable": false,
+    "note": "这一场没有预备逐日估值分位，只在秋季“抱团”那一场算"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "市盈率 73 倍，处在 2017 年以来 100% 分位：减半到 1 份，拿到最后"
+     }
+    ],
+    "note": "估值数据：Panda Data 估值因子"
+   },
+   "scb": {
+    "applicable": false,
+    "note": "这一场没有预备逐日估值分位，只在秋季“抱团”那一场算"
+   },
+   "squant": {
+    "applicable": false,
+    "note": "这一场没有预备逐日估值分位，只在秋季“抱团”那一场算"
+   },
+   "soil": {
+    "applicable": false,
+    "note": "期货挂钩产品，没有市盈率、PB 和 ROE，这条规则不适用"
+   }
+  },
+  "rule-lowpb-roe": {
+   "s924": {
+    "applicable": false,
+    "note": "指数或基金，没有单家公司的 PB 和 ROE，这条规则不适用"
+   },
+   "s2015": {
+    "applicable": false,
+    "note": "指数或基金，没有单家公司的 PB 和 ROE，这条规则不适用"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2021-02-18",
+      "action": "市盈率 73 倍、市净率 21 倍：不符合“低 PB”，不持有"
+     }
+    ],
+    "note": "估值数据：Panda Data 估值因子"
+   },
+   "scb": {
+    "applicable": false,
+    "note": "指数或基金，没有单家公司的 PB 和 ROE，这条规则不适用"
+   },
+   "squant": {
+    "applicable": false,
+    "note": "指数或基金，没有单家公司的 PB 和 ROE，这条规则不适用"
+   },
+   "soil": {
+    "applicable": false,
+    "note": "期货挂钩产品，没有市盈率、PB 和 ROE，这条规则不适用"
+   }
+  },
+  "rule-wait3": {
+   "s924": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2024-10-11",
+      "action": "等 3 天后还在决策日下方：空仓"
+     }
+    ],
+    "note": "前 3 天保持原来的仓位"
+   },
+   "s2015": {
+    "applicable": true,
+    "instrument": "上证指数",
+    "total": -2,
+    "trades": [
+     {
+      "date": "2015-06-18",
+      "action": "等 3 天后还在决策日下方：空仓"
+     }
+    ],
+    "note": "前 3 天保持原来的仓位"
+   },
+   "smt": {
+    "applicable": true,
+    "instrument": "贵州茅台（前复权）",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2021-02-23",
+      "action": "等 3 天后还在决策日下方：空仓"
+     }
+    ],
+    "note": "前 3 天保持原来的仓位"
+   },
+   "scb": {
+    "applicable": true,
+    "instrument": "纳斯达克100",
+    "total": -4,
+    "trades": [
+     {
+      "date": "2020-03-13",
+      "action": "等 3 天后还在决策日下方：空仓"
+     }
+    ],
+    "note": "前 3 天保持原来的仓位"
+   },
+   "squant": {
+    "applicable": true,
+    "instrument": "国证2000",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2024-02-08",
+      "action": "等 3 天后还在决策日下方：空仓"
+     }
+    ],
+    "note": "前 3 天保持原来的仓位"
+   },
+   "soil": {
+    "applicable": true,
+    "instrument": "原油宝（挂钩 WTI 近月合约）",
+    "total": 0,
+    "trades": [
+     {
+      "date": "2020-04-20",
+      "action": "等三天：观望"
+     }
+    ],
+    "note": "这一场开局 0 份，先等三天就是观望"
+   }
+  }
+ }
+}

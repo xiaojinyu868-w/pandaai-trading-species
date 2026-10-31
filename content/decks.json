@@ -1,0 +1,2963 @@
+{
+ "meta": {
+  "title": "交易物种起源 · 牌面文字",
+  "version": "1.0",
+  "updated": "2026-10-31",
+  "note": "桌游印刷和 H5 共用的牌面文字。名场面的证据、快进、揭幕数字不在本文件，由 Panda Data 预计算后另行合并；本文件不含任何结局数字。",
+  "spoiler_note": "rules[].qube_prompt 和 ai_species 的台词会提到具体年份，H5 在对应名场面揭幕前不要展示（rules[].spoils 标了是哪一场）。",
+  "species_ids": [
+   "cheetah",
+   "elephant",
+   "fox",
+   "owl",
+   "meerkat",
+   "chameleon",
+   "beaver"
+  ],
+  "char_limits": {
+   "standard_card_body": 70,
+   "a6_side": 160,
+   "mini_card": 50,
+   "ai_line": 40,
+   "prologue_read_aloud": 150,
+   "counting": "按非空白字符计，中英文、数字、标点各算 1 个"
+  },
+  "reason_codes": {
+   "price": "量价",
+   "data": "数据",
+   "news": "消息",
+   "follow": "跟别人",
+   "gut": "直觉",
+   "lost": "看不懂",
+   "rule": "规则牌"
+  },
+  "ff_action_codes": {
+   "hold": "持有（不动）",
+   "sell": "卖出（卖光；熔断那场是减一档）",
+   "add": "加仓（+1 份，最多 3 份）",
+   "enter": "从 0 份进场 1 份"
+  },
+  "ff_by_scene": "每场快进能做什么见 scene_options[].ff_actions：春 A 持有 / 卖出 / 加仓，选 C 的可以进场；夏 A 只有卖或不卖（卖出窗口）；秋 A 只有留下或离开（抱团圈）；冬 A 每张熔断牌后调一档；秋 B、冬 B 快进只结算不操作。",
+  "second_codes": {
+   "add": "补仓（+1 份）",
+   "stop": "止损（卖光）",
+   "ignore": "不看了（不动）"
+  },
+  "wait_rule": "仓位为 0 的选项（○○○）就是“等 / 观望”类；场景牌和委托单上都印成空心圆。",
+  "method_stars": "每场最多 4 颗：看 1 张证据 1 颗，看 2 张及以上不同的证据 2 颗（锦囊、冷静亭免费那张都算）；理由一致 1 颗；计划照做 1 颗。",
+  "consistency_rule": "理由的类别在你看过的证据里就算一致；“跟别人”= 看过消息或锦囊，或者春 A 你选的时候排队条上已经有人；用规则牌并照做也算；直觉、看不懂不算。",
+  "plan_rule": "跌了就走 = 快进牌标“跌了”时卖出（夏 A 要去抢卖出窗口，冬 A 每张熔断牌后下调一档）；跌了就加 = 跌了不卖，能加就加 1 份；没被触发也算照做。0 份的选项不能勾“跌了就走”，只有快进时能进场的（春 A 的 C、冬 A 全部）才能勾“跌了就加”。秋 B、冬 B 快进不能操作，不填计划，这两场方法星最多 3 颗。用规则牌时不勾计划，照规则做就同时算理由一致和计划照做。",
+  "recognized_rule": "最晚亮单前在委托单写下事件名并放认出令牌，写了就算认出。这一场资金记其他人的平均（四舍五入），物种币放空心面、算半枚；揭幕时事件名写对，记一次金融史。",
+  "icon_rules": {
+   "reason_weight": 2,
+   "reason_icons": {
+    "price": "cheetah",
+    "data": "elephant",
+    "news": "meerkat",
+    "follow": "meerkat",
+    "rule": "fox",
+    "gut": null,
+    "lost": null
+   },
+   "wait_override": {
+    "to": "owl",
+    "when": "选了 0 份的选项，且理由是 price / data / news / follow",
+    "rule_card_first": "用规则牌时一律给狐狸，哪怕选的是观望"
+   },
+   "first_evidence_weight": 1,
+   "first_evidence_icons": {
+    "price": "cheetah",
+    "data": "elephant",
+    "news": "meerkat",
+    "tip": null
+   },
+   "chance_weight": 1,
+   "chance_icons": "看机会牌背面（options[].species）",
+   "station": "本季图标最多的那种拿一枚币；平局抽补测牌；一个图标都没有抽补测牌堆顶；申报了认出来的那一季币放空心面，算 0.5 枚",
+   "beaver": "数据港口每答对一次拿 1 枚海狸币放工具箱，不占季节格；2 枚及以上翻开海狸牌（隐藏特质）"
+  },
+  "confidence": [
+   {
+    "rule": "最多那种 3.5–4 枚",
+    "label": "很确定"
+   },
+   {
+    "rule": "最多那种 2.5–3 枚",
+    "label": "比较确定"
+   },
+   {
+    "rule": "最多那种 1.5–2 枚，且没有并列",
+    "label": "初步"
+   },
+   {
+    "rule": "最多的有并列，或最多只有 1 枚",
+    "label": "待确认"
+   },
+   {
+    "rule": "四枚币是四种不同的物种，且至少 3 场理由一致",
+    "label": "变色龙：3 场一致记“初步”，4 场记“比较确定”；不到 3 场一致记“待确认”"
+   }
+  ],
+  "task_tree": [
+   {
+    "step": 1,
+    "if": "理由“看不懂”≥ 2 场",
+    "then": "chart"
+   },
+   {
+    "step": 2,
+    "if": "有“数据手”徽章",
+    "then": "explore"
+   },
+   {
+    "step": 3,
+    "if": "物种是猫头鹰，或“0 份选项 + 理由不是直觉、看不懂”≥ 2 场",
+    "then": "regime"
+   },
+   {
+    "step": 4,
+    "if": "理由“消息”或“跟别人”≥ 2 场",
+    "then": "verify"
+   },
+   {
+    "step": 5,
+    "if": "其他",
+    "then": "hypo"
+   },
+   {
+    "level": "有金融史达人、规则派、证据控任一徽章拿 adv，否则 basic"
+   },
+   {
+    "extra": "≥ 2 场选 A，且自评勾“求稳”或现实题 1 选 A、B → 加拿 risk（同一档难度）"
+   }
+  ],
+  "logic_conventions": {
+   "target": "规则作用在每个名场面的主标的上（指数、个股、ETF 或主力合约），只用决策日及以前的数据；快进时的动作印在快进牌底部的“规则信号”栏",
+   "ma_cross": "fast 日均线在 slow 日均线上方 = 该在场；下方 = 离场；当天上穿 / 下穿算买 / 卖信号",
+   "ma_trend": "windows 从短到长依次排在上方（多头排列）= 该在场；否则离场",
+   "momentum": "过去 window 个交易日涨幅 > 0 = 该在场；≤ 0 = 离场",
+   "stop_loss": "以 T+1 开盘价为基准（开局已持仓也一样），哪天收盘跌了 pct% 及以上，当天收盘卖光",
+   "take_profit": "从进场价上涨 pct% 就卖光（本版规则牌未使用）",
+   "buy_dip": "从 T 日起，收盘价比近 60 个交易日最高收盘价低 pct% 及以上 → 当天收盘加 1 份，只加一次；不够就不动",
+   "valuation": "估值分位（近 10 年 pe_ttm）高于 sell_above_pct → 仓位减半（向下取整）；低于 buy_below_pct → 加回 1 份；中间不动",
+   "position_cap": "任何时候份数不超过 max_shares，超出马上减到它",
+   "wait": "前 days 个交易日保持原仓位；第 days 个交易日收盘高于决策日收盘 → 之后持有 2 份，否则 0 份",
+   "volume_breakout": "当天成交额 > 过去 20 个交易日平均成交额 × mult → 追进 1 份",
+   "fundamental_screen": "入选 = 该在场（保持开局仓位，空仓的进 1 份）；不入选 = 0 份",
+   "not_applicable": "规则对本场主标的没法算时（比如指数、基金没有单家公司的 PB 和 ROE），规则牌背面这一格印“不适用”，这一场不能拿它当理由",
+   "eval_source": "每张规则牌在各名场面的真实信号和结果，由 content/rules_eval.json 用行情数据预算（id 要和这里一致）"
+  },
+  "rule_option_map": {
+   "note": "规则只给方向，按下表换成本场选项",
+   "s924": {
+    "in": "B",
+    "wait": "C",
+    "out": "D"
+   },
+   "s2015": {
+    "add": "A",
+    "in": "B",
+    "reduce": "C",
+    "cap1": "C",
+    "out": "D"
+   },
+   "smt": {
+    "add": "A",
+    "in": "B",
+    "reduce": "C",
+    "cap1": "C",
+    "out": "D"
+   },
+   "squant": {
+    "add": "A",
+    "in": "B",
+    "reduce": "C",
+    "cap1": "C",
+    "out": "D"
+   },
+   "scb": {
+    "add": "A",
+    "in": "B",
+    "reduce": "C",
+    "cap1": "C",
+    "out": "D"
+   },
+   "soil": {
+    "in": "A",
+    "cap1": "B",
+    "wait": "D",
+    "out": "D"
+   }
+  },
+  "rule_signal_placement": "决策日信号印在规则牌背面（每个名场面一格）；快进信号印在快进牌底部",
+  "placeholders": {
+   "{scene}": "名场面的叫法：揭幕后用事件名，揭幕前用“春季那一场”这类说法",
+   "{season}": "季节",
+   "{option}": "选项文字",
+   "{first_evidence}": "第一张看的证据：量价 / 数据 / 消息 / 锦囊",
+   "{reason}": "理由文字",
+   "{rule}": "规则牌名",
+   "{count}": "触发这一条的次数",
+   "{badge}": "让任务升到进阶版的那枚徽章",
+   "{self}": "自评物种",
+   "{game}": "游戏里的物种",
+   "{game_evidence}": "一句游戏里的证据，比如“春季只看了消息就追入”",
+   "{real1}": "现实题 1 的回答，写成短句，比如“卖掉了大部分”",
+   "{real2}": "现实题 2 的回答，写成短句，比如“上次买入是看了新闻”",
+   "{a}": "并列的第一种物种",
+   "{b}": "并列的第二种物种"
+  },
+  "dataport_setup": "第一次运行前先执行 panda_data.init_token() 登录；账号放在环境变量里（变量名见数据 API 文档），不要写进代码。H5 里展示的是预先算好的结果，不会实时调用接口。"
+ },
+ "scene_options": {
+  "note": "选项文字和份数与 scenes.json 保持一致（check_decks.py 会核对）；委托单每季那一页印本季门 A、门 B 两套选项和份数圆点。",
+  "s924": {
+   "season": "春",
+   "door": "A",
+   "tier": "P0",
+   "reveal_mode": "依次明选",
+   "start_shares": 0,
+   "start_note": "你现在空仓。",
+   "options": [
+    {
+     "key": "A",
+     "text": "节后开盘追入",
+     "shares": 2
+    },
+    {
+     "key": "B",
+     "text": "小仓位试水",
+     "shares": 1
+    },
+    {
+     "key": "C",
+     "text": "等回调再说",
+     "shares": 0,
+     "note": "快进时可以进 1 份"
+    },
+    {
+     "key": "D",
+     "text": "不参与",
+     "shares": 0,
+     "note": "整场不进场"
+    }
+   ],
+   "ff_actions": [
+    "hold",
+    "sell",
+    "add",
+    "enter"
+   ],
+   "enter_options": [
+    "C"
+   ],
+   "mechanic": "开户排队条"
+  },
+  "s2015": {
+   "season": "夏",
+   "door": "A",
+   "tier": "P0",
+   "reveal_mode": "同时暗选",
+   "start_shares": 2,
+   "start_note": "你已经满仓，还借了一倍。",
+   "options": [
+    {
+     "key": "A",
+     "text": "再加杠杆",
+     "shares": 3
+    },
+    {
+     "key": "B",
+     "text": "保持不动",
+     "shares": 2
+    },
+    {
+     "key": "C",
+     "text": "还掉借款，降到无杠杆",
+     "shares": 1
+    },
+    {
+     "key": "D",
+     "text": "全部卖出",
+     "shares": 0
+    }
+   ],
+   "ff_actions": [
+    "hold",
+    "sell"
+   ],
+   "enter_options": [],
+   "mechanic": "卖出窗口与跌停锁"
+  },
+  "smt": {
+   "season": "秋",
+   "door": "A",
+   "tier": "P0",
+   "reveal_mode": "同时暗选",
+   "start_shares": 2,
+   "start_note": "你的这类仓位已经浮盈 80%。",
+   "options": [
+    {
+     "key": "A",
+     "text": "加仓",
+     "shares": 3
+    },
+    {
+     "key": "B",
+     "text": "继续拿着",
+     "shares": 2
+    },
+    {
+     "key": "C",
+     "text": "卖一半",
+     "shares": 1
+    },
+    {
+     "key": "D",
+     "text": "全部卖出",
+     "shares": 0
+    }
+   ],
+   "ff_actions": [
+    "hold",
+    "sell"
+   ],
+   "enter_options": [],
+   "mechanic": "抱团圈"
+  },
+  "squant": {
+   "season": "秋",
+   "door": "B",
+   "tier": "P1",
+   "reveal_mode": "同时暗选",
+   "start_shares": 2,
+   "start_note": "你按这条规则持有 2 份。",
+   "options": [
+    {
+     "key": "A",
+     "text": "反向加仓",
+     "shares": 3
+    },
+    {
+     "key": "B",
+     "text": "继续执行规则",
+     "shares": 2
+    },
+    {
+     "key": "C",
+     "text": "修改规则",
+     "shares": 1
+    },
+    {
+     "key": "D",
+     "text": "暂停规则",
+     "shares": 0
+    }
+   ],
+   "ff_actions": [
+    "hold"
+   ],
+   "enter_options": [],
+   "mechanic": "出口板"
+  },
+  "scb": {
+   "season": "冬",
+   "door": "A",
+   "tier": "P0",
+   "reveal_mode": "同时暗选",
+   "start_shares": 2,
+   "start_note": "你持有 2 份。",
+   "options": [
+    {
+     "key": "A",
+     "text": "抄底加仓",
+     "shares": 3
+    },
+    {
+     "key": "B",
+     "text": "持有不动",
+     "shares": 2
+    },
+    {
+     "key": "C",
+     "text": "减掉一半",
+     "shares": 1
+    },
+    {
+     "key": "D",
+     "text": "全部卖出",
+     "shares": 0
+    }
+   ],
+   "ff_actions": [
+    "hold",
+    "sell",
+    "add"
+   ],
+   "enter_options": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "ff_note": "熔断后只能调一档：sell = −1 份，add / enter = +1 份",
+   "mechanic": "熔断沙漏",
+   "second_decision": [
+    "add",
+    "stop",
+    "ignore"
+   ]
+  },
+  "soil": {
+   "season": "冬",
+   "door": "B",
+   "tier": "P1",
+   "reveal_mode": "同时暗选",
+   "start_shares": 0,
+   "start_note": "你手里有一笔闲钱，2 份的额度。",
+   "options": [
+    {
+     "key": "A",
+     "text": "抄底这款产品",
+     "shares": 2
+    },
+    {
+     "key": "B",
+     "text": "改买远月合约",
+     "shares": 1
+    },
+    {
+     "key": "C",
+     "text": "看不懂，不碰",
+     "shares": 0
+    },
+    {
+     "key": "D",
+     "text": "观望",
+     "shares": 0
+    }
+   ],
+   "ff_actions": [
+    "hold"
+   ],
+   "enter_options": [],
+   "mechanic": "负债牌"
+  }
+ },
+ "species": [
+  {
+   "id": "cheetah",
+   "name": "猎豹",
+   "en": "Cheetah",
+   "tagline": "先看势，再出发",
+   "one_liner": "你相信价格会先开口：量能一起、趋势一成形，你就果断上车，也舍得果断下车。",
+   "looks_like": [
+    "先翻量价证据：成交额、涨跌停、均线信号灯",
+    "理由常勾“量价”，节奏快，持有期偏短",
+    "快进时跟着趋势调仓，不恋战"
+   ],
+   "strength": "反应快、执行利落，常常能赶上趋势刚成形的那一段。",
+   "blind_spot": "放量冲高有时是最后一棒。给每次上车配一个“下车条件”，速度就成了优势。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "Qube 趋势模板（5/20 双均线、MA5/20/60、20 日动量）和 QuantSkills 均线交叉信号分析：把你的“势”变成能回测的信号。",
+   "recommend_resource_ids": [
+    "qube",
+    "skill-ma-crossover-signal"
+   ],
+   "icon_from": "理由勾“量价”，或第一张看量价证据",
+   "qr": "sp-cheetah",
+   "hidden": false
+  },
+  {
+   "id": "elephant",
+   "name": "大象",
+   "en": "Elephant",
+   "tagline": "先算值不值",
+   "one_liner": "你看的是“值不值”而不是“涨没涨”：估值、财报和历史分位，是你的定心丸。",
+   "looks_like": [
+    "先翻数据证据：估值分位、融资余额、历史统计",
+    "理由常勾“数据”，愿意拿得久一点",
+    "别人追高时，你会先问一句“现在贵不贵”"
+   ],
+   "strength": "有锚、有耐心，不容易被一时的热闹带走。",
+   "blind_spot": "便宜的可能一直便宜，贵的也可能更贵。数据讲的是过去，也看看市场现在处在什么状态。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "Qube「低 PB + 高 ROE 复合」模板，QuantSkills「A股个股档案」「指数估值轮动」：把“值不值”算得更细。",
+   "recommend_resource_ids": [
+    "qube",
+    "skill-a-share-stock-dossier",
+    "skill-index-valuation-rotation"
+   ],
+   "icon_from": "理由勾“数据”，或第一张看数据证据",
+   "qr": "sp-elephant",
+   "hidden": false
+  },
+  {
+   "id": "fox",
+   "name": "狐狸",
+   "en": "Fox",
+   "tagline": "先怀疑，再检验",
+   "one_liner": "你不急着相信任何说法，喜欢把想法写成规则，再让历史数据替你“考一考”。",
+   "looks_like": [
+    "在研究所认真挑规则牌，名场面里照规则执行",
+    "常先看历史统计，再看热闹",
+    "爱问一句“这条规律以前灵不灵”"
+   ],
+   "strength": "可复现、可检验：对了知道为什么对，错了也知道错在哪。",
+   "blind_spot": "在一种行情里灵的规则，换了行情可能失效；回测越漂亮，越要提防过拟合。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "QuantSkills「B10 因子评估系统」「回测过拟合检测」，再去 PandaAI 第四届因子大赛：让你的规则接受更严的考试。",
+   "recommend_resource_ids": [
+    "skill-build-b10-factor-evaluation",
+    "skill-backtest-overfit",
+    "factor-comp-4"
+   ],
+   "icon_from": "用规则牌代替理由",
+   "qr": "sp-fox",
+   "hidden": false
+  },
+  {
+   "id": "owl",
+   "name": "猫头鹰",
+   "en": "Owl",
+   "tagline": "先看清，再出手",
+   "one_liner": "你对证据的门槛很高：没看清之前宁可等，而且说得出自己在等什么。",
+   "looks_like": [
+    "常选 0 份的观望选项，理由却很具体",
+    "愿意花研究点把证据看全再决定",
+    "狂热和熔断的时候，反而最安静"
+   ],
+   "strength": "不被噪音推着走，少犯冲动的错。",
+   "blind_spot": "等待也有成本：信号到齐时，行情可能已经走了一段。给你的“等”列一张清单、定一个期限。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "QuantSkills 市场状态监控智能体和「A股市场状态分析」：把“在等什么”变成每天能核对的信号。",
+   "recommend_resource_ids": [
+    "agent-market-regime-monitor",
+    "skill-market-regime-analysis"
+   ],
+   "icon_from": "选 0 份的选项，理由又不是直觉、看不懂",
+   "qr": "sp-owl",
+   "hidden": false
+  },
+  {
+   "id": "meerkat",
+   "name": "狐獴",
+   "en": "Meerkat",
+   "tagline": "先听风，再看路",
+   "one_liner": "你对消息和人群情绪最敏感：风声一起，你总是第一个竖起耳朵的那一个。",
+   "looks_like": [
+    "先翻消息证据，看大家在说什么",
+    "理由常勾“消息”或“跟别人”",
+    "排队条一长，心里就开始痒"
+   ],
+   "strength": "信息嗅觉灵，常常最早察觉市场情绪在变。",
+   "blind_spot": "听到的不等于发生的：热闹的说法里常混着过期和夸大的消息。给每条消息配一个能核对的数字。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "QuantSkills「A股财经新闻情感分析师」和 EVO 对抗复核：给好耳朵配上一把尺。",
+   "recommend_resource_ids": [
+    "skill-news-sentiment-analyst",
+    "evo"
+   ],
+   "icon_from": "理由勾“消息”或“跟别人”，或第一张看消息证据",
+   "qr": "sp-meerkat",
+   "hidden": false
+  },
+  {
+   "id": "chameleon",
+   "name": "变色龙",
+   "en": "Chameleon",
+   "tagline": "看天气换打法",
+   "one_liner": "你不迷信一种方法：行情换了脸，你的依据也跟着换，而且每次都说得出道理。",
+   "looks_like": [
+    "四季拿到不同的物种币",
+    "每场的理由都和看过的证据对得上",
+    "春天看量价、冬天看数据，切换很自然"
+   ],
+   "strength": "适应力强，能在不同的市场状态里挑合适的工具。",
+   "blind_spot": "换得太勤，可能变成“哪个最近灵就用哪个”。切换之前，先确认市场是真的换了状态。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "QuantSkills 相关性突变研究智能体（风格切换）和市场状态监控智能体：看清“换季”的信号再换打法。",
+   "recommend_resource_ids": [
+    "agent-correlation-break-research",
+    "agent-market-regime-monitor"
+   ],
+   "icon_from": "四季四种不同的币且至少 3 场理由一致；机会牌和补测牌也可能给变色龙",
+   "qr": "sp-chameleon",
+   "hidden": false
+  },
+  {
+   "id": "beaver",
+   "name": "海狸",
+   "en": "Beaver",
+   "tagline": "自己造工具",
+   "one_liner": "比起听结论，你更想打开引擎盖：改一行代码、换一个参数，看数据自己怎么说。",
+   "looks_like": [
+    "数据港口答对两次及以上",
+    "爱扫码看“这张图是怎么算出来的”",
+    "看到参数就想改一改再跑一遍"
+   ],
+   "strength": "动手能力强，能把一个想法做成可以反复用的工具。",
+   "blind_spot": "工具越造越精的时候，也别忘了先问清楚它要回答什么问题。",
+   "in_game_only": "游戏里的表现，仅供参考",
+   "recommend_direction": "panda_data Python SDK、QuantStudio 本地量化研究工作台和 QuantSkills「因子技能工厂」：从读代码走到自己造。",
+   "recommend_resource_ids": [
+    "panda-data-sdk",
+    "quantstudio",
+    "skill-quant-factor-skill-factory"
+   ],
+   "icon_from": "隐藏物种：工具箱里有 2 枚及以上海狸币（数据港口答对 2 次）",
+   "qr": "sp-beaver",
+   "hidden": true
+  }
+ ],
+ "badges": [
+  {
+   "id": "badge-evidence",
+   "name": "证据控",
+   "copies": 2,
+   "condition": "至少 2 场看了两张及以上不同的证据（锦囊也算），并且至少 3 场理由一致",
+   "meaning": "你习惯先查再判断，说出口的理由和看过的证据对得上。这是最能带进实盘的研究习惯。",
+   "tip": "把你最常看的那类证据写成一条规则，交给 Qube 回测。",
+   "resource_ids": [
+    "qube"
+   ]
+  },
+  {
+   "id": "badge-promise",
+   "name": "说到做到",
+   "copies": 2,
+   "condition": "至少 2 场定了计划（跌了就走 / 跌了就加），快进时照做",
+   "meaning": "事先想好“如果……就……”，事到临头也守得住。",
+   "tip": "把计划写成止盈止损规则，试试 QuantSkills 自动止盈止损+仓位管理（B11）。",
+   "resource_ids": [
+    "skill-b11-auto-stop-loss-take-profit"
+   ]
+  },
+  {
+   "id": "badge-history",
+   "name": "金融史达人",
+   "copies": 2,
+   "condition": "至少 2 场在亮单前认出名场面，并且写对事件名",
+   "meaning": "你对金融史很熟，这是难得的知识储备。为了公平，认出来的那几场，物种币只算半枚。",
+   "tip": "下一局开秋、冬的第二扇门，或者把你熟悉的那段历史交给 Qube 回测。",
+   "resource_ids": [
+    "qube"
+   ]
+  },
+  {
+   "id": "badge-data",
+   "name": "数据手",
+   "copies": 2,
+   "condition": "数据港口答对至少 2 次",
+   "meaning": "你读得懂数据接口代码，知道参数一改结果会怎么变。",
+   "tip": "装上 panda_data，把数据港口里的代码亲手跑一遍。",
+   "resource_ids": [
+    "panda-data-sdk",
+    "skill-pandadata-api"
+   ]
+  },
+  {
+   "id": "badge-rule",
+   "name": "规则派",
+   "copies": 2,
+   "condition": "至少 1 场用规则牌代替理由，并且决策和快进都照规则做",
+   "meaning": "你愿意把判断交给事先写好的规则，这是量化思维的起点。",
+   "tip": "把你用过的规则放进 Qube，看看它在更长的历史里还灵不灵。",
+   "resource_ids": [
+    "qube"
+   ]
+  },
+  {
+   "id": "badge-risk",
+   "name": "看懂风险",
+   "copies": 2,
+   "condition": "看过牌角带 ⚠ 的风险类证据至少 2 次（如融资余额、估值温度计、产品说明书）",
+   "meaning": "你会主动看“可能亏在哪里”，而不只看“可能赚多少”。",
+   "tip": "用 QuantSkills A股市场风险雷达，看看今天的风险温度。",
+   "resource_ids": [
+    "skill-a-share-market-risk-radar"
+   ]
+  }
+ ],
+ "chance": [
+  {
+   "id": "chance-01",
+   "dimension": "时间尺度",
+   "title": "阳台种点什么",
+   "prompt": "想在阳台种点绿植，你挑哪个？",
+   "options": [
+    {
+     "key": "A",
+     "text": "薄荷：两周就能掐叶子泡水",
+     "species": "cheetah"
+    },
+    {
+     "key": "B",
+     "text": "柠檬树：等三年看它结果",
+     "species": "elephant"
+    }
+   ],
+   "back_note": "快有快的乐趣，慢有慢的回报。你只是更想早点见分晓，还是更享受等。",
+   "qr": "chance-01"
+  },
+  {
+   "id": "chance-02",
+   "dimension": "时间尺度",
+   "title": "难得的七天假",
+   "prompt": "难得放七天假，你怎么玩？",
+   "options": [
+    {
+     "key": "A",
+     "text": "挑一个地方住满七天，慢慢逛透",
+     "species": "elephant"
+    },
+    {
+     "key": "B",
+     "text": "不定行程，哪里有意思就改道去哪",
+     "species": "chameleon"
+    }
+   ],
+   "back_note": "一个把时间押在一处，一个让路线跟着情况变。两种都能玩得很尽兴。",
+   "qr": "chance-02"
+  },
+  {
+   "id": "chance-03",
+   "dimension": "证据使用",
+   "title": "买二手相机",
+   "prompt": "看中一台二手相机，你先查什么？",
+   "options": [
+    {
+     "key": "A",
+     "text": "快门次数和保修记录",
+     "species": "elephant"
+    },
+    {
+     "key": "B",
+     "text": "它最近一个月的成交价走势",
+     "species": "cheetah"
+    }
+   ],
+   "back_note": "一个看“东西本身”，一个看“市场怎么给它定价”。两样都值得看，你只是先看了一样。",
+   "qr": "chance-03"
+  },
+  {
+   "id": "chance-04",
+   "dimension": "证据使用",
+   "title": "周末看电影",
+   "prompt": "周末想看电影，你怎么挑？",
+   "options": [
+    {
+     "key": "A",
+     "text": "先翻十条长影评，看完再定",
+     "species": "owl"
+    },
+    {
+     "key": "B",
+     "text": "看朋友圈谁在晒，跟着去看",
+     "species": "meerkat"
+    }
+   ],
+   "back_note": "一个先把证据看够，一个相信身边人的口味。电影都会好看的。",
+   "qr": "chance-04"
+  },
+  {
+   "id": "chance-05",
+   "dimension": "人群与消息",
+   "title": "群里说要停水",
+   "prompt": "小区群里有人说明天停水，你会？",
+   "options": [
+    {
+     "key": "A",
+     "text": "先去物业公告栏核实一下",
+     "species": "fox"
+    },
+    {
+     "key": "B",
+     "text": "先接满两桶水，有备无患",
+     "species": "meerkat"
+    }
+   ],
+   "back_note": "一个先核实，一个先行动。前者少做无用功，后者从不被落下。",
+   "qr": "chance-05"
+  },
+  {
+   "id": "chance-06",
+   "dimension": "人群与消息",
+   "title": "新手机刷屏了",
+   "prompt": "朋友们都在晒同一款新手机，你？",
+   "options": [
+    {
+     "key": "A",
+     "text": "赶紧去看看大家都说它哪里好",
+     "species": "meerkat"
+    },
+    {
+     "key": "B",
+     "text": "我这台还能用三年，不换",
+     "species": "elephant"
+    }
+   ],
+   "back_note": "一个对“大家在聊什么”很敏感，一个只认自己的用法。两种都不吃亏。",
+   "qr": "chance-06"
+  },
+  {
+   "id": "chance-07",
+   "dimension": "规则化",
+   "title": "发工资了",
+   "prompt": "发工资了，存多少你怎么定？",
+   "options": [
+    {
+     "key": "A",
+     "text": "定死三成，先存再花，雷打不动",
+     "species": "fox"
+    },
+    {
+     "key": "B",
+     "text": "看这个月开销大不大，再定存多少",
+     "species": "chameleon"
+    }
+   ],
+   "back_note": "一个把决定交给规则，一个每次重新判断。规则省心，灵活贴身。",
+   "qr": "chance-07"
+  },
+  {
+   "id": "chance-08",
+   "dimension": "规则化",
+   "title": "抢演唱会门票",
+   "prompt": "今晚八点开抢演唱会门票，你？",
+   "options": [
+    {
+     "key": "A",
+     "text": "到点看哪个渠道最快就冲哪个",
+     "species": "cheetah"
+    },
+    {
+     "key": "B",
+     "text": "提前写好步骤，几点几分点哪里",
+     "species": "fox"
+    }
+   ],
+   "back_note": "一个靠临场反应，一个靠事先写好的流程。抢到票的人，两种都有。",
+   "qr": "chance-08"
+  },
+  {
+   "id": "chance-09",
+   "dimension": "风险姿态",
+   "title": "第一次攀岩",
+   "prompt": "第一次去攀岩馆，你先？",
+   "options": [
+    {
+     "key": "A",
+     "text": "在旁边看别人爬两轮，看清了再上",
+     "species": "owl"
+    },
+    {
+     "key": "B",
+     "text": "直接挑那面最难的墙试试",
+     "species": "cheetah"
+    }
+   ],
+   "back_note": "一个先看清路线，一个先摸到岩壁。系着保护绳，两种都安全。",
+   "qr": "chance-09"
+  },
+  {
+   "id": "chance-10",
+   "dimension": "风险姿态",
+   "title": "出国玩一周",
+   "prompt": "出国玩一周，钱怎么花？",
+   "options": [
+    {
+     "key": "A",
+     "text": "看当地物价，现场调整预算",
+     "species": "chameleon"
+    },
+    {
+     "key": "B",
+     "text": "每天定好额度，花完就收手",
+     "species": "fox"
+    }
+   ],
+   "back_note": "一个跟着情况调，一个用规则给自己兜底。回国都不会吃土。",
+   "qr": "chance-10"
+  },
+  {
+   "id": "chance-11",
+   "dimension": "等待理由",
+   "title": "网红店排长队",
+   "prompt": "新开的网红面包店门口排起长队，你？",
+   "options": [
+    {
+     "key": "A",
+     "text": "跟着排，凑热闹本身就开心",
+     "species": "meerkat"
+    },
+    {
+     "key": "B",
+     "text": "记下店名，等队伍短了再来",
+     "species": "owl"
+    }
+   ],
+   "back_note": "一个享受热闹，一个等到条件合适。面包都是一样的香。",
+   "qr": "chance-11"
+  },
+  {
+   "id": "chance-12",
+   "dimension": "等待理由",
+   "title": "公交迟迟不来",
+   "prompt": "公交已经晚了十分钟，你？",
+   "options": [
+    {
+     "key": "A",
+     "text": "看路况：堵就骑车，不堵就打车",
+     "species": "chameleon"
+    },
+    {
+     "key": "B",
+     "text": "再等五分钟，App 显示车快到了",
+     "species": "owl"
+    }
+   ],
+   "back_note": "一个马上换方案，一个等的是一个具体的信号。等和不等，都有理由。",
+   "qr": "chance-12"
+  }
+ ],
+ "retest": [
+  {
+   "id": "retest-01",
+   "pair": [
+    "cheetah",
+    "fox"
+   ],
+   "prompt": "一只股票放量突破了前高，你会？",
+   "options": [
+    {
+     "key": "A",
+     "text": "趁势跟上，跌回突破点就走",
+     "species": "cheetah"
+    },
+    {
+     "key": "B",
+     "text": "先查以前这种突破之后，十次里几次真涨了",
+     "species": "fox"
+    }
+   ],
+   "why": "两种都看量价：猎豹相信眼前的势头，狐狸要先让历史检验这条规律。",
+   "qr": "retest-01"
+  },
+  {
+   "id": "retest-02",
+   "pair": [
+    "elephant",
+    "owl"
+   ],
+   "prompt": "你看好的公司跌到了历史低估值，你会？",
+   "options": [
+    {
+     "key": "A",
+     "text": "分批买一点，便宜本身就是理由",
+     "species": "elephant"
+    },
+    {
+     "key": "B",
+     "text": "再等等，等跌势停下、有信号再买",
+     "species": "owl"
+    }
+   ],
+   "why": "两种都很稳：大象看“值不值”，猫头鹰看“时机到了没”。",
+   "qr": "retest-02"
+  },
+  {
+   "id": "retest-03",
+   "pair": [
+    "meerkat",
+    "cheetah"
+   ],
+   "prompt": "群里都在传一个利好，你打开行情一看——",
+   "options": [
+    {
+     "key": "A",
+     "text": "消息这么火，先上车，晚了挤不上",
+     "species": "meerkat"
+    },
+    {
+     "key": "B",
+     "text": "价格还没动？等量价先确认再说",
+     "species": "cheetah"
+    }
+   ],
+   "why": "两种都出手快：狐獴先听大家怎么说，猎豹等价格先开口。",
+   "qr": "retest-03"
+  },
+  {
+   "id": "retest-04",
+   "pair": [
+    "fox",
+    "elephant"
+   ],
+   "prompt": "有人推荐“低估值＋高分红”选股法，你？",
+   "options": [
+    {
+     "key": "A",
+     "text": "先挑一两家，把财报读透",
+     "species": "elephant"
+    },
+    {
+     "key": "B",
+     "text": "先写成规则，拿十年数据回测",
+     "species": "fox"
+    }
+   ],
+   "why": "两种都爱看数据：大象钻进一家公司，狐狸把方法拿去批量检验。",
+   "qr": "retest-04"
+  },
+  {
+   "id": "retest-05",
+   "pair": [
+    "owl",
+    "meerkat"
+   ],
+   "prompt": "你决定先不买、等一等。你在等什么？",
+   "options": [
+    {
+     "key": "A",
+     "text": "等大家的风向：身边人和新闻怎么说",
+     "species": "meerkat"
+    },
+    {
+     "key": "B",
+     "text": "等几条具体信号：成交回落、估值回到中位",
+     "species": "owl"
+    }
+   ],
+   "why": "两种都在等：猫头鹰等证据，狐獴等风向。",
+   "qr": "retest-05"
+  },
+  {
+   "id": "retest-06",
+   "pair": [
+    "chameleon",
+    "other"
+   ],
+   "prompt": "回头看这几季，你用的方法更像？",
+   "options": [
+    {
+     "key": "A",
+     "text": "每季都换：市场变了，方法也该变",
+     "species": "chameleon"
+    },
+    {
+     "key": "B",
+     "text": "一直是同一套，只是看的东西不同",
+     "species": "other"
+    }
+   ],
+   "other_means": "B 拿并列里的另一种（或你主张的那种）；并列的两种都不是变色龙时，在两种里自己挑一种，委托单标“待确认”",
+   "used_for": [
+    "变色龙和任意一种并列",
+    "没有专门补测牌的那一对并列",
+    "对“变色龙”说“我不同意”"
+   ],
+   "why": "分辨“有意识地按市场切换方法”和“同一套方法碰巧用了不同的证据”。",
+   "qr": "retest-06"
+  }
+ ],
+ "rules": [
+  {
+   "id": "rule-ma520",
+   "name": "茅台 5/20 双均线",
+   "text": "看本场标的：5 日均线在 20 日均线上方就持有，跌到下方就卖。上穿买，下穿卖。",
+   "logic": {
+    "type": "ma_cross",
+    "fast": 5,
+    "slow": 20
+   },
+   "species": "fox",
+   "is_real_template": true,
+   "qube_prompt": "用 5/20 双均线回测贵州茅台 2020—2021 年，看 2021 年春节后有没有提示卖出",
+   "spoils": "smt",
+   "qr": "rule-ma520"
+  },
+  {
+   "id": "rule-ma52060",
+   "name": "多均线趋势过滤 MA5/20/60",
+   "text": "只在 5 日、20 日、60 日均线从上到下排好时持有；排列一乱就离场。",
+   "logic": {
+    "type": "ma_trend",
+    "windows": [
+     5,
+     20,
+     60
+    ]
+   },
+   "species": "fox",
+   "is_real_template": true,
+   "qube_prompt": "用 MA5/20/60 多均线趋势过滤回测上证指数 2024 年 9 月到 12 月，看信号什么时候出现、什么时候失效",
+   "spoils": "s924",
+   "qr": "rule-ma52060"
+  },
+  {
+   "id": "rule-mom20",
+   "name": "20 日动量",
+   "text": "过去 20 个交易日涨了就持有，跌了就离场。",
+   "logic": {
+    "type": "momentum",
+    "window": 20
+   },
+   "species": "fox",
+   "is_real_template": true,
+   "qube_prompt": "用 20 日动量回测上证指数 2014—2016 年，看 2015 年 6 月之后它隔了多久才提示离场、回撤有多大",
+   "spoils": "s2015",
+   "qr": "rule-mom20"
+  },
+  {
+   "id": "rule-lowpb-roe",
+   "name": "低 PB + 高 ROE 复合",
+   "text": "只拿市净率低、净资产收益率高的公司；不看涨跌，每季度换一次。",
+   "logic": {
+    "type": "fundamental_screen",
+    "desc": "低 PB + 高 ROE 复合打分，按季度调仓"
+   },
+   "species": "fox",
+   "is_real_template": true,
+   "qube_prompt": "用低 PB + 高 ROE 复合模板，在沪深300里按季度调仓回测 2018—2023 年，看它在 2021 年春节后的回撤和白酒龙头差多少",
+   "spoils": "smt",
+   "qr": "rule-lowpb-roe"
+  },
+  {
+   "id": "rule-stop10",
+   "name": "跌 10% 止损",
+   "text": "以决策日下一个交易日的开盘价为准，哪天收盘跌了 10% 就全部卖出。",
+   "logic": {
+    "type": "stop_loss",
+    "pct": 10
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我回测一条规则：持有沪深300，从买入价跌 10% 就全部卖出，2015—2024 年一共触发几次、卖完之后一个月涨跌如何",
+   "spoils": null,
+   "qr": null
+  },
+  {
+   "id": "rule-dip",
+   "name": "跌多了就抄底",
+   "text": "收盘价比近 60 个交易日的最高收盘价跌了 15% 以上，就加 1 份，只加一次；没跌够就不动。",
+   "logic": {
+    "type": "buy_dip",
+    "pct": 15
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我回测一条规则：沪深300 比近 60 个交易日最高收盘价跌 15% 以上就加仓，持有 20 个交易日卖出，看 2010—2024 年的胜率和最大回撤",
+   "spoils": null,
+   "qr": null
+  },
+  {
+   "id": "rule-wait3",
+   "name": "消息出来先等三天",
+   "text": "看到大消息先按兵不动：3 个交易日后，价格还在决策日上方就拿 2 份，否则空仓。",
+   "logic": {
+    "type": "wait",
+    "days": 3
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我对比两种做法：重大政策消息当天买入沪深300，和等 3 个交易日再买，持有 20 个交易日后各自的收益差多少",
+   "spoils": null,
+   "qr": null
+  },
+  {
+   "id": "rule-cap1",
+   "name": "仓位永远不超过一半",
+   "text": "再看好也最多拿 1 份（●○○）；开局超过的，马上减到 1 份。",
+   "logic": {
+    "type": "position_cap",
+    "max_shares": 1
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我回测：沪深300 永远只用一半仓位、另一半放着不动，和满仓相比，2015—2024 年的收益和最大回撤各是多少",
+   "spoils": null,
+   "qr": null
+  },
+  {
+   "id": "rule-vol2x",
+   "name": "放量就追",
+   "text": "当天成交额超过过去 20 天平均的 2 倍，就追进 1 份。",
+   "logic": {
+    "type": "volume_breakout",
+    "mult": 2
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我回测一条规则：沪深300 当天成交额超过过去 20 天平均 2 倍就买入，持有 5 个交易日，看胜率怎么样",
+   "spoils": null,
+   "qr": null
+  },
+  {
+   "id": "rule-val80",
+   "name": "估值太高就减半",
+   "text": "估值分位高于 80% 就把仓位减半；回到 20% 以下才加回来。",
+   "logic": {
+    "type": "valuation",
+    "sell_above_pct": 80,
+    "buy_below_pct": 20
+   },
+   "species": "fox",
+   "is_real_template": false,
+   "qube_prompt": "帮我回测一条规则：沪深300 市盈率分位高于 80% 时减到半仓，低于 20% 时满仓，2012—2024 年和一直满仓比怎么样",
+   "spoils": null,
+   "qr": null
+  }
+ ],
+ "dataport": [
+  {
+   "id": "dp-01",
+   "title": "换一个指数看看",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_index_daily(",
+    "    symbol=['000300.SH'],",
+    "    start_date='20250101',",
+    "    end_date='20250331',",
+    "    fields=['date', 'close', 'amount'])"
+   ],
+   "question": "想看创业板指，改哪一处？",
+   "options": [
+    {
+     "key": "A",
+     "text": "改 fields 为 ['399006']"
+    },
+    {
+     "key": "B",
+     "text": "改 symbol 为 ['399006.SZ']"
+    },
+    {
+     "key": "C",
+     "text": "改 end_date 为 '399006'"
+    }
+   ],
+   "answer": "B",
+   "explain": "symbol 是指数代码，创业板指是 399006.SZ；fields 只决定返回哪几列，start_date、end_date 只管时间段。",
+   "variant": {
+    "param": "symbol",
+    "from": "['000300.SH']",
+    "to": "['000001.SH'] 或 ['399006.SZ']",
+    "what_you_see": "同一个季度，上证指数和创业板指谁的成交额更大"
+   },
+   "functions": [
+    "get_index_daily"
+   ],
+   "related_resource_ids": [
+    "skill-pandadata-api"
+   ],
+   "qr": "dp-01"
+  },
+  {
+   "id": "dp-02",
+   "title": "怎么认出涨停",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_stock_daily(",
+    "    symbol=['000001.SZ'],",
+    "    start_date='20250101',",
+    "    end_date='20250131',",
+    "    fields=['date', 'close', 'limit_up'])",
+    "up = df[df.close >= df.limit_up]"
+   ],
+   "question": "最后一行挑出来的是哪些日子？",
+   "options": [
+    {
+     "key": "A",
+     "text": "收盘价顶到涨停价的日子"
+    },
+    {
+     "key": "B",
+     "text": "成交量最大的日子"
+    },
+    {
+     "key": "C",
+     "text": "涨停价比前一天高的日子"
+    }
+   ],
+   "answer": "A",
+   "explain": "limit_up 是当天的涨停价。收盘价等于涨停价，就是“封住涨停”；行情里说的“涨停家数”就是这样一只只数出来的。",
+   "variant": {
+    "param": "symbol 和日期",
+    "from": "['000001.SZ']，一个月",
+    "to": "去掉 symbol，起止日期设成同一天",
+    "what_you_see": "那一天全市场有几只股票封住涨停（H5 用预先算好的结果演示）"
+   },
+   "functions": [
+    "get_stock_daily"
+   ],
+   "related_resource_ids": [
+    "skill-a-share-tradability-auditor"
+   ],
+   "qr": "dp-02"
+  },
+  {
+   "id": "dp-03",
+   "title": "借钱买的那一边",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_margin(",
+    "    symbol='000001.SZ',",
+    "    start_date='20250101',",
+    "    end_date='20250131',",
+    "    margin_type='cash',",
+    "    fields=['date', 'margin_balance'])"
+   ],
+   "question": "margin_type='cash' 取的是哪一边？",
+   "options": [
+    {
+     "key": "A",
+     "text": "融券卖出：借股票来卖"
+    },
+    {
+     "key": "B",
+     "text": "现金分红"
+    },
+    {
+     "key": "C",
+     "text": "融资买入：借钱来买"
+    }
+   ],
+   "answer": "C",
+   "explain": "'cash' 是融资买入，'stock' 是融券卖出；margin_balance 是融资余额。全市场加起来，就是大家一共借了多少钱在买。",
+   "variant": {
+    "param": "margin_type",
+    "from": "'cash'",
+    "to": "'stock'",
+    "what_you_see": "换成融券那一边：借股票卖出的余额，通常比融资小得多"
+   },
+   "functions": [
+    "get_margin"
+   ],
+   "related_resource_ids": [
+    "skill-northbound-margin-monitor"
+   ],
+   "qr": "dp-03"
+  },
+  {
+   "id": "dp-04",
+   "title": "有没有偷看答案",
+   "code": [
+    "import panda_data",
+    "# 决策日：2025-01-10 收盘",
+    "df = panda_data.get_index_daily(",
+    "    symbol=['000001.SH'],",
+    "    start_date='20241101',",
+    "    end_date='20250131',",
+    "    fields=['date', 'close'])"
+   ],
+   "question": "如果决策日是 2025-01-10 收盘，这段代码有什么问题？",
+   "options": [
+    {
+     "key": "A",
+     "text": "没问题，数据越多越好"
+    },
+    {
+     "key": "B",
+     "text": "日期格式写错了"
+    },
+    {
+     "key": "C",
+     "text": "取到了决策日之后的数据，等于偷看答案"
+    }
+   ],
+   "answer": "C",
+   "explain": "end_date 晚于决策日，等于混进了“未来”。回测里这叫未来函数；游戏里的证据只用决策日及以前的数据。改成 '20250110'。",
+   "variant": {
+    "param": "end_date",
+    "from": "'20250131'",
+    "to": "'20250110'",
+    "what_you_see": "图在决策日那天戛然而止——这才是当时的人能看到的"
+   },
+   "functions": [
+    "get_index_daily"
+   ],
+   "related_resource_ids": [
+    "skill-backtesting-bias-avoidance"
+   ],
+   "qr": "dp-04"
+  },
+  {
+   "id": "dp-05",
+   "title": "往前数五天",
+   "code": [
+    "import panda_data",
+    "d = panda_data.get_prev_trade_date(",
+    "    date='20250102',",
+    "    exchange='SH',",
+    "    n=5)",
+    "print(d)"
+   ],
+   "question": "n=5 是什么意思？",
+   "options": [
+    {
+     "key": "A",
+     "text": "往前数第 5 个交易日"
+    },
+    {
+     "key": "B",
+     "text": "往前数第 5 个自然日"
+    },
+    {
+     "key": "C",
+     "text": "往后数第 5 个交易日"
+    }
+   ],
+   "answer": "A",
+   "explain": "交易日跳过周末和节假日，所以不是简单减 5 天。游戏里的“前 20 个交易日”、20 日均线都这样数；往后数用 get_trade_cal。",
+   "variant": {
+    "param": "n",
+    "from": "5",
+    "to": "20",
+    "what_you_see": "决策日前第 20 个交易日：20 日均线和 20 日动量都从这里算起"
+   },
+   "functions": [
+    "get_prev_trade_date"
+   ],
+   "related_resource_ids": [
+    "skill-pandadata-api"
+   ],
+   "qr": "dp-05"
+  },
+  {
+   "id": "dp-06",
+   "title": "现在贵不贵",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_index_indicator(",
+    "    symbol='000300.SH',",
+    "    start_date='20240101',",
+    "    end_date='20241231',",
+    "    fields=['date', 'pe_ttm'])",
+    "df = df.sort_values('date')",
+    "pct = (df.pe_ttm < df.pe_ttm.iloc[-1]).mean()"
+   ],
+   "question": "最后一行算出的 pct 是什么？",
+   "options": [
+    {
+     "key": "A",
+     "text": "估值分位：比最后一天便宜的日子占几成"
+    },
+    {
+     "key": "B",
+     "text": "市盈率一年涨了百分之几"
+    },
+    {
+     "key": "C",
+     "text": "沪深300 涨了百分之几"
+    }
+   ],
+   "answer": "A",
+   "explain": "pe_ttm 是滚动市盈率。数一数这段时间里有多少天比最后一天便宜，就是“估值分位”。只用一年算不稳，拉长到十年更有参考价值。",
+   "variant": {
+    "param": "start_date",
+    "from": "'20240101'",
+    "to": "'20150101'",
+    "what_you_see": "拉长到十年，同一天的估值分位可能完全不一样"
+   },
+   "functions": [
+    "get_index_indicator"
+   ],
+   "related_resource_ids": [
+    "skill-index-valuation-rotation"
+   ],
+   "qr": "dp-06"
+  },
+  {
+   "id": "dp-07",
+   "title": "人是不是变多了",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_holder_count(",
+    "    symbol='000001.SZ',",
+    "    start_date='20250101',",
+    "    end_date='20250531',",
+    "    fields=[])"
+   ],
+   "question": "股东户数一个季度多了三成，最可能说明什么？",
+   "options": [
+    {
+     "key": "A",
+     "text": "公司的利润涨了三成"
+    },
+    {
+     "key": "B",
+     "text": "买它的人变多了，筹码更分散"
+    },
+    {
+     "key": "C",
+     "text": "股价一定会跟着涨三成"
+    }
+   ],
+   "answer": "B",
+   "explain": "股东户数是持有这只股票的账户数。户数变多、每户拿得更少，说明更多人挤了进来；它量的是人群，不是公司赚不赚钱，也不保证涨跌。",
+   "variant": {
+    "param": "symbol",
+    "from": "'000001.SZ'",
+    "to": "'600036.SH'",
+    "what_you_see": "换一家银行，看同一段时间里股东户数是变多还是变少"
+   },
+   "functions": [
+    "get_holder_count"
+   ],
+   "related_resource_ids": [],
+   "qr": "dp-07"
+  },
+  {
+   "id": "dp-08",
+   "title": "主力合约换月",
+   "code": [
+    "import panda_data",
+    "df = panda_data.get_future_daily(",
+    "    symbol=['SC_DOMINANT.INE'],",
+    "    start_date='20250101',",
+    "    end_date='20250331',",
+    "    fields=['date', 'dominant_id', 'close'])"
+   ],
+   "question": "dominant_id 这一列中途变了，说明什么？",
+   "options": [
+    {
+     "key": "A",
+     "text": "交易所改了名字"
+    },
+    {
+     "key": "B",
+     "text": "主力换月：从快到期的合约接到了下一个"
+    },
+    {
+     "key": "C",
+     "text": "数据出错了"
+    }
+   ],
+   "answer": "B",
+   "explain": "SC_DOMINANT 是原油主力连续，快到期时自动换到下一个合约。两个合约价格不同，直接连着算涨跌会失真；挂钩期货的产品“移仓”就在这里。",
+   "variant": {
+    "param": "symbol",
+    "from": "['SC_DOMINANT.INE']",
+    "to": "['SC2505.INE']",
+    "what_you_see": "单个合约快到期时价格怎么走，和主力连续比一比"
+   },
+   "functions": [
+    "get_future_daily"
+   ],
+   "related_resource_ids": [
+    "skill-futures-roll-auditor"
+   ],
+   "qr": "dp-08"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "task-chart-basic",
+   "type": "chart",
+   "level": "basic",
+   "name": "读图入门 · 入门",
+   "for_whom": "理由里两次以上勾了“看不懂”的你：不是你不行，是还没人陪你把图读一遍。",
+   "card_text": "30 秒读图：在一张走势图上点出“放量”那天和“跌破均线”那天，做完再去验证你的第一条规则。",
+   "play_now": [
+    "打开一张起点为 100 的走势图（示例图，取自你玩过的名场面决策日之前）",
+    "点出成交额最大的那一天",
+    "点出价格第一次跌破 20 日均线的那一天",
+    "对照答案，看“放量”和“破位”长什么样；做完回到假设检验"
+   ],
+   "resources": [
+    {
+     "id": "learninghub-chart-example",
+     "name": "PandaAI 量化课程里的读图入门课（课程待选，示例）",
+     "url": "https://www.pandaaiquant.com/learninghub/newcourse",
+     "kind": "PandaAI 产品",
+     "is_real": false
+    },
+    {
+     "id": "skill-kline-pattern-vision",
+     "name": "QuantSkills · K线形态识别",
+     "url": "https://www.quantskills.ai/skills/skill-kline-pattern-vision",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场的理由是“看不懂”（比如{scene}）。先把一张图读顺，后面的判断才有地基。",
+   "not_now": "暂时不推荐因子和代码类任务：先把图读顺，再去和数据较劲会更有意思。",
+   "qr": "task-chart-basic"
+  },
+  {
+   "id": "task-chart-adv",
+   "type": "chart",
+   "level": "adv",
+   "name": "读图入门 · 进阶",
+   "for_whom": "懂历史、会用规则，可面对走势图还是会说“看不懂”的你。",
+   "card_text": "量价背离小测：两张图里挑出“价涨量缩”的那张，再标出均线交叉点，和 AI 找的对一对。",
+   "play_now": [
+    "看两张预先算好的走势图（示例）：一张价涨量增，一张价涨量缩",
+    "挑出“量价背离”的那一张",
+    "在图上标出 5 日均线和 20 日均线的交叉点",
+    "对照均线交叉信号分析找出的信号，看差在哪"
+   ],
+   "resources": [
+    {
+     "id": "skill-ma-crossover-signal",
+     "name": "QuantSkills · 均线交叉信号分析",
+     "url": "https://www.quantskills.ai/skills/skill-ma-crossover-signal",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-kline-pattern-vision",
+     "name": "QuantSkills · K线形态识别",
+     "url": "https://www.quantskills.ai/skills/skill-kline-pattern-vision",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "learninghub-chart-example",
+     "name": "PandaAI 量化课程里的读图进阶课（课程待选，示例）",
+     "url": "https://www.pandaaiquant.com/learninghub/newcourse",
+     "kind": "PandaAI 产品",
+     "is_real": false
+    }
+   ],
+   "because_template": "因为你拿到了{badge}徽章，知识储备不缺，却有 {count} 场说“看不懂”（比如{scene}）。补上读图这一块，你的知识就能用起来。",
+   "not_now": "暂时不推荐入门版：你认得出名场面，直接练“量价背离”更对路。",
+   "qr": "task-chart-adv"
+  },
+  {
+   "id": "task-explore-basic",
+   "type": "explore",
+   "level": "basic",
+   "name": "数据自主探索 · 入门",
+   "for_whom": "数据港口答对两次以上的你：读得懂代码，就差自己跑一次。",
+   "card_text": "改一行重跑：把数据港口那段代码换个指数、换段日期，看图怎么变，再复制回家自己跑。",
+   "play_now": [
+    "打开数据港口里那段 get_index_daily 代码",
+    "把 symbol 换成你感兴趣的指数，或把日期改成你玩过那一场的决策日前 60 天",
+    "看图怎么变（H5 用预先算好的结果演示）",
+    "复制代码，回家用 panda_data 自己跑一遍"
+   ],
+   "resources": [
+    {
+     "id": "panda-data-sdk",
+     "name": "panda_data Python SDK（pip install panda_data）",
+     "url": "https://www.pandaaiquant.com/docs/api",
+     "kind": "开源工具",
+     "is_real": true
+    },
+    {
+     "id": "skill-pandadata-api",
+     "name": "QuantSkills · Pandadata 数据接口",
+     "url": "https://www.quantskills.ai/skills/skill-pandadata-api",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "quantstudio",
+     "name": "QuantStudio 本地量化研究 AI 工作台",
+     "url": "https://github.com/quantskills/QuantStudio",
+     "kind": "开源工具",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你在数据港口答对了 {count} 次：读代码这一步你已经会了，差的只是亲手跑一遍。",
+   "not_now": "暂时不推荐 Qube 新手模板：你已经能读代码，直接动手改参数更过瘾。",
+   "qr": "task-explore-basic"
+  },
+  {
+   "id": "task-explore-adv",
+   "type": "explore",
+   "level": "adv",
+   "name": "数据自主探索 · 进阶",
+   "for_whom": "会读代码，还拿了证据控、规则派或金融史达人徽章的你：可以自己评估一个因子了。",
+   "card_text": "两分钟因子体检：在一条“小市值”IC 曲线上标出它变拥挤、变失效的位置，再交给 B10 评估系统。",
+   "play_now": [
+    "看一条预先算好的“最小市值”因子 2021—2024 年 IC 曲线（Panda Data 计算）",
+    "标出它从哪里开始变拥挤、从哪里开始失效",
+    "把同样的评估交给 B10 因子评估系统，对照 IC、分层和衰减",
+    "想比一比？带着你自己的因子去第四届因子大赛"
+   ],
+   "resources": [
+    {
+     "id": "skill-build-b10-factor-evaluation",
+     "name": "QuantSkills · B10 因子评估系统",
+     "url": "https://www.quantskills.ai/skills/skill-build-b10-factor-evaluation",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-factor-decay",
+     "name": "QuantSkills · 因子衰减分析",
+     "url": "https://www.quantskills.ai/skills/skill-factor-decay",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "factor-comp-4",
+     "name": "PandaAI 第四届因子大赛",
+     "url": "https://www.pandaaiquant.com/factorhub/fourthFactorCompetition/",
+     "kind": "PandaAI 赛事",
+     "is_real": true
+    },
+    {
+     "id": "quantfactor-center",
+     "name": "PandaAI 量化因子中心",
+     "url": "https://www.pandaaiquant.com/quantfactor-center",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你在数据港口答对了 {count} 次，还拿到了{badge}徽章：你已经能自己验证想法，下一步是完整评估一个因子。",
+   "not_now": "暂时不推荐 Qube 新手模板：你已经能自己写规则，直接评估因子更过瘾。",
+   "qr": "task-explore-adv"
+  },
+  {
+   "id": "task-regime-basic",
+   "type": "regime",
+   "level": "basic",
+   "name": "状态判断 · 入门",
+   "for_whom": "常常选择“等一等”，而且说得出理由的你。",
+   "card_text": "等待清单：勾出你在等的三个信号，看看在你玩过的名场面里，它们各在哪一天出现。",
+   "play_now": [
+    "从六个信号里勾出你在等的三个：成交额回落、跌停家数减少、融资余额回落、估值回到中位、均线重新多头排列、波动率下降",
+    "看 Panda Data 预先算好的数据：在你玩过的那一场，这些信号各在哪天出现",
+    "存下这张“等待清单”，带去市场状态监控智能体，看今天满足了几条"
+   ],
+   "resources": [
+    {
+     "id": "agent-market-regime-monitor",
+     "name": "QuantSkills · 市场状态监控智能体",
+     "url": "https://www.quantskills.ai/agents/agent-market-regime-monitor",
+     "kind": "QuantSkills 智能体",
+     "is_real": true
+    },
+    {
+     "id": "skill-market-regime-analysis",
+     "name": "QuantSkills · A股市场状态分析",
+     "url": "https://www.quantskills.ai/skills/skill-market-regime-analysis",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场选了观望，理由却很具体（比如在{scene}凭{reason}选择等待）：你不是不敢，是在等信号。把“等什么”写下来，等待就有了终点。",
+   "not_now": "暂时不推荐趋势追踪模板：你更需要先把“在等什么”说清楚。",
+   "qr": "task-regime-basic"
+  },
+  {
+   "id": "task-regime-adv",
+   "type": "regime",
+   "level": "adv",
+   "name": "状态判断 · 进阶",
+   "for_whom": "爱等待、又有知识储备的你：试试亲手给市场贴状态标签。",
+   "card_text": "给市场贴标签：在三条线上标出“状态变了”的那天，再和 A股市场状态分析的标签对一对。",
+   "play_now": [
+    "看你玩过的一场名场面前后 60 天的成交额、上涨家数占比、波动率三条线（预计算）",
+    "标出你认为“状态变了”的那一天",
+    "对照 A股市场状态分析给出的趋势、震荡、退潮标签，看差了几天"
+   ],
+   "resources": [
+    {
+     "id": "skill-market-regime-analysis",
+     "name": "QuantSkills · A股市场状态分析",
+     "url": "https://www.quantskills.ai/skills/skill-market-regime-analysis",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-a-share-market-risk-radar",
+     "name": "QuantSkills · A股市场风险雷达",
+     "url": "https://www.quantskills.ai/skills/skill-a-share-market-risk-radar",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "agent-crowding-risk-monitor",
+     "name": "QuantSkills · 拥挤度风险监控智能体",
+     "url": "https://www.quantskills.ai/agents/agent-crowding-risk-monitor",
+     "kind": "QuantSkills 智能体",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你常在{scene}这样的时刻选择等待，又拿到了{badge}徽章：你已经会“等”，下一步是判断“什么时候不用再等”。",
+   "not_now": "暂时不推荐入门版清单：你已经说得出在等什么，直接练判断状态切换。",
+   "qr": "task-regime-adv"
+  },
+  {
+   "id": "task-verify-basic",
+   "type": "verify",
+   "level": "basic",
+   "name": "证据核查 · 入门",
+   "for_whom": "理由里两次以上勾了“消息”或“跟别人”的你：耳朵很灵，下一步是给它配一把尺。",
+   "card_text": "三条流传的说法，30 秒一条：能用数据核对吗？对照当天的真实数字，判断真、夸大还是过期。",
+   "play_now": [
+    "读一条你在名场面里见过的流传说法（示例题）",
+    "判断它能不能用数据核对",
+    "看 Panda Data 给出的那一天的真实数字，判断说法是真的、夸大了，还是过期了",
+    "三条做完，看看你的“核查命中率”"
+   ],
+   "resources": [
+    {
+     "id": "skill-news-sentiment-analyst",
+     "name": "QuantSkills · A股财经新闻情感分析师",
+     "url": "https://www.quantskills.ai/skills/skill-news-sentiment-analyst",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-a-share-stock-dossier",
+     "name": "QuantSkills · A股个股档案",
+     "url": "https://www.quantskills.ai/skills/skill-a-share-stock-dossier",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "a2a-office-docs",
+     "name": "PandaAI A2A 办公室（让 Agent 团队每天盘前给你一份简报）",
+     "url": "https://www.pandaaiquant.com/docs/a2a-office",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场的理由是“消息”或“跟别人”，比如在{scene}只看了{first_evidence}就选了{option}。消息嗅觉是长处，配上核查就更稳。",
+   "not_now": "暂时不推荐 panda_data 代码任务：你还没打开过数据港口，先从核查一条说法开始更顺手。",
+   "qr": "task-verify-basic"
+  },
+  {
+   "id": "task-verify-adv",
+   "type": "verify",
+   "level": "adv",
+   "name": "证据核查 · 进阶",
+   "for_whom": "爱听消息、也有知识储备的你：试试给自己最相信的那条说法找反证。",
+   "card_text": "对抗复核：写下你最信的一条消息，列出它成立要满足的两个数据条件，再交给 EVO 审查官挑刺。",
+   "play_now": [
+    "写下你在游戏里最相信的一条消息",
+    "列出它要成立必须满足的两个数据条件",
+    "看预先算好的数据：当时两个条件满足了几个",
+    "把这条观点交给 EVO 的审查官挑刺（真实入口，需登录）"
+   ],
+   "resources": [
+    {
+     "id": "evo",
+     "name": "PandaAI EVO 自进化 Alpha 投研平台",
+     "url": "https://www.pandaaiquant.com/evo",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    },
+    {
+     "id": "evo-docs",
+     "name": "EVO 文档",
+     "url": "https://www.pandaaiquant.com/docs/evo",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    },
+    {
+     "id": "skill-serenity-research-model",
+     "name": "QuantSkills · Serenity 投研模型",
+     "url": "https://www.quantskills.ai/skills/skill-serenity-research-model",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "agent-cross-market-event-radar",
+     "name": "QuantSkills · 跨市场公司事件雷达",
+     "url": "https://www.quantskills.ai/agents/agent-cross-market-event-radar",
+     "kind": "QuantSkills 智能体",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场凭消息做决定，又拿到了{badge}徽章：你已经很会找信息，下一步是主动找反证。",
+   "not_now": "暂时不推荐入门版核查题：你需要的是对抗式复核，而不是对答案。",
+   "qr": "task-verify-adv"
+  },
+  {
+   "id": "task-hypo-basic",
+   "type": "hypo",
+   "level": "basic",
+   "name": "假设检验 · 入门",
+   "for_whom": "有交易直觉、还没拿数据检验过的你。",
+   "card_text": "规则对对碰：把你的一条规则和“5/20 双均线”放进同一段历史，先猜谁回撤小，再去 Qube 复现。",
+   "play_now": [
+    "选你在游戏里用过（或最像你）的一条规则，比如“跌多了就抄底”",
+    "和“5/20 双均线”放进同一段历史，看两条预先算好的净值线",
+    "先猜哪条回撤更小，再揭晓",
+    "点“去 Qube”，用一句话复现这次回测"
+   ],
+   "resources": [
+    {
+     "id": "qube",
+     "name": "PandaAI Qube（一句话生成策略并回测，登录后可用）",
+     "url": "https://www.pandaaiquant.com/agent_quant/",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    },
+    {
+     "id": "skill-ma-crossover-signal",
+     "name": "QuantSkills · 均线交叉信号分析",
+     "url": "https://www.quantskills.ai/skills/skill-ma-crossover-signal",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-trade-review",
+     "name": "QuantSkills · 交易复盘",
+     "url": "https://www.quantskills.ai/skills/skill-trade-review",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你在{scene}凭{reason}做了决定，还留下了“{rule}”这条规则，但它还没被历史数据检验过。",
+   "not_now": "暂时不推荐数据接口：你还没打开过数据港口，用 Qube 一句话回测更快看到结果。",
+   "qr": "task-hypo-basic"
+  },
+  {
+   "id": "task-hypo-adv",
+   "type": "hypo",
+   "level": "adv",
+   "name": "假设检验 · 进阶",
+   "for_whom": "已经会用规则、也愿意怀疑规则的你。",
+   "card_text": "回测体检：让 Qube 跑你的规则，再查一查有没有偷看未来、换一段年份还灵不灵。",
+   "play_now": [
+    "把你的规则写成一句话交给 Qube 生成回测",
+    "用回测偏差规避审计检查有没有偷看未来",
+    "换一段年份再跑，用过拟合检测看结论还在不在",
+    "规则失效了，交给策略与因子失效分诊找原因"
+   ],
+   "resources": [
+    {
+     "id": "qube",
+     "name": "PandaAI Qube（一句话生成策略并回测，登录后可用）",
+     "url": "https://www.pandaaiquant.com/agent_quant/",
+     "kind": "PandaAI 产品",
+     "is_real": true
+    },
+    {
+     "id": "skill-backtesting-bias-avoidance",
+     "name": "QuantSkills · 回测偏差规避审计",
+     "url": "https://www.quantskills.ai/skills/skill-backtesting-bias-avoidance",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-backtest-overfit",
+     "name": "QuantSkills · 回测过拟合检测",
+     "url": "https://www.quantskills.ai/skills/skill-backtest-overfit",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "agent-quant-failure-triage",
+     "name": "QuantSkills · 策略与因子失效分诊",
+     "url": "https://www.quantskills.ai/agents/agent-quant-failure-triage",
+     "kind": "QuantSkills 智能体",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你拿到了{badge}徽章，还在{scene}照着“{rule}”执行过：规则你会用了，下一步是学会怀疑它。",
+   "not_now": "暂时不推荐入门对对碰：你已经跑得动回测，更需要给回测挑毛病。",
+   "qr": "task-hypo-adv"
+  },
+  {
+   "id": "task-risk-basic",
+   "type": "risk",
+   "level": "basic",
+   "name": "风险校准 · 入门",
+   "for_whom": "游戏里两次以上选了最激进的 A，现实里却说自己求稳的你。",
+   "card_text": "压力小测：写下你能接受的最大回撤，对比你在游戏里选 A 的那几场，再去模拟赛开一局。",
+   "play_now": [
+    "回看你选 A 的那几场",
+    "写下一个你能接受的最大回撤，比如 10%",
+    "看预先算好的：按你的选择，那几场的最大回撤是多少",
+    "带着这个数字去期货模拟赛开一局，看看压力下的自己"
+   ],
+   "resources": [
+    {
+     "id": "contest-s1",
+     "name": "PandaAI 全国期货模拟赛「巅峰交易者 S1」",
+     "url": "https://www.pandaaiquant.com/contest/",
+     "kind": "PandaAI 赛事",
+     "is_real": true
+    },
+    {
+     "id": "skill-risk-return-metrics",
+     "name": "QuantSkills · 单标的风险收益画像",
+     "url": "https://www.quantskills.ai/skills/skill-risk-return-metrics",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-b11-auto-stop-loss-take-profit",
+     "name": "QuantSkills · 自动止盈止损+仓位管理（B11）",
+     "url": "https://www.quantskills.ai/skills/skill-b11-auto-stop-loss-take-profit",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场选了最激进的 A，而现实里你说上次大跌时{real1}。没有真钱时人往往更敢，两个你哪个更常出现，交给模拟盘来看。",
+   "not_now": "暂时不推荐因子类任务：先弄清自己在压力下会怎么做，比找新因子更要紧。",
+   "qr": "task-risk-basic"
+  },
+  {
+   "id": "task-risk-adv",
+   "type": "risk",
+   "level": "adv",
+   "name": "风险校准 · 进阶",
+   "for_whom": "有实盘经验、又拿了徽章的你：拿真实成交记录和游戏里的自己对一对。",
+   "card_text": "两个你对质：用交易行为诊断分析你的真实成交，再和游戏里的四张委托单并排看。",
+   "play_now": [
+    "导出你自己的成交记录（只在本机分析，不上传）",
+    "用交易行为诊断看看有没有处置效应、追涨杀跌、亏损加仓",
+    "和游戏里的四张委托单并排看：哪些习惯两边都有",
+    "去期货模拟赛，专门练一条你想改掉的习惯"
+   ],
+   "resources": [
+    {
+     "id": "skill-trading-behavior-diagnostics",
+     "name": "QuantSkills · 交易行为诊断",
+     "url": "https://www.quantskills.ai/skills/skill-trading-behavior-diagnostics",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "skill-trade-review",
+     "name": "QuantSkills · 交易复盘",
+     "url": "https://www.quantskills.ai/skills/skill-trade-review",
+     "kind": "QuantSkills 技能",
+     "is_real": true
+    },
+    {
+     "id": "contest-s1",
+     "name": "PandaAI 全国期货模拟赛「巅峰交易者 S1」",
+     "url": "https://www.pandaaiquant.com/contest/",
+     "kind": "PandaAI 赛事",
+     "is_real": true
+    }
+   ],
+   "because_template": "因为你有 {count} 场选了 A、现实里却偏保守，还拿到了{badge}徽章：你有能力也有数据，最好的校准是让真实成交记录说话。",
+   "not_now": "暂时不推荐入门版压力小测：你有真实成交记录，直接诊断比假设更准。",
+   "qr": "task-risk-adv"
+  }
+ ],
+ "ai_species": [
+  {
+   "id": "ai-cheetah",
+   "species": "cheetah",
+   "name": "猎豹",
+   "difficulty": "入门",
+   "voice": "说话短、节奏快，爱说“上车”“下车”，从不拖泥带水。",
+   "catchphrase": "上车要快，下车更要快。",
+   "card_text": "入门对手。量价一动就上车，趋势一破就下车。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 2,
+    "s2015": 2,
+    "smt": 2,
+    "squant": 2,
+    "scb": 2,
+    "soil": 1
+   },
+   "scenes": {
+    "s924": {
+     "option": "A",
+     "reason": "price",
+     "ff_action": "sell",
+     "line": "五天放量、涨停一片——势头就是信号，开盘就上车！"
+    },
+    "s2015": {
+     "option": "B",
+     "reason": "price",
+     "ff_action": "sell",
+     "line": "均线还朝上，趋势没坏就拿着；破位就下车。"
+    },
+    "smt": {
+     "option": "B",
+     "reason": "price",
+     "ff_action": "sell",
+     "line": "均线多头排列，趋势在，我就在。"
+    },
+    "squant": {
+     "option": "D",
+     "reason": "price",
+     "ff_action": "hold",
+     "line": "这条净值线破位了。规则先停，趋势回来再开。"
+    },
+    "scb": {
+     "option": "C",
+     "reason": "price",
+     "ff_action": "sell",
+     "second": "ignore",
+     "line": "跌破所有均线，先减一半，不跟飞刀较劲。"
+    },
+    "soil": {
+     "option": "C",
+     "reason": "lost",
+     "ff_action": "hold",
+     "line": "期货换月？我只会看 K 线，看不懂的不碰。"
+    }
+   }
+  },
+  {
+   "id": "ai-meerkat",
+   "species": "meerkat",
+   "name": "狐獴",
+   "difficulty": "入门",
+   "voice": "叽叽喳喳、热情真诚，开口就是“听说”“大家都”。",
+   "catchphrase": "大家都在说，肯定有点什么！",
+   "card_text": "入门对手。消息一来就竖起耳朵，人多的地方它最爱去。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 2,
+    "s2015": 2,
+    "smt": 1,
+    "squant": 2,
+    "scb": 1,
+    "soil": 2
+   },
+   "scenes": {
+    "s924": {
+     "option": "A",
+     "reason": "news",
+     "ff_action": "hold",
+     "line": "假期里全网都在说这一波，朋友都开户了，冲！"
+    },
+    "s2015": {
+     "option": "A",
+     "reason": "news",
+     "ff_action": "hold",
+     "line": "评论都说“才刚开始”，再借一点，可别掉队！"
+    },
+    "smt": {
+     "option": "A",
+     "reason": "follow",
+     "ff_action": "hold",
+     "line": "新基金一天就卖光，经理都有应援团了，我加仓！"
+    },
+    "squant": {
+     "option": "A",
+     "reason": "news",
+     "ff_action": "hold",
+     "line": "听说有大资金要来护盘，跌多了正好加点。"
+    },
+    "scb": {
+     "option": "A",
+     "reason": "follow",
+     "ff_action": "hold",
+     "second": "stop",
+     "line": "群里都在喊“难得的坑”，我先抄一份再说！"
+    },
+    "soil": {
+     "option": "A",
+     "reason": "news",
+     "ff_action": "hold",
+     "line": "银行都在卖这款，“抄底原油”都上热搜了！"
+    }
+   }
+  },
+  {
+   "id": "ai-owl",
+   "species": "owl",
+   "name": "猫头鹰",
+   "difficulty": "进阶",
+   "voice": "慢条斯理，爱说“再看看”，但每次都说得出自己在等什么。",
+   "catchphrase": "不急，我在等一个具体的信号。",
+   "card_text": "进阶对手。证据看得全、出手很少，空仓时最安静。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 3,
+    "s2015": 4,
+    "smt": 3,
+    "squant": 4,
+    "scb": 3,
+    "soil": 4
+   },
+   "scenes": {
+    "s924": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "enter",
+     "line": "涨得太急了。等它回落一些、量能降下来，我再进。"
+    },
+    "s2015": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "融资余额高得吓人，又在清理配资——我先下车看。"
+    },
+    "smt": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "估值温度计到顶了。赚到的先收好，等它冷静。"
+    },
+    "squant": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "回撤超出了这条规则见过的范围，先停，查清原因。"
+    },
+    "scb": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "second": "ignore",
+     "line": "大跌之后什么走势都有过。先离场，等波动降下来。"
+    },
+    "soil": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "近月和远月差这么多，结构没看清之前，我不动。"
+    }
+   }
+  },
+  {
+   "id": "ai-elephant",
+   "species": "elephant",
+   "name": "大象",
+   "difficulty": "进阶",
+   "voice": "稳重、爱讲道理，口头禅是“这个价贵不贵”。",
+   "catchphrase": "先问值不值，再问涨不涨。",
+   "card_text": "进阶对手。只认估值和时间，便宜了分批买，贵了慢慢卖。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 3,
+    "s2015": 3,
+    "smt": 3,
+    "squant": 3,
+    "scb": 4,
+    "soil": 3
+   },
+   "scenes": {
+    "s924": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "估值从很低的地方起来，买一小份放着，不追高。"
+    },
+    "s2015": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "已经不便宜了。借来的钱先还掉，自己的钱慢慢拿。"
+    },
+    "smt": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "好公司，可这个价太贵了。卖一半，留一半。"
+    },
+    "squant": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "跑了三年的规则，不该因为两周回撤就扔。照常执行。"
+    },
+    "scb": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "second": "add",
+     "line": "好公司打了折。先拿着，等大家最慌的时候再分批加。"
+    },
+    "soil": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "油价是真便宜，但我要的是时间：买远一点的合约。"
+    }
+   }
+  },
+  {
+   "id": "ai-fox",
+   "species": "fox",
+   "name": "狐狸",
+   "difficulty": "中等",
+   "voice": "机灵、带点怀疑，口头禅是“验一验”，说好的规则一定照做。",
+   "catchphrase": "先别信，验一验。",
+   "card_text": "中等对手。能查历史就查历史，手里有规则就照规则办。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 3,
+    "s2015": 3,
+    "smt": 3,
+    "squant": 3,
+    "scb": 2,
+    "soil": 3
+   },
+   "scenes": {
+    "s924": {
+     "option": "D",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "连涨五天之后，历史上通常怎样？查清楚前，我不进。"
+    },
+    "s2015": {
+     "option": "B",
+     "reason": "rule",
+     "rule": "rule-stop10",
+     "ff_action": "sell",
+     "line": "规则写着跌 10% 才走。还没到，就照规则拿着。"
+    },
+    "smt": {
+     "option": "C",
+     "reason": "rule",
+     "rule": "rule-val80",
+     "ff_action": "hold",
+     "line": "规则说估值分位过了 80% 就减半，照做。"
+    },
+    "squant": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "先别扔规则：加一条“别太挤”的过滤，改完再跑。"
+    },
+    "scb": {
+     "option": "C",
+     "reason": "rule",
+     "rule": "rule-cap1",
+     "ff_action": "hold",
+     "second": "ignore",
+     "line": "规则说最多一份。多出来的，减掉。"
+    },
+    "soil": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "说明书写着到期前要移仓，那我直接买远月。"
+    }
+   }
+  },
+  {
+   "id": "ai-chameleon",
+   "species": "chameleon",
+   "name": "变色龙",
+   "difficulty": "中等",
+   "voice": "轻快随和，常说“这季换个打法”，每次换都给出理由。",
+   "catchphrase": "天气变了，就换件衣服。",
+   "card_text": "中等对手。每季换一种依据：春看量价，夏看数据，秋看人群。每场的选择、快进动作和方法星印在背面。",
+   "method_stars": {
+    "s924": 3,
+    "s2015": 3,
+    "smt": 2,
+    "squant": 3,
+    "scb": 3,
+    "soil": 2
+   },
+   "scenes": {
+    "s924": {
+     "option": "B",
+     "reason": "price",
+     "ff_action": "sell",
+     "line": "这季是情绪市，我跟着量价上一小份，随时换打法。"
+    },
+    "s2015": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "sell",
+     "line": "狂热里我改看数据：融资太满了，先把杠杆降下来。"
+    },
+    "smt": {
+     "option": "B",
+     "reason": "news",
+     "ff_action": "sell",
+     "line": "这季我盯人群情绪：应援还没散，先拿着，风向一变就走。"
+    },
+    "squant": {
+     "option": "C",
+     "reason": "data",
+     "ff_action": "hold",
+     "line": "小市值这阵风停了，换个因子，规则接着跑。"
+    },
+    "scb": {
+     "option": "B",
+     "reason": "data",
+     "ff_action": "hold",
+     "second": "stop",
+     "line": "冬天我只看历史统计：大跌后涨跌都有，先拿着。"
+    },
+    "soil": {
+     "option": "A",
+     "reason": "price",
+     "ff_action": "hold",
+     "line": "跌到这么低，这季我改玩反转，抄一份试试。"
+    }
+   }
+  }
+ ],
+ "quickref": {
+  "copies": 5,
+  "front": {
+   "title": "速查卡",
+   "lines": [
+    "一季四步：① 领 1 研究点、撕本季委托单 ② 掷两骰挑一个点：1–5 去对应小格，6 直达门口再拿 1 点 ③ 进名场面 ④ 驿站拿物种币",
+    "名场面六步：盲入场 → 开证据（1 点看 1 张）→ 填委托单 → 三二一亮单 → 快进 → 揭幕",
+    "两本账：资金看结果；方法星看证据、理由一致、计划照做，每场最多 4 颗",
+    "终局分 ＝ 方法星 ＋ 资金名次分（6 / 4 / 2 / 1）"
+   ]
+  },
+  "back": {
+   "title": "物种图标从哪来",
+   "note": "第一场揭幕后再翻看",
+   "lines": [
+    "理由 ×2：量价→猎豹｜数据→大象｜消息、跟别人→狐獴｜规则牌→狐狸",
+    "选 0 份（观望）且理由不是直觉、看不懂→改成猫头鹰；用规则牌仍是狐狸",
+    "第一张证据 ×1：量价→猎豹｜数据→大象｜消息→狐獴（锦囊不给）",
+    "机会牌 ×1：看牌背。直觉、看不懂不给图标",
+    "驿站拿最多的那种；平局抽补测牌；认出来的那季币放空心面"
+   ]
+  }
+ },
+ "prologue": {
+  "title": "序章 · 1720",
+  "read_aloud": "1720 年的伦敦，南海公司的股票几个月里涨了好几倍，街头巷尾都在谈它。相传，连牛顿也卷了进去，亏掉约 2 万英镑，还留下一句：“我能算准天体的运行，却算不准人性的疯狂。”三百年来，这样的名场面一次次重演。所以这个游戏不比谁赚得多——它只想知道：在当时的信息下，你会怎么做，凭什么。",
+  "self_assessment": "摊开 6 张物种牌（海狸是隐藏物种，不摊）。每人在终局档案卡的“自评”栏偷偷圈一个“我觉得我是”，再勾一个“敢冲 / 看情况 / 求稳”。档案卡扣在玩家板下面，终局再翻开，和游戏里的你并排放。",
+  "fact_note": "“相传”二字不能省：牛顿亏损约 2 万英镑和那句话都是流传说法。"
+ },
+ "debt": {
+  "name": "负债牌",
+  "copies": 8,
+  "tier": "P1",
+  "card_size": "迷你卡",
+  "card_text": "穿仓了：亏的比本金还多。资金指示物放 0，在牌上写下欠款 ___；之后赚的先还债，还清交回。",
+  "end_rule": "终局还拿着负债牌：资金名次分记 0。",
+  "flavor": "有些产品的亏损真的可以超过本金——这不是游戏的夸张。",
+  "used_in": [
+   "soil",
+   "s2015"
+  ],
+  "when": "冬 B 快进后资金跌破 0 的人拿；夏 A 选了“再加杠杆”的人被强制平仓后资金仍低于 0，也拿。"
+ },
+ "forms": {
+  "order_slip": {
+   "name": "委托单",
+   "size": "A6",
+   "pads": "春夏秋冬四本，纸色用季节色；每人每季撕一张",
+   "copies_per_pad": 50,
+   "print_note": "每季那一页按本季门 A、门 B 各印四个选项和份数圆点 ●●○，并在本季的风险证据旁印 ⚠；下面 front / back 只列印刷的栏目文字。",
+   "front_title": "委托单 · 亮单前填",
+   "front": [
+    "门 □A □B ｜ 小格 ①②③④⑤⑥ ｜ ④答对□ ⑤坐下□",
+    "认出来了：事件名 ______（亮单前写）",
+    "看了：□量价 □数据 □消息 □锦囊（第一张画圈）",
+    "选项：□A □B □C □D",
+    "理由（勾一个）：□量价 □数据 □消息 □跟别人 □直觉 □看不懂 □规则牌：____",
+    "计划：□跌了就走 □跌了就加 □不定（0 份不勾“走”；用规则牌不勾）",
+    "春 A：我选时排队条上有 __ 人",
+    "想开的门：□A □B"
+   ],
+   "back_title": "委托单 · 复盘面（快进和揭幕时填）",
+   "back": [
+    "快进：□持有 □卖出 □加仓 □进场 ｜ 秋 A：□留下 □离开 ｜ 改主意了吗 □是 □否",
+    "冬 A 熔断：第 1 张 调 __ 第 2 张 调 __ ｜ 第二次决定 □补仓 □止损 □不看了",
+    "结算：第一段 ±__ 第二段 ±__ ＝ 资金 __",
+    "方法星：证据 □□ 理由一致 □ 计划照做 □",
+    "图标：理由 ×2 ___ 第一张证据 ×1 ___ 机会牌 ×1 ___ → 本季物种币 ___",
+    "□空心（认出来了） □平局补测 □改（我不同意） ｜ 揭幕后：事件名写对了 □"
+   ]
+  },
+  "record_card": {
+   "name": "终局档案卡",
+   "size": "A5",
+   "qr": "record",
+   "fields": [
+    "自评（序章填）：我觉得我是 ___ ｜ □敢冲 □看情况 □求稳",
+    "四季物种币：春 ___ 夏 ___ 秋 ___ 冬 ___ ｜ 工具箱：海狸币 __ 枚",
+    "我的物种：___ ｜ 置信度 □很确定 □比较确定 □初步 □待确认 ｜ 隐藏特质：海狸 □",
+    "徽章：□证据控 □说到做到 □金融史达人 □数据手 □规则派 □看懂风险",
+    "终局分：方法星 __ ＋ 名次分 __ ＝ __",
+    "现实题 1：上一次遇到大跌，你实际做了什么？ □A □B □C □D □E",
+    "现实题 2：上一次买入的主要原因？ □A □B □C □D □E",
+    "两个你：自评 ___ ／ 游戏 ___ ／ 一句话 ________",
+    "我的任务：□读图 □探索 □状态 □核查 □假设 □风险 × □入门 □进阶",
+    "扫码 record：把这张卡录进手机，生成完整画像"
+   ]
+  }
+ },
+ "station": {
+  "card": {
+   "front_title": "驿站 · 季度小结",
+   "front": [
+    "1 数本季委托单上的图标：理由算 2 个，第一张证据 1 个，机会牌 1 个。",
+    "2 拿最多的那种物种币，放进玩家板本季的格子。",
+    "3 这季申报过“认出来了”：币放空心面，算半枚。",
+    "4 棋子走到下一个角，起始玩家换成左手边的人。"
+   ],
+   "back_title": "平局与“我不同意”",
+   "back": [
+    "平局：找牌背印着这两种物种的补测牌，按答案拿币，不能自己挑；没有这一对，用“变色龙 / 任意”那张。",
+    "一个图标都没有：抽补测牌堆顶那张。",
+    "我不同意：说一句理由，抽写着你主张那种物种的补测牌；答案支持你就换币，委托单标“改”。"
+   ]
+  },
+  "corners": [
+   {
+    "position": "右上角",
+    "label": "驿站 · 春→夏",
+    "text": "数图标，拿一枚物种币"
+   },
+   {
+    "position": "右下角",
+    "label": "驿站 · 夏→秋",
+    "text": "数图标，拿一枚物种币"
+   },
+   {
+    "position": "左下角",
+    "label": "驿站 · 秋→冬",
+    "text": "数图标，拿一枚物种币"
+   },
+   {
+    "position": "左上角",
+    "label": "总起点 · 冬季驿站 · 终点",
+    "text": "从这里出发，回到这里破壳"
+   }
+  ]
+ },
+ "self_and_real": {
+  "self_assessment": {
+   "when": "序章",
+   "where": "终局档案卡 · 自评栏",
+   "prompt": "凭感觉圈一个：我觉得我是……",
+   "choices": [
+    "cheetah",
+    "elephant",
+    "fox",
+    "owl",
+    "meerkat",
+    "chameleon"
+   ],
+   "risk_prompt": "再勾一个：我平时更像……",
+   "risk_choices": [
+    {
+     "key": "bold",
+     "text": "敢冲"
+    },
+    {
+     "key": "flex",
+     "text": "看情况"
+    },
+    {
+     "key": "steady",
+     "text": "求稳"
+    }
+   ],
+   "note": "只给自己看。终局翻开，和游戏里的你并排放。"
+  },
+  "real_questions": [
+   {
+    "id": "real1",
+    "prompt": "现实里你上一次遇到大跌，实际做了什么？",
+    "options": [
+     {
+      "key": "A",
+      "text": "卖掉了大部分或全部",
+      "tag": "conservative"
+     },
+     {
+      "key": "B",
+      "text": "卖了一点，留了一点",
+      "tag": "conservative"
+     },
+     {
+      "key": "C",
+      "text": "没动，一直拿着",
+      "tag": "hold"
+     },
+     {
+      "key": "D",
+      "text": "趁跌买了更多",
+      "tag": "aggressive"
+     },
+     {
+      "key": "E",
+      "text": "还没遇到过 / 当时没有持仓",
+      "tag": "none"
+     }
+    ]
+   },
+   {
+    "id": "real2",
+    "prompt": "你上一次买入的主要原因是什么？",
+    "options": [
+     {
+      "key": "A",
+      "text": "看了走势和成交量",
+      "reason": "price",
+      "species": "cheetah"
+     },
+     {
+      "key": "B",
+      "text": "看了估值、财报等数据",
+      "reason": "data",
+      "species": "elephant"
+     },
+     {
+      "key": "C",
+      "text": "看到新闻，或者朋友、博主推荐",
+      "reason": "news",
+      "species": "meerkat"
+     },
+     {
+      "key": "D",
+      "text": "按自己事先定好的规则",
+      "reason": "rule",
+      "species": "fox"
+     },
+     {
+      "key": "E",
+      "text": "还没买过",
+      "reason": null,
+      "species": null
+     }
+    ]
+   }
+  ],
+  "conservative_rule": "“偏保守”＝自评勾了“求稳”，或现实题 1 选了 A、B。",
+  "two_you": {
+   "same": "你说的你是{self}，游戏里的你也是{game}：自我认知和行为对得上。可以直接按这个方向往下练。",
+   "differ": "你说的你是{self}，游戏里的你更像{game}。先别急着判谁对：游戏里{game_evidence}，现实里你说{real2}。两个你都是真的，之后你在平台上的研究和模拟盘会告诉你，哪个更常出现。",
+   "risk_gap": "游戏里你有 {count} 场选了最激进的 A，现实里上次大跌你{real1}。没有真钱时人往往更敢——这一条只算“游戏里的表现”，交给模拟盘校准。",
+   "pending": "{a}和{b}还在打平。下一局走另一扇门，或者扫码做一道追问，就能分出来。",
+   "no_real": "你还没遇到过大跌，这很正常。现实这一栏先空着，模拟盘可以帮你补上。",
+   "retest_online": "想换一种方式再测一次？试试 QuantSkills 投资性格 Qbti 测试，它会把偏好换算成因子方向和策略参数。"
+  },
+  "resource_ids": [
+   "skill-qbti"
+  ]
+ },
+ "door_teasers": [
+  {
+   "scene": "s924",
+   "season": "春",
+   "door": "A",
+   "tier": "P0",
+   "status": "开放",
+   "teaser": "A 股 · 一个长假前夜"
+  },
+  {
+   "scene": "sds",
+   "season": "春",
+   "door": "B",
+   "tier": "P2",
+   "status": "未开放 · 敬请期待",
+   "teaser": "美股 / 港股 / A 股 · 一个模型改变的长假"
+  },
+  {
+   "scene": "s2015",
+   "season": "夏",
+   "door": "A",
+   "tier": "P0",
+   "status": "开放",
+   "teaser": "A 股 · 一个人人都在借钱的夏天"
+  },
+  {
+   "scene": "sgme",
+   "season": "夏",
+   "door": "B",
+   "tier": "P2",
+   "status": "未开放 · 敬请期待",
+   "teaser": "美股 · 散户在论坛里集结"
+  },
+  {
+   "scene": "smt",
+   "season": "秋",
+   "door": "A",
+   "tier": "P0",
+   "status": "开放",
+   "teaser": "A 股 · 春节前的最后一天"
+  },
+  {
+   "scene": "squant",
+   "season": "秋",
+   "door": "B",
+   "tier": "P1",
+   "status": "P1：第二局起可开",
+   "teaser": "A 股 · 一条跑了三年的规则"
+  },
+  {
+   "scene": "scb",
+   "season": "冬",
+   "door": "A",
+   "tier": "P0",
+   "status": "开放",
+   "teaser": "美股 · 你的 ETF 在海那边"
+  },
+  {
+   "scene": "soil",
+   "season": "冬",
+   "door": "B",
+   "tier": "P1",
+   "status": "P1：第二局起可开",
+   "teaser": "期货 · 一款人人都在抄底的理财"
+  }
+ ],
+ "door_teaser_note": "门牌文字与 scenes.json 的 door_hint 一致；只写市场和一句氛围，不写事件名和年份。",
+ "resources": [
+  {
+   "id": "qube",
+   "name": "Qube",
+   "url": "https://www.pandaaiquant.com/agent_quant/",
+   "kind": "PandaAI 产品",
+   "one_line": "用一句中文生成策略并回测（登录后可用）；适合想把交易直觉交给历史数据检验的人。"
+  },
+  {
+   "id": "evo",
+   "name": "EVO 自进化 Alpha 投研平台",
+   "url": "https://www.pandaaiquant.com/evo",
+   "kind": "PandaAI 产品",
+   "one_line": "研究员产出观点、审查官独立对抗复核；适合想给自己的判断找反证的人。"
+  },
+  {
+   "id": "evo-docs",
+   "name": "EVO 文档",
+   "url": "https://www.pandaaiquant.com/docs/evo",
+   "kind": "PandaAI 产品",
+   "one_line": "EVO 的上手说明；适合第一次用 EVO 的人。"
+  },
+  {
+   "id": "a2a-office-docs",
+   "name": "A2A 办公室文档",
+   "url": "https://www.pandaaiquant.com/docs/a2a-office",
+   "kind": "PandaAI 产品",
+   "one_line": "一站式搭建 Agent 团队，比如每天盘前给你一份简报；适合消息多、想先整理再判断的人。"
+  },
+  {
+   "id": "quantfactor-center",
+   "name": "量化因子中心",
+   "url": "https://www.pandaaiquant.com/quantfactor-center",
+   "kind": "PandaAI 产品",
+   "one_line": "全品类量化因子管理平台；适合想系统地看因子的人。"
+  },
+  {
+   "id": "learninghub",
+   "name": "量化课程",
+   "url": "https://www.pandaaiquant.com/learninghub/newcourse",
+   "kind": "PandaAI 产品",
+   "one_line": "系统的量化课程体系；适合想从基础补起的人。读图入门的具体课程还在挑，任务牌上标“示例”。"
+  },
+  {
+   "id": "data-api-docs",
+   "name": "数据 API 文档",
+   "url": "https://www.pandaaiquant.com/docs/api",
+   "kind": "PandaAI 产品",
+   "one_line": "panda_data 每个接口的参数、字段和示例；数据港口牌上的代码都能在这里查到。"
+  },
+  {
+   "id": "contest-s1",
+   "name": "全国期货模拟赛「巅峰交易者 S1」",
+   "url": "https://www.pandaaiquant.com/contest/",
+   "kind": "PandaAI 赛事",
+   "one_line": "在模拟盘里体验接近真实的压力；适合想校准风险偏好、对期货好奇的人。"
+  },
+  {
+   "id": "factor-comp-4",
+   "name": "第四届因子大赛",
+   "url": "https://www.pandaaiquant.com/factorhub/fourthFactorCompetition/",
+   "kind": "PandaAI 赛事",
+   "one_line": "用真实数据比拼因子；适合已经能自己评估因子的人。"
+  },
+  {
+   "id": "panda-data-sdk",
+   "name": "panda_data Python SDK",
+   "url": "https://www.pandaaiquant.com/docs/api",
+   "kind": "开源工具",
+   "one_line": "pip install panda_data，用 Python 取行情、因子和期货数据；适合想自己动手取数的人。"
+  },
+  {
+   "id": "quantstudio",
+   "name": "QuantStudio 本地量化研究 AI 工作台",
+   "url": "https://github.com/quantskills/QuantStudio",
+   "kind": "开源工具",
+   "one_line": "在自己电脑上做量化研究的 AI 工作台；适合爱自己造工具的人。"
+  },
+  {
+   "id": "quantstudio-gitee",
+   "name": "QuantStudio（国内镜像）",
+   "url": "https://gitee.com/quantskills/QuantStudio",
+   "kind": "开源工具",
+   "one_line": "QuantStudio 的国内镜像，下载更快。"
+  },
+  {
+   "id": "skill-trading-behavior-diagnostics",
+   "name": "交易行为诊断",
+   "url": "https://www.quantskills.ai/skills/skill-trading-behavior-diagnostics",
+   "kind": "QuantSkills 技能",
+   "one_line": "从自己的成交记录诊断处置效应、过度交易、追涨杀跌、亏损加仓；最适合拿来对照“游戏里的你”和“实盘里的你”。"
+  },
+  {
+   "id": "skill-qbti",
+   "name": "投资性格 Qbti 测试",
+   "url": "https://www.quantskills.ai/skills/skill-qbti",
+   "kind": "QuantSkills 技能",
+   "one_line": "把投资偏好换算成因子方向和策略参数；适合想换一种方式再测一次的人。"
+  },
+  {
+   "id": "skill-ma-crossover-signal",
+   "name": "均线交叉信号分析",
+   "url": "https://www.quantskills.ai/skills/skill-ma-crossover-signal",
+   "kind": "QuantSkills 技能",
+   "one_line": "找出均线金叉、死叉并评估信号；适合看量价、想验证趋势信号的人。"
+  },
+  {
+   "id": "skill-build-b10-factor-evaluation",
+   "name": "B10 因子评估系统",
+   "url": "https://www.quantskills.ai/skills/skill-build-b10-factor-evaluation",
+   "kind": "QuantSkills 技能",
+   "one_line": "IC、IR、分层回测、衰减一条龙；适合想认真评估一个因子的人。"
+  },
+  {
+   "id": "skill-a-share-stock-dossier",
+   "name": "A股个股档案",
+   "url": "https://www.quantskills.ai/skills/skill-a-share-stock-dossier",
+   "kind": "QuantSkills 技能",
+   "one_line": "把一家公司的关键信息整理成档案；适合爱看基本面的人。"
+  },
+  {
+   "id": "skill-index-valuation-rotation",
+   "name": "指数估值轮动",
+   "url": "https://www.quantskills.ai/skills/skill-index-valuation-rotation",
+   "kind": "QuantSkills 技能",
+   "one_line": "按估值高低在指数之间轮动；适合关心“现在贵不贵”的人。"
+  },
+  {
+   "id": "skill-news-sentiment-analyst",
+   "name": "A股财经新闻情感分析师",
+   "url": "https://www.quantskills.ai/skills/skill-news-sentiment-analyst",
+   "kind": "QuantSkills 技能",
+   "one_line": "给财经新闻打情绪分；适合对消息敏感、想把情绪量化的人。"
+  },
+  {
+   "id": "skill-a-share-market-risk-radar",
+   "name": "A股市场风险雷达",
+   "url": "https://www.quantskills.ai/skills/skill-a-share-market-risk-radar",
+   "kind": "QuantSkills 技能",
+   "one_line": "扫一遍市场当下的风险信号；适合想先看清风险再说的人。"
+  },
+  {
+   "id": "skill-northbound-margin-monitor",
+   "name": "北向资金与两融期货全景监控",
+   "url": "https://www.quantskills.ai/skills/skill-northbound-margin-monitor",
+   "kind": "QuantSkills 技能",
+   "one_line": "盯北向资金和融资融券；适合关心杠杆和资金流向的人。"
+  },
+  {
+   "id": "skill-a-share-tradability-auditor",
+   "name": "A股可交易性审计",
+   "url": "https://www.quantskills.ai/skills/skill-a-share-tradability-auditor",
+   "kind": "QuantSkills 技能",
+   "one_line": "逐笔判定涨跌停封板、停牌、T+1；适合想知道“到底卖不卖得掉”的人。"
+  },
+  {
+   "id": "skill-pandadata-api",
+   "name": "Pandadata 数据接口",
+   "url": "https://www.quantskills.ai/skills/skill-pandadata-api",
+   "kind": "QuantSkills 技能",
+   "one_line": "帮你定位和调用 panda_data 接口；适合刚开始自己取数的人。"
+  },
+  {
+   "id": "skill-backtesting-bias-avoidance",
+   "name": "回测偏差规避审计",
+   "url": "https://www.quantskills.ai/skills/skill-backtesting-bias-avoidance",
+   "kind": "QuantSkills 技能",
+   "one_line": "检查回测里有没有偷看未来等偏差；适合开始自己写回测的人。"
+  },
+  {
+   "id": "skill-backtest-overfit",
+   "name": "回测过拟合检测",
+   "url": "https://www.quantskills.ai/skills/skill-backtest-overfit",
+   "kind": "QuantSkills 技能",
+   "one_line": "看看漂亮的回测是不是凑出来的；适合规则越调越好看的人。"
+  },
+  {
+   "id": "skill-futures-roll-auditor",
+   "name": "期货连续合约换月审计",
+   "url": "https://www.quantskills.ai/skills/skill-futures-roll-auditor",
+   "kind": "QuantSkills 技能",
+   "one_line": "检查连续合约换月处的价格跳空；适合想弄懂“移仓”的人。"
+  },
+  {
+   "id": "skill-factor-decay",
+   "name": "因子衰减分析",
+   "url": "https://www.quantskills.ai/skills/skill-factor-decay",
+   "kind": "QuantSkills 技能",
+   "one_line": "看一个因子的效果随时间怎么变弱；适合担心规则会失效的人。"
+  },
+  {
+   "id": "skill-trade-review",
+   "name": "交易复盘",
+   "url": "https://www.quantskills.ai/skills/skill-trade-review",
+   "kind": "QuantSkills 技能",
+   "one_line": "按步骤复盘一笔交易；适合想从自己的操作里学东西的人。"
+  },
+  {
+   "id": "skill-serenity-research-model",
+   "name": "Serenity 投研模型",
+   "url": "https://www.quantskills.ai/skills/skill-serenity-research-model",
+   "kind": "QuantSkills 技能",
+   "one_line": "从公开内容重建一个观点的研究逻辑；适合想看懂“这个说法是怎么来的”的人。"
+  },
+  {
+   "id": "skill-quant-factor-skill-factory",
+   "name": "因子技能工厂",
+   "url": "https://www.quantskills.ai/skills/skill-quant-factor-skill-factory",
+   "kind": "QuantSkills 技能",
+   "one_line": "把因子想法做成可以复用的技能；适合爱造工具的人。"
+  },
+  {
+   "id": "skill-market-regime-analysis",
+   "name": "A股市场状态分析",
+   "url": "https://www.quantskills.ai/skills/skill-market-regime-analysis",
+   "kind": "QuantSkills 技能",
+   "one_line": "判断市场处在趋势、震荡、退潮还是风险扩张；适合爱等信号的人。"
+  },
+  {
+   "id": "skill-kline-pattern-vision",
+   "name": "K线形态识别",
+   "url": "https://www.quantskills.ai/skills/skill-kline-pattern-vision",
+   "kind": "QuantSkills 技能",
+   "one_line": "识别常见的 K 线形态；适合刚开始学读图的人。"
+  },
+  {
+   "id": "skill-risk-return-metrics",
+   "name": "单标的风险收益画像",
+   "url": "https://www.quantskills.ai/skills/skill-risk-return-metrics",
+   "kind": "QuantSkills 技能",
+   "one_line": "算一只标的的回撤、波动和收益；适合想给风险定个数的人。"
+  },
+  {
+   "id": "skill-b11-auto-stop-loss-take-profit",
+   "name": "自动止盈止损+仓位管理（B11）",
+   "url": "https://www.quantskills.ai/skills/skill-b11-auto-stop-loss-take-profit",
+   "kind": "QuantSkills 技能",
+   "one_line": "把止盈止损和仓位规则自动化；适合想“说到做到”的人。"
+  },
+  {
+   "id": "agent-market-regime-monitor",
+   "name": "市场状态监控智能体",
+   "url": "https://www.quantskills.ai/agents/agent-market-regime-monitor",
+   "kind": "QuantSkills 智能体",
+   "one_line": "每天盯市场状态，告诉你信号满足了几条；适合常常选择等待的人。"
+  },
+  {
+   "id": "agent-crowding-risk-monitor",
+   "name": "拥挤度风险监控智能体",
+   "url": "https://www.quantskills.ai/agents/agent-crowding-risk-monitor",
+   "kind": "QuantSkills 智能体",
+   "one_line": "盯抱团、过热、踩踏和去杠杆；适合想提前看出“门太挤”的人。"
+  },
+  {
+   "id": "agent-quant-failure-triage",
+   "name": "策略与因子失效分诊",
+   "url": "https://www.quantskills.ai/agents/agent-quant-failure-triage",
+   "kind": "QuantSkills 智能体",
+   "one_line": "规则突然不灵时帮你找原因；适合手里有规则、又遇到回撤的人。"
+  },
+  {
+   "id": "agent-correlation-break-research",
+   "name": "相关性突变研究智能体",
+   "url": "https://www.quantskills.ai/agents/agent-correlation-break-research",
+   "kind": "QuantSkills 智能体",
+   "one_line": "研究资产之间的相关性什么时候突然变了（风格切换）；适合爱随市场换打法的人。"
+  },
+  {
+   "id": "agent-cross-market-event-radar",
+   "name": "跨市场公司事件雷达",
+   "url": "https://www.quantskills.ai/agents/agent-cross-market-event-radar",
+   "kind": "QuantSkills 智能体",
+   "one_line": "跟踪一家公司在不同市场的事件；适合消息多、想先把事实理清的人。"
+  }
+ ]
+}

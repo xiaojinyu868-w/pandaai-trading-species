@@ -1,0 +1,31 @@
+{
+  "name": "trading-species-h5",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "prep": "python3.11 scripts/prepare_content.py && python3.11 scripts/prepare_assets.py",
+    "dev": "vite --host 0.0.0.0 --port 5178",
+    "build": "tsc -b && vite build",
+    "deploy": "rm -rf /var/www/ts.new && cp -a dist /var/www/ts.new && rm -rf /var/www/ts && mv /var/www/ts.new /var/www/ts"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-sc": "^5.3.1",
+    "@google/model-viewer": "^4.4.0",
+    "framer-motion": "^11.18.2",
+    "html-to-image": "^1.11.13",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.6",
+    "zustand": "^4.5.7"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21"
+  }
+}

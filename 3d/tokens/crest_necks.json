@@ -1,0 +1,10 @@
+{
+  "_说明": "物种头饰从 60 mm 手办打印件（3d/figurines/<sp>/print.stl）的这个高度（mm）往上截取头部；取值是横截面积最小处（颈部）。",
+  "fox": 43.0,
+  "cheetah": 49.0,
+  "elephant": 46.0,
+  "owl": 44.0,
+  "meerkat": 51.0,
+  "chameleon": 47.0,
+  "beaver": 47.0
+}

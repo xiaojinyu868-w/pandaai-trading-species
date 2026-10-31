@@ -1,0 +1,89 @@
+{
+  "species": "chameleon",
+  "source_topology": {
+    "faces": 1903975,
+    "watertight": false,
+    "winding_consistent": false,
+    "is_volume": false,
+    "bodies": 1,
+    "nonmanifold_edges": 1,
+    "boundary_edges": 2
+  },
+  "repair": "拆成 2 个壳，pymeshfix 修补后求并 1 个（丢弃 1 个碎片）",
+  "simplified_faces": 155232,
+  "weak_regions": {
+    "thin_parts": 2587,
+    "weak_parts": 3,
+    "weak_volume_mm3": 61.5
+  },
+  "thin_samples": [
+    16764,
+    4
+  ],
+  "thin_tiles": [
+    5,
+    2
+  ],
+  "thickness_before": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 2.038,
+    "lt_1.0mm_pct": 1.505,
+    "lt_0.8mm_pct": 0.943,
+    "min_mm": 0.004,
+    "p0.1_mm": 0.429,
+    "median_mm": 6.252
+  },
+  "thin_before_pct": {
+    "weak_structures": 1.676,
+    "surface_detail": 0.361
+  },
+  "added_volume_mm3": 103.77,
+  "cleanup": "去掉 1 个内部空腔/碎片；解开相切夹点顶点 0 个",
+  "final_topology": {
+    "faces": 119576,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "manifold3d_status": "Error.NoError",
+  "genus": 10,
+  "size_mm": [
+    33.71,
+    33.58,
+    60.0
+  ],
+  "volume_cm3": 13.868,
+  "bottom_contact_area_mm2": 857.0,
+  "thickness_after": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.362,
+    "lt_1.0mm_pct": 0.198,
+    "lt_0.8mm_pct": 0.082,
+    "min_mm": 0.003,
+    "p0.1_mm": 0.838,
+    "median_mm": 6.124
+  },
+  "thickness_after_excl_bottom_1mm": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.421,
+    "lt_1.0mm_pct": 0.23,
+    "lt_0.8mm_pct": 0.095,
+    "min_mm": 0.003,
+    "p0.1_mm": 0.809,
+    "median_mm": 6.336
+  },
+  "thickness_after_weak_structures": {
+    "samples": 33512,
+    "lt_1.2mm_pct": 0.03,
+    "lt_1.0mm_pct": 0.012,
+    "lt_0.8mm_pct": 0.012,
+    "min_mm": 0.306,
+    "p0.1_mm": 1.218,
+    "median_mm": 2.151
+  },
+  "stl_bytes": 5978884,
+  "3mf_bytes": 2236442
+}

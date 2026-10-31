@@ -1,0 +1,89 @@
+{
+  "species": "owl",
+  "source_topology": {
+    "faces": 1957492,
+    "watertight": true,
+    "winding_consistent": false,
+    "is_volume": false,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "repair": "拆成 1 个壳，pymeshfix 修补后求并 1 个（丢弃 0 个碎片）",
+  "simplified_faces": 176924,
+  "weak_regions": {
+    "thin_parts": 2264,
+    "weak_parts": 3,
+    "weak_volume_mm3": 14.4
+  },
+  "thin_samples": [
+    9259,
+    1
+  ],
+  "thin_tiles": [
+    7,
+    1
+  ],
+  "thickness_before": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 1.816,
+    "lt_1.0mm_pct": 1.62,
+    "lt_0.8mm_pct": 1.303,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.479,
+    "median_mm": 10.052
+  },
+  "thin_before_pct": {
+    "weak_structures": 0.926,
+    "surface_detail": 0.889
+  },
+  "added_volume_mm3": 46.48,
+  "cleanup": "去掉 0 个内部空腔/碎片；解开相切夹点顶点 0 个",
+  "final_topology": {
+    "faces": 122658,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "manifold3d_status": "Error.NoError",
+  "genus": 16,
+  "size_mm": [
+    31.76,
+    31.76,
+    60.0
+  ],
+  "volume_cm3": 15.245,
+  "bottom_contact_area_mm2": 761.6,
+  "thickness_after": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.916,
+    "lt_1.0mm_pct": 0.7,
+    "lt_0.8mm_pct": 0.413,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.466,
+    "median_mm": 9.829
+  },
+  "thickness_after_excl_bottom_1mm": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 1.023,
+    "lt_1.0mm_pct": 0.812,
+    "lt_0.8mm_pct": 0.479,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.428,
+    "median_mm": 12.63
+  },
+  "thickness_after_weak_structures": {
+    "samples": 15065,
+    "lt_1.2mm_pct": 0.02,
+    "lt_1.0mm_pct": 0.007,
+    "lt_0.8mm_pct": 0.007,
+    "min_mm": 0.521,
+    "p0.1_mm": 1.228,
+    "median_mm": 1.571
+  },
+  "stl_bytes": 6132984,
+  "3mf_bytes": 2334291
+}

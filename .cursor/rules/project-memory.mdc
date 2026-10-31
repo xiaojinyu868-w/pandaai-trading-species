@@ -1,0 +1,35 @@
+---
+description: 《交易物种起源》项目记忆：意图、红线、能力和工作方式。完整版见 项目意图与上下文.md
+alwaysApply: true
+---
+
+# 《交易物种起源》项目记忆
+
+开工先读 `项目意图与上下文.md`，有新决定就更新它。始终用中文回复；脚本用 python3.11（系统 python3 是 3.6）。
+
+## 做什么
+- PandaAI 黑客松「寻找你的交易人格」：H5 是主作品，桌游是同一套内容的实体版，用二维码互通。
+- 闭环：好玩的游戏 → 有证据、可修正的画像（能力和偏好分开，标出不确定）→ 带理由的推荐 → 当场能做的下一步。
+- 必须用 Panda Data 和 QuantSkills；至少两条行为路径。
+
+## 红线
+- 密钥不进项目目录和输出物：vmc 令牌在 `/root/.config/vmc/credentials.json`，Tripo key 在 `/root/.config/tripo/env`。
+- vmc 下单：先不带 `--yes` 拿计划给用户看，用户明确确认后才加 `--yes`；配额超限不重试；未登录让用户自己 `vmc login`。
+- 红涨绿跌，全站统一。不画在世人物、真实品牌、熊猫；参考图只定方向，不照搬。
+- 示例数据、模拟推荐、未实现功能都要标明；分享卡不含原始行为记录。
+- 改 nginx 前先备份、`nginx -t`，再 reload。
+
+## 能力（不要忘）
+- 出图：GPT Image 2.5（`gpt-image-2.5-flare`，high），中文直接画；二维码和精确数字由代码贴。
+- 视频：vmc 的 kling、seedance、veo、minimax。
+- 3D：Tripo API（图片转 3D、转 STL / 3MF / GLTF、绑骨动画）；文档在 developers.tripo3d.com（页面加 `.md`）。用户有 3D 打印机。
+- 部署：本机 nginx，H5 在 `https://meetmind.online/ts/`，二维码短链 `https://meetmind.online/ts/q/<短码>`。
+- 本地：Playwright + Chromium（HTML 转印刷 PDF、截图、录屏）、qrcode、Pillow、Blender、Node 22 / pnpm、Noto 中文字体。
+- 数据：`panda_data` SDK（用 python3.11），账号待用户提供。
+
+## 工作方式
+- 定风格：每行物料并排出几种画风，拼成对比图（`art/contact_sheet.py`），用户逐行挑。
+- 出图提示词写在 `art/build_style_batch_v*.py`，结果在 `art/vmc-output/`。
+- 画风已定稿：v2 复古现代主义旅行海报风（红风筝）。要鲜明、适当夸张，卡片先表达意思。v3、v4（像素报社）都被否。
+- 进度、目录和构建命令见 `项目意图与上下文.md` 第 10 节。规则牌带 `spoils` 的，揭幕前不显示年份和“茅台”等字样。
+- 交付只打包桌游物料（`delivery/`）；线上 H5 不打包，做好体验。

@@ -1,0 +1,28 @@
+{
+  "species": "beaver",
+  "task_id": "421593b7-c9e7-442a-add8-ba026979c07a",
+  "failed_attempts": [],
+  "endpoint": "POST /v3/generation/image-to-model",
+  "params": {
+    "model": "v3.1-20260211",
+    "texture": true,
+    "pbr": true,
+    "texture_version": "v3.5-20260815",
+    "texture_quality": "detailed",
+    "geometry_quality": "detailed",
+    "texture_alignment": "original_image",
+    "enable_image_autofix": false,
+    "model_seed": 1031,
+    "texture_seed": 1031
+  },
+  "source_image": "art/vmc-output/style-v7/v7_figurine_beaver/img_50591/ai_generate_50591_1.png",
+  "status": "success",
+  "credits_consumed": 60.0,
+  "created_at": "2026-10-30T18:29:51.997598Z",
+  "completed_at": "2026-10-30T18:32:26.943521Z",
+  "output_keys": [
+    "model_url",
+    "rendered_image_url"
+  ],
+  "glb_bytes": 65781276
+}

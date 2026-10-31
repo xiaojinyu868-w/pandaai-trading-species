@@ -1,0 +1,89 @@
+{
+  "species": "elephant",
+  "source_topology": {
+    "faces": 1999058,
+    "watertight": false,
+    "winding_consistent": false,
+    "is_volume": false,
+    "bodies": 1,
+    "nonmanifold_edges": 6,
+    "boundary_edges": 8
+  },
+  "repair": "拆成 5 个壳，pymeshfix 修补后求并 1 个（丢弃 4 个碎片）",
+  "simplified_faces": 163460,
+  "weak_regions": {
+    "thin_parts": 2155,
+    "weak_parts": 6,
+    "weak_volume_mm3": 105.2
+  },
+  "thin_samples": [
+    19719,
+    23
+  ],
+  "thin_tiles": [
+    20,
+    4
+  ],
+  "thickness_before": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 2.376,
+    "lt_1.0mm_pct": 1.436,
+    "lt_0.8mm_pct": 0.749,
+    "min_mm": 0.004,
+    "p0.1_mm": 0.445,
+    "median_mm": 8.861
+  },
+  "thin_before_pct": {
+    "weak_structures": 1.972,
+    "surface_detail": 0.404
+  },
+  "added_volume_mm3": 163.85,
+  "cleanup": "去掉 0 个内部空腔/碎片；解开相切夹点顶点 0 个",
+  "final_topology": {
+    "faces": 143714,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "manifold3d_status": "Error.NoError",
+  "genus": 12,
+  "size_mm": [
+    32.85,
+    32.71,
+    60.0
+  ],
+  "volume_cm3": 15.302,
+  "bottom_contact_area_mm2": 821.2,
+  "thickness_after": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.481,
+    "lt_1.0mm_pct": 0.317,
+    "lt_0.8mm_pct": 0.117,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.749,
+    "median_mm": 8.787
+  },
+  "thickness_after_excl_bottom_1mm": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.446,
+    "lt_1.0mm_pct": 0.347,
+    "lt_0.8mm_pct": 0.135,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.685,
+    "median_mm": 9.469
+  },
+  "thickness_after_weak_structures": {
+    "samples": 59780,
+    "lt_1.2mm_pct": 0.062,
+    "lt_1.0mm_pct": 0.02,
+    "lt_0.8mm_pct": 0.005,
+    "min_mm": 0.731,
+    "p0.1_mm": 1.218,
+    "median_mm": 1.849
+  },
+  "stl_bytes": 7185784,
+  "3mf_bytes": 2603843
+}

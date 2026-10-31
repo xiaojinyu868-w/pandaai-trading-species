@@ -1,0 +1,32 @@
+# 依赖与构建产物
+node_modules/
+h5/dist/
+__pycache__/
+*.pyc
+*.log
+.vite/
+.DS_Store
+
+# 大文件：原始生成物和可以重新生成的输出。都还在服务器上，位置见 交接文档.md 第 10 节
+art/vmc-output/
+3d/figurines/*/tripo.glb
+delivery/stage/
+delivery/previews/
+delivery/*.zip
+print/build/
+print/out/
+print/out_box22/
+print/out_promo/
+print/preview/
+qa/e2e/
+qa/pages/
+qa/record/
+qa/tie/
+promo/*.zip
+*.mp4
+*.mov
+
+# 密钥永远不进仓库
+.env
+.env.*
+*credentials*.json

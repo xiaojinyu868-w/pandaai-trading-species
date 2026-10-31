@@ -1,0 +1,28 @@
+{
+  "species": "fox",
+  "task_id": "bbaea4d9-1335-48ca-bec7-4288bee62601",
+  "failed_attempts": [],
+  "endpoint": "POST /v3/generation/image-to-model",
+  "params": {
+    "model": "v3.1-20260211",
+    "texture": true,
+    "pbr": true,
+    "texture_version": "v3.5-20260815",
+    "texture_quality": "detailed",
+    "geometry_quality": "detailed",
+    "texture_alignment": "original_image",
+    "enable_image_autofix": false,
+    "model_seed": 1031,
+    "texture_seed": 1031
+  },
+  "source_image": "art/vmc-output/style-v7/v7_figurine_fox/img_50586/ai_generate_50586_1.png",
+  "status": "success",
+  "credits_consumed": 60.0,
+  "created_at": "2026-10-30T17:48:47.632704Z",
+  "completed_at": "2026-10-30T17:50:46.148625Z",
+  "output_keys": [
+    "model_url",
+    "rendered_image_url"
+  ],
+  "glb_bytes": 63041896
+}

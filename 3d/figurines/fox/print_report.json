@@ -1,0 +1,89 @@
+{
+  "species": "fox",
+  "source_topology": {
+    "faces": 1893252,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "repair": "原网格已是封闭流形，无需修补",
+  "simplified_faces": 137798,
+  "weak_regions": {
+    "thin_parts": 1815,
+    "weak_parts": 3,
+    "weak_volume_mm3": 38.6
+  },
+  "thin_samples": [
+    7305,
+    7
+  ],
+  "thin_tiles": [
+    11,
+    4
+  ],
+  "thickness_before": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 1.144,
+    "lt_1.0mm_pct": 0.6,
+    "lt_0.8mm_pct": 0.171,
+    "min_mm": 0.004,
+    "p0.1_mm": 0.682,
+    "median_mm": 6.864
+  },
+  "thin_before_pct": {
+    "weak_structures": 0.731,
+    "surface_detail": 0.413
+  },
+  "added_volume_mm3": 51.25,
+  "cleanup": "去掉 2 个内部空腔/碎片；解开相切夹点顶点 0 个",
+  "final_topology": {
+    "faces": 107194,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "manifold3d_status": "Error.NoError",
+  "genus": 6,
+  "size_mm": [
+    32.2,
+    32.44,
+    60.0
+  ],
+  "volume_cm3": 12.555,
+  "bottom_contact_area_mm2": 795.7,
+  "thickness_after": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.423,
+    "lt_1.0mm_pct": 0.226,
+    "lt_0.8mm_pct": 0.101,
+    "min_mm": 0.003,
+    "p0.1_mm": 0.798,
+    "median_mm": 6.695
+  },
+  "thickness_after_excl_bottom_1mm": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.452,
+    "lt_1.0mm_pct": 0.264,
+    "lt_0.8mm_pct": 0.117,
+    "min_mm": 0.003,
+    "p0.1_mm": 0.736,
+    "median_mm": 8.702
+  },
+  "thickness_after_weak_structures": {
+    "samples": 20924,
+    "lt_1.2mm_pct": 0.033,
+    "lt_1.0mm_pct": 0.019,
+    "lt_0.8mm_pct": 0.019,
+    "min_mm": 0.003,
+    "p0.1_mm": 1.221,
+    "median_mm": 1.647
+  },
+  "stl_bytes": 5359784,
+  "3mf_bytes": 2019012
+}

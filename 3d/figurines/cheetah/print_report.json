@@ -1,0 +1,89 @@
+{
+  "species": "cheetah",
+  "source_topology": {
+    "faces": 1926662,
+    "watertight": true,
+    "winding_consistent": false,
+    "is_volume": false,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "repair": "拆成 1 个壳，pymeshfix 修补后求并 1 个（丢弃 0 个碎片）",
+  "simplified_faces": 166464,
+  "weak_regions": {
+    "thin_parts": 2248,
+    "weak_parts": 7,
+    "weak_volume_mm3": 80.1
+  },
+  "thin_samples": [
+    41010,
+    7
+  ],
+  "thin_tiles": [
+    14,
+    2
+  ],
+  "thickness_before": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 4.375,
+    "lt_1.0mm_pct": 3.793,
+    "lt_0.8mm_pct": 3.494,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.389,
+    "median_mm": 6.037
+  },
+  "thin_before_pct": {
+    "weak_structures": 4.101,
+    "surface_detail": 0.274
+  },
+  "added_volume_mm3": 155.78,
+  "cleanup": "去掉 2 个内部空腔/碎片；解开相切夹点顶点 0 个",
+  "final_topology": {
+    "faces": 128162,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "nonmanifold_edges": 0,
+    "boundary_edges": 0
+  },
+  "manifold3d_status": "Error.NoError",
+  "genus": 2,
+  "size_mm": [
+    28.82,
+    30.46,
+    60.0
+  ],
+  "volume_cm3": 8.114,
+  "bottom_contact_area_mm2": 361.4,
+  "thickness_after": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.243,
+    "lt_1.0mm_pct": 0.175,
+    "lt_0.8mm_pct": 0.107,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.781,
+    "median_mm": 5.986
+  },
+  "thickness_after_excl_bottom_1mm": {
+    "samples": 1000000,
+    "lt_1.2mm_pct": 0.284,
+    "lt_1.0mm_pct": 0.205,
+    "lt_0.8mm_pct": 0.125,
+    "min_mm": 0.002,
+    "p0.1_mm": 0.728,
+    "median_mm": 6.385
+  },
+  "thickness_after_weak_structures": {
+    "samples": 67460,
+    "lt_1.2mm_pct": 0.012,
+    "lt_1.0mm_pct": 0.003,
+    "lt_0.8mm_pct": 0.001,
+    "min_mm": 0.794,
+    "p0.1_mm": 1.218,
+    "median_mm": 1.645
+  },
+  "stl_bytes": 6408184,
+  "3mf_bytes": 2375937
+}

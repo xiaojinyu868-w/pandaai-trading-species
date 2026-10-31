@@ -1,0 +1,1145 @@
+{
+ "version": 1,
+ "species": [
+  {
+   "id": "cheetah",
+   "name": "猎豹",
+   "en": "Cheetah",
+   "tagline": "先看量价，跑在前面",
+   "personality": "反应快，相信价格和成交量说的话。",
+   "behaviors": [
+    "先看走势和成交，再看别的。",
+    "看到动起来就想上车。"
+   ],
+   "strengths": [
+    "抓得住趋势的开头。",
+    "决定快，不拖。"
+   ],
+   "blind_spots": [
+    "容易追在最热的时候。",
+    "急转弯时来不及刹车。"
+   ],
+   "recommend": "试试给你的“快”加一条离场规则。",
+   "hidden": false,
+   "qr": "sp-cheetah"
+  },
+  {
+   "id": "elephant",
+   "name": "大象",
+   "en": "Elephant",
+   "tagline": "先翻账本，再做决定",
+   "personality": "稳重，相信数据和长期的规律。",
+   "behaviors": [
+    "先看估值、余额这些数字。",
+    "数字不对就按兵不动。"
+   ],
+   "strengths": [
+    "不容易被情绪带走。",
+    "看得到别人忽略的风险。"
+   ],
+   "blind_spots": [
+    "有时等得太久，错过时机。",
+    "数字也会过时。"
+   ],
+   "recommend": "把你相信的指标放进历史里检验一下。",
+   "hidden": false,
+   "qr": "sp-elephant"
+  },
+  {
+   "id": "fox",
+   "name": "狐狸",
+   "en": "Fox",
+   "tagline": "先怀疑，再检验",
+   "personality": "喜欢规则和检验，不轻信一句话。",
+   "behaviors": [
+    "用规则代替感觉。",
+    "照计划执行。"
+   ],
+   "strengths": [
+    "说到做到，不乱动。",
+    "能把想法变成可以检验的规则。"
+   ],
+   "blind_spots": [
+    "规则失效时容易硬撑。",
+    "可能把偶然当成规律。"
+   ],
+   "recommend": "给你的规则换一段历史，看它还灵不灵。",
+   "hidden": false,
+   "qr": "sp-fox"
+  },
+  {
+   "id": "owl",
+   "name": "猫头鹰",
+   "en": "Owl",
+   "tagline": "看清了再出手",
+   "personality": "耐心，愿意等待更好的时机。",
+   "behaviors": [
+    "看不清就先观望。",
+    "不急着表态。"
+   ],
+   "strengths": [
+    "少犯冲动的错。",
+    "能看到全局。"
+   ],
+   "blind_spots": [
+    "观望太久会变成不敢决定。",
+    "机会不会一直等你。"
+   ],
+   "recommend": "练习判断“现在是哪种市场”。",
+   "hidden": false,
+   "qr": "sp-owl"
+  },
+  {
+   "id": "meerkat",
+   "name": "狐獴",
+   "en": "Meerkat",
+   "tagline": "耳朵最灵，消息最快",
+   "personality": "对消息敏感，第一个听到风吹草动。",
+   "behaviors": [
+    "先看新闻和大家在说什么。",
+    "很在意身边人的动作。"
+   ],
+   "strengths": [
+    "信息来得快。",
+    "能感到情绪的变化。"
+   ],
+   "blind_spots": [
+    "容易把热闹当成证据。",
+    "消息常常已经反映在价格里。"
+   ],
+   "recommend": "练习给一条消息找到能核实的数字。",
+   "hidden": false,
+   "qr": "sp-meerkat"
+  },
+  {
+   "id": "chameleon",
+   "name": "变色龙",
+   "en": "Chameleon",
+   "tagline": "随市场换颜色",
+   "personality": "依据随市场切换，但每次都说得通。",
+   "behaviors": [
+    "不同的场景用不同的证据。",
+    "愿意改主意。"
+   ],
+   "strengths": [
+    "适应力强。",
+    "不死守一种方法。"
+   ],
+   "blind_spots": [
+    "换得太勤会没有主线。",
+    "很难总结自己的方法。"
+   ],
+   "recommend": "写下你每次切换的理由，找出规律。",
+   "hidden": false,
+   "qr": "sp-chameleon"
+  },
+  {
+   "id": "beaver",
+   "name": "海狸",
+   "en": "Beaver",
+   "tagline": "动手搭一座自己的水坝",
+   "personality": "隐藏物种：爱动手，喜欢自己写代码跑数据。",
+   "behaviors": [
+    "读代码、改参数。",
+    "相信自己跑出来的结果。"
+   ],
+   "strengths": [
+    "能把问题拆成可以计算的步骤。",
+    "工具用得好。"
+   ],
+   "blind_spots": [
+    "容易沉迷工具，忘了问题本身。",
+    "回测好看不等于以后好用。"
+   ],
+   "recommend": "去 panda_data 跑一个你自己的因子。",
+   "hidden": true,
+   "qr": "sp-beaver"
+  }
+ ],
+ "badges": [
+  {
+   "id": "b-evidence",
+   "name": "证据控",
+   "condition": "至少 2 场看了两张及以上不同的证据，并且至少 3 场理由一致"
+  },
+  {
+   "id": "b-keepword",
+   "name": "说到做到",
+   "condition": "计划照做至少 2 场"
+  },
+  {
+   "id": "b-history",
+   "name": "金融史达人",
+   "condition": "认出并写对事件名至少 2 场"
+  },
+  {
+   "id": "b-data",
+   "name": "数据手",
+   "condition": "数据港口答对至少 2 次"
+  },
+  {
+   "id": "b-rule",
+   "name": "规则派",
+   "condition": "用规则牌并照做至少 1 场"
+  },
+  {
+   "id": "b-risk",
+   "name": "看懂风险",
+   "condition": "看过风险类证据（牌角有标记）至少 2 次"
+  }
+ ],
+ "chance": [
+  {
+   "id": "chance-01",
+   "title": "朋友推荐了一只“稳赚”的股票",
+   "prompt": "你先做什么？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "先看它最近的走势",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "先查它的财报和估值",
+     "species": "elephant"
+    }
+   ],
+   "qr": "chance-01"
+  },
+  {
+   "id": "chance-02",
+   "title": "群里都在说一个新概念",
+   "prompt": "你会怎么做？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "跟着看看大家在买什么",
+     "species": "meerkat"
+    },
+    {
+     "key": "乙",
+     "text": "等它冷下来再说",
+     "species": "owl"
+    }
+   ],
+   "qr": "chance-02"
+  },
+  {
+   "id": "chance-03",
+   "title": "你的规则发出了卖出信号",
+   "prompt": "但你觉得还会涨",
+   "options": [
+    {
+     "key": "甲",
+     "text": "照规则卖",
+     "species": "fox"
+    },
+    {
+     "key": "乙",
+     "text": "先不卖，再看看",
+     "species": "cheetah"
+    }
+   ],
+   "qr": "chance-03"
+  },
+  {
+   "id": "chance-04",
+   "title": "一只股票三天涨了三成",
+   "prompt": "你第一反应是？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "看看成交量是不是也放大了",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "查查发生了什么新闻",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "chance-04"
+  },
+  {
+   "id": "chance-05",
+   "title": "你看中的股票比上周便宜了一成",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "翻翻估值，看是不是真便宜",
+     "species": "elephant"
+    },
+    {
+     "key": "乙",
+     "text": "等它不跌了再买",
+     "species": "owl"
+    }
+   ],
+   "qr": "chance-05"
+  },
+  {
+   "id": "chance-06",
+   "title": "有人说“这次不一样”",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "找历史上相似的时候看看",
+     "species": "elephant"
+    },
+    {
+     "key": "乙",
+     "text": "写一条规则：不一样就先少买",
+     "species": "fox"
+    }
+   ],
+   "qr": "chance-06"
+  },
+  {
+   "id": "chance-07",
+   "title": "你连续亏了三次",
+   "prompt": "接下来？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "停一停，复盘",
+     "species": "owl"
+    },
+    {
+     "key": "乙",
+     "text": "换一种方法试试",
+     "species": "chameleon"
+    }
+   ],
+   "qr": "chance-07"
+  },
+  {
+   "id": "chance-08",
+   "title": "一条消息让股票大涨",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "先核实消息的来源",
+     "species": "fox"
+    },
+    {
+     "key": "乙",
+     "text": "先上车再说",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "chance-08"
+  },
+  {
+   "id": "chance-09",
+   "title": "市场突然暴跌",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "看看过去类似的暴跌之后怎样",
+     "species": "elephant"
+    },
+    {
+     "key": "乙",
+     "text": "按事先定的计划做",
+     "species": "fox"
+    }
+   ],
+   "qr": "chance-09"
+  },
+  {
+   "id": "chance-10",
+   "title": "你同时看到利好和利空",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "看价格往哪边走",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "两边都记下，先不动",
+     "species": "owl"
+    }
+   ],
+   "qr": "chance-10"
+  },
+  {
+   "id": "chance-11",
+   "title": "有个工具能自动回测",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "自己改改参数跑一遍",
+     "species": "fox"
+    },
+    {
+     "key": "乙",
+     "text": "看看别人跑出来的结果",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "chance-11"
+  },
+  {
+   "id": "chance-12",
+   "title": "牛市里人人都在赚钱",
+   "prompt": "你会？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "看看大家都在买什么",
+     "species": "meerkat"
+    },
+    {
+     "key": "乙",
+     "text": "看看估值到了哪里",
+     "species": "elephant"
+    }
+   ],
+   "qr": "chance-12"
+  }
+ ],
+ "retest": [
+  {
+   "id": "retest-01",
+   "prompt": "你最想先看哪一张？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "走势和成交",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "估值和余额",
+     "species": "elephant"
+    },
+    {
+     "key": "丙",
+     "text": "大家在说什么",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "retest-01"
+  },
+  {
+   "id": "retest-02",
+   "prompt": "做决定前你最需要什么？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "一条清楚的规则",
+     "species": "fox"
+    },
+    {
+     "key": "乙",
+     "text": "更多时间观察",
+     "species": "owl"
+    },
+    {
+     "key": "丙",
+     "text": "看看别人怎么做",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "retest-02"
+  },
+  {
+   "id": "retest-03",
+   "prompt": "你上一次改主意，是因为？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "价格变了",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "数据变了",
+     "species": "elephant"
+    },
+    {
+     "key": "丙",
+     "text": "市场换了样子",
+     "species": "chameleon"
+    }
+   ],
+   "qr": "retest-03"
+  },
+  {
+   "id": "retest-04",
+   "prompt": "如果只能带一件工具",
+   "options": [
+    {
+     "key": "甲",
+     "text": "放大镜",
+     "species": "fox"
+    },
+    {
+     "key": "乙",
+     "text": "望远镜",
+     "species": "owl"
+    },
+    {
+     "key": "丙",
+     "text": "账本",
+     "species": "elephant"
+    }
+   ],
+   "qr": "retest-04"
+  },
+  {
+   "id": "retest-05",
+   "prompt": "看到一条大新闻，你先？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "看价格有没有反应",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "查它是真是假",
+     "species": "fox"
+    },
+    {
+     "key": "丙",
+     "text": "转给朋友讨论",
+     "species": "meerkat"
+    }
+   ],
+   "qr": "retest-05"
+  },
+  {
+   "id": "retest-06",
+   "prompt": "你更怕哪一种？",
+   "options": [
+    {
+     "key": "甲",
+     "text": "错过机会",
+     "species": "cheetah"
+    },
+    {
+     "key": "乙",
+     "text": "买在最高点",
+     "species": "owl"
+    },
+    {
+     "key": "丙",
+     "text": "看不懂就亏了",
+     "species": "elephant"
+    }
+   ],
+   "qr": "retest-06"
+  }
+ ],
+ "rules": [
+  {
+   "id": "rule-ma520",
+   "name": "5/20 双均线",
+   "rule": "5 日均线上穿 20 日均线买入，下穿卖出。",
+   "real": true,
+   "by_scene": {
+    "s924": "买入",
+    "s2015": "持有",
+    "smt": "持有",
+    "scb": "卖出"
+   },
+   "qr": "rule-ma520"
+  },
+  {
+   "id": "rule-ma52060",
+   "name": "5/20/60 三均线",
+   "rule": "三条均线多头排列才持有，否则空仓。",
+   "real": true,
+   "by_scene": {
+    "s924": "空仓",
+    "s2015": "持有",
+    "smt": "持有",
+    "scb": "空仓"
+   },
+   "qr": "rule-ma52060"
+  },
+  {
+   "id": "rule-mom20",
+   "name": "20 日动量",
+   "rule": "过去 20 天涨了就持有，跌了就空仓。",
+   "real": true,
+   "by_scene": {
+    "s924": "持有",
+    "s2015": "持有",
+    "smt": "持有",
+    "scb": "空仓"
+   },
+   "qr": "rule-mom20"
+  },
+  {
+   "id": "rule-lowpb-roe",
+   "name": "低估值高回报",
+   "rule": "只买估值低、回报高的公司；估值太贵就卖。",
+   "real": true,
+   "by_scene": {
+    "s924": "买入",
+    "s2015": "卖出",
+    "smt": "卖出",
+    "scb": "持有"
+   },
+   "qr": "rule-lowpb-roe"
+  },
+  {
+   "id": "rule-stop10",
+   "name": "跌 10% 止损",
+   "rule": "从买入价跌 10% 就卖。",
+   "real": false,
+   "by_scene": {
+    "s924": "—",
+    "s2015": "卖出",
+    "smt": "卖出",
+    "scb": "卖出"
+   },
+   "qr": null
+  },
+  {
+   "id": "rule-dip",
+   "name": "跌多了就抄底",
+   "rule": "一个月跌超两成就加仓。",
+   "real": false,
+   "by_scene": {
+    "s924": "—",
+    "s2015": "加仓",
+    "smt": "—",
+    "scb": "加仓"
+   },
+   "qr": null
+  },
+  {
+   "id": "rule-vol",
+   "name": "放量才进",
+   "rule": "成交额超过一年平均两倍才买。",
+   "real": false,
+   "by_scene": {
+    "s924": "买入",
+    "s2015": "持有",
+    "smt": "持有",
+    "scb": "—"
+   },
+   "qr": null
+  },
+  {
+   "id": "rule-half",
+   "name": "一半一半",
+   "rule": "任何时候只用一半仓位。",
+   "real": false,
+   "by_scene": {
+    "s924": "半仓",
+    "s2015": "降半",
+    "smt": "卖一半",
+    "scb": "减半"
+   },
+   "qr": null
+  },
+  {
+   "id": "rule-calm",
+   "name": "冷静三天",
+   "rule": "大涨大跌后等三天再动。",
+   "real": false,
+   "by_scene": {
+    "s924": "等",
+    "s2015": "等",
+    "smt": "等",
+    "scb": "等"
+   },
+   "qr": null
+  },
+  {
+   "id": "rule-pe",
+   "name": "估值红线",
+   "rule": "市盈率分位超过 80% 就不买。",
+   "real": false,
+   "by_scene": {
+    "s924": "可买",
+    "s2015": "卖出",
+    "smt": "卖出",
+    "scb": "可买"
+   },
+   "qr": null
+  }
+ ],
+ "dataport": [
+  {
+   "id": "dp-01",
+   "title": "最近 5 天的收盘价",
+   "code": "df = get_price('000001', days=5)\nprint(df['close'].pct_change().sum())",
+   "question": "这段代码算的是什么？",
+   "answer": "5 天涨跌幅的近似和",
+   "qr": "dp-01"
+  },
+  {
+   "id": "dp-02",
+   "title": "20 日均线",
+   "code": "ma20 = df['close'].rolling(20).mean()",
+   "question": "rolling(20) 是什么意思？",
+   "answer": "最近 20 个数取一次平均",
+   "qr": "dp-02"
+  },
+  {
+   "id": "dp-03",
+   "title": "最大回撤",
+   "code": "dd = df['close'] / df['close'].cummax() - 1\nprint(dd.min())",
+   "question": "dd.min() 越小说明什么？",
+   "answer": "从高点跌得越深",
+   "qr": "dp-03"
+  },
+  {
+   "id": "dp-04",
+   "title": "成交量倍数",
+   "code": "vol_x = df['volume'] / df['volume'].rolling(250).mean()",
+   "question": "vol_x = 3 表示？",
+   "answer": "成交量是一年均值的 3 倍",
+   "qr": "dp-04"
+  },
+  {
+   "id": "dp-05",
+   "title": "涨停家数",
+   "code": "n = (df['pct'] >= 9.9).sum()",
+   "question": "这行在数什么？",
+   "answer": "涨幅 ≥ 9.9% 的股票数",
+   "qr": "dp-05"
+  },
+  {
+   "id": "dp-06",
+   "title": "估值分位",
+   "code": "pct = (pe_hist < pe_now).mean()",
+   "question": "pct = 0.97 表示？",
+   "answer": "比历史上 97% 的时候都贵",
+   "qr": "dp-06"
+  },
+  {
+   "id": "dp-07",
+   "title": "融资余额变化",
+   "code": "chg = margin.iloc[-1] / margin.iloc[-250] - 1",
+   "question": "chg = 4 表示？",
+   "answer": "一年涨到原来的 5 倍",
+   "qr": "dp-07"
+  },
+  {
+   "id": "dp-08",
+   "title": "双均线信号",
+   "code": "sig = ma5 > ma20",
+   "question": "sig 为 True 时规则怎么做？",
+   "answer": "持有",
+   "qr": "dp-08"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "task-chart-basic",
+   "type": "chart",
+   "type_name": "读图入门",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "读图入门 · 入门",
+   "because": "因为你有两场勾了“看不懂”",
+   "todo": "用 10 分钟读懂一张 K 线：开盘、收盘、成交量。",
+   "minutes": 10,
+   "resource": "Qube 新手读图任务",
+   "real": false,
+   "qr": "task-chart-basic"
+  },
+  {
+   "id": "task-chart-adv",
+   "type": "chart",
+   "type_name": "读图入门",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "读图入门 · 进阶",
+   "because": "因为你有两场勾了“看不懂”",
+   "todo": "用 20 分钟读懂一张 K 线：开盘、收盘、成交量。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "Qube 新手读图任务",
+   "real": false,
+   "qr": "task-chart-adv"
+  },
+  {
+   "id": "task-explore-basic",
+   "type": "explore",
+   "type_name": "数据自主探索",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "数据自主探索 · 入门",
+   "because": "因为你拿到了“数据手”",
+   "todo": "用 panda_data 取一只指数的成交量，画出它的一年。",
+   "minutes": 10,
+   "resource": "panda_data quickstart",
+   "real": true,
+   "qr": "task-explore-basic"
+  },
+  {
+   "id": "task-explore-adv",
+   "type": "explore",
+   "type_name": "数据自主探索",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "数据自主探索 · 进阶",
+   "because": "因为你拿到了“数据手”",
+   "todo": "用 panda_data 取一只指数的成交量，画出它的一年。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "panda_data quickstart",
+   "real": true,
+   "qr": "task-explore-adv"
+  },
+  {
+   "id": "task-regime-basic",
+   "type": "regime",
+   "type_name": "状态判断",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "状态判断 · 入门",
+   "because": "因为你常在看不清时选择观望",
+   "todo": "判断三段行情分别是上涨、震荡还是下跌。",
+   "minutes": 10,
+   "resource": "QuantSkills 市场状态判断",
+   "real": false,
+   "qr": "task-regime-basic"
+  },
+  {
+   "id": "task-regime-adv",
+   "type": "regime",
+   "type_name": "状态判断",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "状态判断 · 进阶",
+   "because": "因为你常在看不清时选择观望",
+   "todo": "判断三段行情分别是上涨、震荡还是下跌。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "QuantSkills 市场状态判断",
+   "real": false,
+   "qr": "task-regime-adv"
+  },
+  {
+   "id": "task-verify-basic",
+   "type": "verify",
+   "type_name": "证据核查",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "证据核查 · 入门",
+   "because": "因为你两场的理由是“消息”或“跟别人”",
+   "todo": "给一条刷屏的消息，找到一个能核实它的数字。",
+   "minutes": 10,
+   "resource": "QuantSkills 证据核查",
+   "real": false,
+   "qr": "task-verify-basic"
+  },
+  {
+   "id": "task-verify-adv",
+   "type": "verify",
+   "type_name": "证据核查",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "证据核查 · 进阶",
+   "because": "因为你两场的理由是“消息”或“跟别人”",
+   "todo": "给一条刷屏的消息，找到一个能核实它的数字。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "QuantSkills 证据核查",
+   "real": false,
+   "qr": "task-verify-adv"
+  },
+  {
+   "id": "task-hypo-basic",
+   "type": "hypo",
+   "type_name": "假设检验",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "假设检验 · 入门",
+   "because": "因为你在游戏里用过一条规则",
+   "todo": "把你用过的规则放进十年的历史里，看它灵不灵。",
+   "minutes": 10,
+   "resource": "Qube 模板回测",
+   "real": true,
+   "qr": "task-hypo-basic"
+  },
+  {
+   "id": "task-hypo-adv",
+   "type": "hypo",
+   "type_name": "假设检验",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "假设检验 · 进阶",
+   "because": "因为你在游戏里用过一条规则",
+   "todo": "把你用过的规则放进十年的历史里，看它灵不灵。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "Qube 模板回测",
+   "real": true,
+   "qr": "task-hypo-adv"
+  },
+  {
+   "id": "task-risk-basic",
+   "type": "risk",
+   "type_name": "风险校准",
+   "level": "basic",
+   "level_name": "入门",
+   "title": "风险校准 · 入门",
+   "because": "因为你两场选了 A，但现实里偏保守",
+   "todo": "在模拟盘里用同样的仓位走一周，看看自己的感受。",
+   "minutes": 10,
+   "resource": "期货模拟赛",
+   "real": true,
+   "qr": "task-risk-basic"
+  },
+  {
+   "id": "task-risk-adv",
+   "type": "risk",
+   "type_name": "风险校准",
+   "level": "adv",
+   "level_name": "进阶",
+   "title": "风险校准 · 进阶",
+   "because": "因为你两场选了 A，但现实里偏保守",
+   "todo": "在模拟盘里用同样的仓位走一周，看看自己的感受。再换一个参数试一次。",
+   "minutes": 20,
+   "resource": "期货模拟赛",
+   "real": true,
+   "qr": "task-risk-adv"
+  }
+ ],
+ "ai_species": [
+  {
+   "id": "ai-cheetah",
+   "species": "cheetah",
+   "name": "AI · 猎豹",
+   "style": "追得快",
+   "level": "入门",
+   "stars_per_scene": 2,
+   "picks": {
+    "s924": "A",
+    "s2015": "A",
+    "smt": "B",
+    "scb": "A"
+   },
+   "ff_action": "不动",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  },
+  {
+   "id": "ai-meerkat",
+   "species": "meerkat",
+   "name": "AI · 狐獴",
+   "style": "听消息",
+   "level": "入门",
+   "stars_per_scene": 1,
+   "picks": {
+    "s924": "A",
+    "s2015": "B",
+    "smt": "A",
+    "scb": "C"
+   },
+   "ff_action": "不动",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  },
+  {
+   "id": "ai-owl",
+   "species": "owl",
+   "name": "AI · 猫头鹰",
+   "style": "等一等",
+   "level": "进阶",
+   "stars_per_scene": 3,
+   "picks": {
+    "s924": "C",
+    "s2015": "C",
+    "smt": "C",
+    "scb": "B"
+   },
+   "ff_action": "不动",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  },
+  {
+   "id": "ai-elephant",
+   "species": "elephant",
+   "name": "AI · 大象",
+   "style": "看账本",
+   "level": "进阶",
+   "stars_per_scene": 3,
+   "picks": {
+    "s924": "B",
+    "s2015": "C",
+    "smt": "D",
+    "scb": "B"
+   },
+   "ff_action": "跌了就走",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  },
+  {
+   "id": "ai-fox",
+   "species": "fox",
+   "name": "AI · 狐狸",
+   "style": "照规则",
+   "level": "进阶",
+   "stars_per_scene": 3,
+   "picks": {
+    "s924": "B",
+    "s2015": "D",
+    "smt": "C",
+    "scb": "C"
+   },
+   "ff_action": "跌了就走",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  },
+  {
+   "id": "ai-chameleon",
+   "species": "chameleon",
+   "name": "AI · 变色龙",
+   "style": "随机应变",
+   "level": "进阶",
+   "stars_per_scene": 2,
+   "picks": {
+    "s924": "B",
+    "s2015": "C",
+    "smt": "B",
+    "scb": "C"
+   },
+   "ff_action": "不动",
+   "line": "它会解释自己为什么这么选：扫开局码和它对局。"
+  }
+ ],
+ "debt": [
+  {
+   "id": "debt-1",
+   "amount": 5,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-2",
+   "amount": 5,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-3",
+   "amount": 5,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-4",
+   "amount": 5,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-5",
+   "amount": 10,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-6",
+   "amount": 10,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-7",
+   "amount": 10,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  },
+  {
+   "id": "debt-8",
+   "amount": 20,
+   "text": "资金低于 0：拿一张负债牌，终局收益名次分记 0。"
+  }
+ ],
+ "quickref": {
+  "front": {
+   "title": "一季怎么走",
+   "steps": [
+    "领预算：每人拿 1 研究点。",
+    "赶路：掷两颗骰子选一个点数，1–5 落小格，6 直接到门口并多拿 1 研究点。",
+    "名场面：全员进门，走完六步。",
+    "驿站：拿一枚本季物种币，走到下一季起点。"
+   ],
+   "scene_steps": [
+    "盲入场：读场景牌，认出来了就在委托单写事件名。",
+    "开证据：每轮花 1 研究点看一张。",
+    "做决定：在委托单勾选项、理由和计划，扣在玩家板上。",
+    "亮牌：倒数三二一，一起翻。",
+    "快进：翻快进牌，结算第一段，再决定一次。",
+    "揭幕：翻揭幕牌，结算第二段，记方法星。"
+   ]
+  },
+  "back": {
+   "title": "物种图标从哪来",
+   "note": "第一场揭幕后再翻看",
+   "rows": [
+    [
+     "理由勾量价",
+     "猎豹 ×2"
+    ],
+    [
+     "理由勾数据",
+     "大象 ×2"
+    ],
+    [
+     "理由勾消息、跟别人",
+     "狐獴 ×2"
+    ],
+    [
+     "用规则牌并照做",
+     "狐狸 ×2"
+    ],
+    [
+     "选观望且理由不是直觉、看不懂",
+     "猫头鹰 ×2"
+    ],
+    [
+     "第一张看的证据",
+     "对应物种 ×1"
+    ],
+    [
+     "机会牌的答案",
+     "看牌底"
+    ]
+   ],
+   "stars": [
+    "看了证据 ★，两张及以上不同 ★★",
+    "理由一致 ★",
+    "计划照做 ★"
+   ]
+  }
+ },
+ "prologue": {
+  "title": "序章 · 1720 南海泡沫",
+  "lines": [
+   "1720 年，伦敦。一家叫南海公司的股票半年涨了八倍。",
+   "人人都在买，连大科学家牛顿也买了。他先赚了一笔，卖掉，又在更高的价钱买回去。",
+   "泡沫破了。相传牛顿亏了大约两万英镑，他说：我能算出天体的运行，却算不出人们的疯狂。",
+   "所以这个游戏不比谁赚得多。我们看你怎么做决定。"
+  ],
+  "steps": [
+   "一人朗读这张牌。",
+   "把 6 张物种牌摊开（海狸是隐藏物种，不摊）。",
+   "每人在终局档案卡上偷偷圈一个“我觉得我是”。"
+  ]
+ },
+ "station": {
+  "title": "驿站",
+  "lines": [
+   "数一数这一季委托单上的物种图标，拿一枚最多的那种物种币。",
+   "平局或不同意：抽一张补测牌。",
+   "认出来的场景：币放空心面，算半枚。"
+  ]
+ },
+ "self_and_real": {
+  "self": "序章时我觉得我是：",
+  "q1": "现实里你上一次遇到大跌，实际做了什么？",
+  "q2": "你上一次买入的主要原因是什么？"
+ },
+ "door_teasers": {
+  "spring": {
+   "B": "春 · 门 B：一个开源的东方模型，让全世界的芯片股一夜变了脸"
+  },
+  "summer": {
+   "B": "夏 · 门 B：一群散户，把一家快倒闭的游戏店推上了天"
+  }
+ },
+ "resources": []
+}
