@@ -73,6 +73,7 @@ export function blip(ratio: number) {
 export const sfx = {
   tap: () => tone(660, 0.06, "triangle", 0.08),
   thud: () => tone(140, 0.22, "sine", 0.22, 0, 70),
+  crowd: () => [0, 0.4, 0.9, 1.5, 2.1].forEach((w, i) => noise(1.1, 0.045, w, 420 + (i % 3) * 190, 0.5)),
   hop: () => tone(520, 0.09, "triangle", 0.12, 0, 820),
   dice: () => {
     for (let i = 0; i < 7; i++) noise(0.05, 0.25, i * 0.07, 2600 + Math.random() * 1500, 2);

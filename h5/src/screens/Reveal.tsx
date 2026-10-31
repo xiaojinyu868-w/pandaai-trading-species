@@ -6,6 +6,7 @@ import { sp } from "../game/meta";
 import { cur, useGame } from "../game/store";
 import { buzz, sfx } from "../lib/sound";
 import { tradeTag } from "../game/tags";
+import { STAGES } from "../scenes/stages";
 import { LineChart } from "../ui/Chart";
 import { DataStamp } from "../ui/DataStamp";
 import { Counter, Fade, Money, SpeciesAvatar, Stars } from "../ui/kit";
@@ -155,6 +156,7 @@ export function RevealStep({ scene, onNext }: { scene: Scene; onNext: () => void
   const st = starsOf(rec);
   const aiKeys = Object.fromEntries(Object.entries(rec.ai || {}).map(([id, a]) => [id, a.option]));
   const tag = tradeTag(scene, rec);
+  const Moment = STAGES[scene.id]?.Moment;
   const [burst, setBurst] = useState(0);
   useEffect(() => {
     if (!tag) return;
@@ -229,8 +231,9 @@ export function RevealStep({ scene, onNext }: { scene: Scene; onNext: () => void
           </div>
         </div>
       </Fade>
+      {Moment && <Fade delay={2.4}><div className="mt12"><Moment /></div></Fade>}
       <div className="mt16"><RevealBody scene={scene} mine={{ key: rec.option, ai: aiKeys }} unit="万" /></div>
-      <button className="btn season big block mt16" disabled={!booked} onClick={() => { sfx.tap(); onNext(); }}>{booked ? `去驿站，领这一${g!.mode === "quick" ? "场" : "季"}的物种币 →` : "先点上面的“记进两本账”"}</button>
+      <button className="btn season big block mt16" disabled={!booked} onClick={() => { sfx.tap(); onNext(); }}>{booked ? `去驿站，领这一${g!.mode === "quick" ? "场" : "季"}的物种币 →` : "先点上面的“入账”"}</button>
       <div className="tiny center mt8">{Object.entries(rec.ai || {}).map(([id, a]) => `${sp(id).cn}：${a.line}`).join(" / ")}</div>
     </div>
   );

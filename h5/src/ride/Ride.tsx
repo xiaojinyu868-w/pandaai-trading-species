@@ -290,6 +290,7 @@ export function Ride() {
         </div>
         <AnimatePresence>{toast && <motion.div className="ride-toast" initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ opacity: 0, y: -20 }}>{toast}</motion.div>}</AnimatePresence>
         <div className="ride-date tiny">{phase === "done" ? r.dates[head] : "日期已隐藏"}</div>
+        {phase !== "idle" && <span className="crowd-tag" style={{ left: 8, bottom: 6 }}>弹幕为虚构的散户声音</span>}
       </motion.div>
 
       {phase !== "done" ? (

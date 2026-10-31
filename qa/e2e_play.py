@@ -196,6 +196,15 @@ class Bot:
             return None
         if phase == "scene":
             if step in ("blind", "evidence", "slip"):
+                if not getattr(self, "cold_seen", False) and self.p.query_selector(".cold"):
+                    self.cold_seen = True
+                    time.sleep(1.8)
+                    self.shot("cold_open")
+                    try:
+                        self.p.click(".cold", timeout=1500)
+                    except Exception:
+                        pass
+                    return True
                 b = self.find(bs, "看完了", exact=True, sheet=True)
                 if b:
                     time.sleep(1.0)
@@ -250,7 +259,7 @@ class Bot:
                 pchip = next((x for x in chips if x["t"] == c["plan"][si]), None)
                 if pchip and " on" not in pchip["c"]:
                     return self.click(pchip, "plan " + c["plan"][si])
-                b = self.find(bs, "下单 ·")
+                b = self.find(bs, "下单 ·") or next((x for x in bs if "order-go" in x["c"] and not x["d"]), None)
                 if b:
                     self.shot("slip_filled", full=True)
                     return self.click(b)

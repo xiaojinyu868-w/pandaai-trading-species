@@ -12,6 +12,7 @@ import { DataStamp, SourceLine } from "../ui/DataStamp";
 import { Fade, RP, Shares, Sheet, sleep, SpeciesAvatar, Steps } from "../ui/kit";
 import { Help, Rich } from "../ui/Term";
 import { FFStep } from "../scenes/FF";
+import { STAGES } from "../scenes/stages";
 import { RevealStep } from "./Reveal";
 
 /** 情境、证据、出手合在交易台一屏里；老存档停在 evidence / slip 也进交易台 */
@@ -405,6 +406,7 @@ function Order({ scene, onNext }: { scene: Scene; onNext: () => void }) {
   const [stamped, setStamped] = useState(false);
   const [ruleSheet, setRuleSheet] = useState(false);
   const noA = rec.calm === "sat";
+  const stage = STAGES[scene.id];
   const seq = scene.decision_mode === "sequential";
   const queueN = seq ? 9 + g!.opponents.filter((id) => ["A", "B"].includes(aiPick(id, scene.id).option)).length : 0;
   const myRules = RULES.filter((r) => g!.rules.includes(r.id));
@@ -453,7 +455,7 @@ function Order({ scene, onNext }: { scene: Scene; onNext: () => void }) {
   }
   return (
     <>
-      {seq && <div className="mt12"><QueueStrip scene={scene} n={queueN} me={!!opt && shares > 0} /></div>}
+      {seq && !stage?.Order && <div className="mt12"><QueueStrip scene={scene} n={queueN} me={!!opt && shares > 0} /></div>}
       <div className="slip order mt12" style={{ boxShadow: opt ? `6px 6px 0 ${HEAT[opt]}` : undefined, transition: "box-shadow .25s" }}>
         <div className="order-head">
           <b className="display" style={{ fontSize: 21, lineHeight: 1.2 }}>{scene.blind.question}</b>
@@ -463,13 +465,14 @@ function Order({ scene, onNext }: { scene: Scene; onNext: () => void }) {
             {opt && shares !== now && <><b>→</b><Coins n={shares} /></>}
           </span>
         </div>
+        {stage?.Order && <div className="mt8"><stage.Order scene={scene} joined={opt ? shares > 0 : null} /></div>}
         <div className="opt-grid mt8">
           {scene.options.map((o) => {
             const lock = noA && o.key === "A";
             return (
               <button key={o.key} className={"opt tile" + (opt === o.key ? " on" : "")} disabled={lock} onClick={() => pickOpt(o.key)}
                 style={opt === o.key ? { background: HEAT[o.key], color: "#fff8ec" } : undefined}>
-                <span className="tile-top"><span className="key">{lock ? "🔒" : o.key}</span><Coins n={o.shares} /></span>
+                <span className="tile-top"><span className="key">{lock ? "🔒" : o.key}</span>{stage?.tag?.[o.key] && <span className="tile-tag">{stage.tag[o.key]}</span>}<Coins n={o.shares} /></span>
                 <span className="tile-label"><Rich text={o.label} max={2} /></span>
                 {o.hint && <span className="tile-hint"><Rich text={o.hint} max={2} /></span>}
               </button>
@@ -511,12 +514,12 @@ function Order({ scene, onNext }: { scene: Scene; onNext: () => void }) {
         <AnimatePresence>
           {stamped && (
             <motion.div className="stamp" style={{ right: 16, top: 56, fontSize: 40 }} initial={{ scale: 3, opacity: 0, rotate: -30 }} animate={{ scale: 1, opacity: 0.92, rotate: -14 }} transition={{ type: "spring", stiffness: 500, damping: 20 }}>
-              {shares === now ? "确认" : "成交"}
+              {stage?.stamp ? stage.stamp(opt!) : shares === now ? "确认" : "成交"}
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-      <button ref={goRef} className="btn primary big block mt12 order-go" disabled={!ok || stamped} onClick={submit}>{ok ? `下单 · ${verb}` : !opt ? "先选怎么做" : "再选一个理由"}</button>
+      <button ref={goRef} className="btn primary big block mt12 order-go" disabled={!ok || stamped} onClick={submit}>{ok ? (stage?.verb ? stage.verb(opt!) : `下单 · ${verb}`) : !opt ? "先选怎么做" : "再选一个理由"}</button>
       <Sheet open={ruleSheet} onClose={() => setRuleSheet(false)}>
         <div className="h3">用哪张规则牌？</div>
         <div className="col gap8 mt12">
@@ -533,6 +536,11 @@ function Order({ scene, onNext }: { scene: Scene; onNext: () => void }) {
 }
 
 function DeskStep({ scene, onNext }: { scene: Scene; onNext: () => void }) {
+  const { g } = useGame();
+  const rec = cur(g!);
+  const Cold = STAGES[scene.id]?.Cold;
+  const [cold, setCold] = useState(() => !!Cold && !rec.option && !rec.evidence.length);
+  if (cold && Cold) return <Cold scene={scene} onDone={() => setCold(false)} />;
   return (
     <div className="pad" style={{ paddingTop: 10 }}>
       <DeskTop scene={scene} />
